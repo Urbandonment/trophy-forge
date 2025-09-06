@@ -62,11 +62,18 @@ app.get('/api/psn-profile/:username', async (req, res) => {
         const profile = await getProfileFromUserName(
             { accessToken: authTokens.accessToken }, username
         )
+        console.log('[SERVER] PLUS STATUS: ' + profile.profile.onlineId + ' - ' + profile.profile.plus);
 
         // Response
         res.json({ accountId: profile.profile.accountId,
             onlineId: profile.profile.onlineId,
-            avatarUrl: profile.profile.avatarUrls[0].avatarUrl, });
+            avatarUrl: profile.profile.avatarUrls[0].avatarUrl, 
+            isPlus: profile.profile.plus,
+            level: profile.profile.trophySummary.level,
+            platinumTrophies: profile.profile.trophySummary.earnedTrophies.platinum,
+            goldTrophies: profile.profile.trophySummary.earnedTrophies.gold,
+            silverTrophies: profile.profile.trophySummary.earnedTrophies.silver,
+            bronzeTrophies: profile.profile.trophySummary.earnedTrophies.bronze, });
 
     } catch (error) {
         console.error(`[SERVER] Proxy error during profile fetch for ${username}:`, error);

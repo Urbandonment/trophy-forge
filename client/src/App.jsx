@@ -1,6 +1,12 @@
 import { useState } from 'react';
 import './App.css'
 import Logo from './assets/logo.png';
+import Plus from './assets/plus.png';
+import Level from './assets/level.png';
+import Bronze from './assets/bronze-trophy.png';
+import Silver from './assets/silver-trophy.png';
+import Gold from './assets/gold-trophy.png';
+import Platinum from './assets/platinum-trophy.png';
 
 const PROXY_BASE_URL = 'http://localhost:5000';
 
@@ -8,6 +14,12 @@ function App() {
   const [psnId, setPsnId] = useState('');
   const [avatarUrl, setAvatarUrl] = useState('');
   const [psnUsername, setPsnUsername] = useState('');
+  const [plusStatus, setPlusStatus] = useState('');
+  const [level, setLevel] = useState('');
+  const [platinumTrophies, setPlatinumTrophies] = useState('');
+  const [goldTrophies, setGoldTrophies] = useState('');
+  const [silverTrophies, setSilverTrophies] = useState('');
+  const [bronzeTrophies, setBronzeTrophies] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   
@@ -31,7 +43,7 @@ function App() {
       return;
     }
 
-    let accountId = '';
+    // let accountId = '';
 
     try {
       const profileResponse = await fetch(`${PROXY_BASE_URL}/api/psn-profile/${psnId}`, {
@@ -46,11 +58,10 @@ function App() {
       }
 
       const profileData = await profileResponse.json();
-      accountId = profileData.accountId;
-      console.log(`[CLIENT] Found account ID for username '${psnId}': ${accountId}`);
+      // accountId = profileData.accountId;
       setAvatarUrl(profileData.avatarUrl);
-      console.log(`[CLIENT] Found avatar URL for username '${psnId}': ${profileData.avatarUrl}`);
       setPsnUsername(profileData.onlineId);
+      setPlusStatus(profileData.isPlus);
       setLoading(false);
 
     } catch (err) {
@@ -69,7 +80,7 @@ function App() {
     <div className='page'>
 
       <div className='header'>
-        <span className='logo'><img src={Logo} alt='logo' /></span>
+        <span className='logo'><img src={Logo} alt='Site Logo' /></span>
         <div className='header-container'>
           <p className='welcome-message'>
             Welcome to Custom Trophy Card
@@ -101,11 +112,12 @@ function App() {
 
       <div className='content'>
         <div className='profile-container'>
-            <div className='avatar'>
+            <span className='avatar'>
               {avatarUrl && <img src={avatarUrl} alt='User Avatar' />}
-            </div>
-            <div className='username'>
-              {psnUsername && <p>{psnUsername.toUpperCase()}</p>}
+            </span>
+            <div className='username-and-plus'>
+              <span className={`plus ${plusStatus ? 'plus-active' : ''}`}><img src={Plus} alt='Plus Icon' /></span>
+              <p className='username'>{psnUsername.toUpperCase()}</p>
             </div>
         </div>
         <div className='trophy-card-container'>
