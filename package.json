@@ -1,0 +1,14 @@
+{
+  "name": "custom-trophy-card",
+  "version": "1.0.0",
+  "description": "A full-stack application with client and server directories.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "concurrently \"npm run dev --prefix client\" \"npm run start --prefix server\" \"npm run open-browser\"",
+    "open-browser": "npx wait-on http://localhost:5173 && npx open-cli http://localhost:5173",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
