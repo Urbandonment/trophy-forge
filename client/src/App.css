@@ -167,7 +167,11 @@
 }
 
 .username {
-  color: #FFBF00;
+  background: linear-gradient(to right, #8A9A5B, #FAA0A0);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
   font-weight: 700;
   font-size: 25px;
   font-family: 'Play';
@@ -217,20 +221,7 @@
   font-family: 'Montserrat';
 }
 
-.level-label {
-  background: linear-gradient(to right, #89CFF0, #E97451);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: transparent;
-  font-family: 'Montserrat';
-  font-weight: 800;
-  font-style: italic;
-  font-size: 20px;
-}
-
 .trophy-label {
-  color: #FFBF00;
   font-family: 'Montserrat';
   font-weight: 800;
   font-style: italic;

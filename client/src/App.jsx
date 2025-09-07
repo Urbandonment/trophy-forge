@@ -129,15 +129,8 @@ function App() {
               <div className='level-and-trophy'>
                 <div className='level-and-trophy-pair'>
                   <span className='icon'>{<img src={Level} alt='Level Icon' />}</span>
-                  <p className='level-label'>LEVEL</p>
-                  <p className='icon-text'
-                  style={{
-                    background: 'linear-gradient(to right, #89CFF0, #E97451)',
-                    WebkitBackgroundClip: 'text',
-                    backgroundClip: 'text',
-                    WebkitTextFillColor: 'transparent',
-                    color: 'transparent'
-                  }}>{level}</p>
+                  <p className='trophy-label' style={{color: '#45AAF2'}}>LEVEL</p>
+                  <p className='icon-text'style={{color: '#45AAF2'}}>{level}</p>
                 </div>
                 <div className='level-and-trophy-pair'>
                   <span className='icon'>{<img src={Platinum} alt='Platinum Icon' />}</span>
