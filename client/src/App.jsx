@@ -86,7 +86,7 @@ function App() {
     <div className='page'>
 
       <div className='header'>
-        <span className='logo'><img src={Logo} alt='Site Logo' /></span>
+        <a href='/'><span className='logo'><img src={Logo} alt='Site Logo' /></span></a>
         <div className='header-container'>
           <p className='welcome-message'>
             Welcome to <strong>TROPHY FORGE</strong>
@@ -129,8 +129,15 @@ function App() {
               <div className='level-and-trophy'>
                 <div className='level-and-trophy-pair'>
                   <span className='icon'>{<img src={Level} alt='Level Icon' />}</span>
-                  <p className='trophy-label'>LEVEL</p>
-                  <p className='icon-text'>{level}</p>
+                  <p className='level-label'>LEVEL</p>
+                  <p className='icon-text'
+                  style={{
+                    background: 'linear-gradient(to right, #89CFF0, #E97451)',
+                    WebkitBackgroundClip: 'text',
+                    backgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                    color: 'transparent'
+                  }}>{level}</p>
                 </div>
                 <div className='level-and-trophy-pair'>
                   <span className='icon'>{<img src={Platinum} alt='Platinum Icon' />}</span>

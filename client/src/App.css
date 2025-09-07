@@ -26,13 +26,18 @@
 
 .logo {
   margin-right: 15px;
-  margin-top: 10px;
   flex-shrink: 0;
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+.logo img:hover {
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
 }
 
 .logo img {
   width: 100%;
   max-width: 296px;
+  margin-top: 15px;
 }
 
 .header-container {
@@ -210,6 +215,18 @@
   font-style: italic;
   font-size: 20px;
   font-family: 'Montserrat';
+}
+
+.level-label {
+  background: linear-gradient(to right, #89CFF0, #E97451);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  font-family: 'Montserrat';
+  font-weight: 800;
+  font-style: italic;
+  font-size: 20px;
 }
 
 .trophy-label {
