@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Play:wght@400;700&display=swap');
 /* Logo Color: #0455BF */
 /* Icon Attribution: https://www.flaticon.com/authors/wahya */
@@ -25,13 +26,13 @@
 
 .logo {
   margin-right: 15px;
+  margin-top: 10px;
   flex-shrink: 0;
 }
 
 .logo img {
   width: 100%;
-  height: auto;
-  max-width: 475.3px;
+  max-width: 296px;
 }
 
 .header-container {
@@ -46,7 +47,7 @@
 }
 
 .welcome-message {
-  color: #FFBF00;
+  color: #E5E4E2;
   font-size: 18px;
   line-height: 1.5;
 }
@@ -146,13 +147,6 @@
   align-items: center;
 }
 
-.trophy-card-container {
-  flex-grow: 1;
-  background-color: #011140;
-  border-top-right-radius: 15px;
-  border-bottom-right-radius: 15px;
-}
-
 .avatar {
   margin-top: 30px;
 }
@@ -188,4 +182,47 @@
 
 .plus-active {
   display: inline;
+}
+
+.level-and-trophy {
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(255 255 255 / 30%);
+  backdrop-filter: blur(10px);
+  padding: 10px;
+  border-radius: 15px;
+  width: 50%;
+}
+
+.level-and-trophy-pair {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.icon img {
+  width: 35px;
+  height: 35px;
+}
+
+.icon-text {
+  color: #FFBF00;
+  font-style: italic;
+  font-size: 20px;
+  font-family: 'Montserrat';
+}
+
+.trophy-label {
+  color: #FFBF00;
+  font-family: 'Montserrat';
+  font-weight: 800;
+  font-style: italic;
+  font-size: 20px;
+}
+
+.trophy-card-container {
+  flex-grow: 1;
+  background-color: #011140;
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px;
 }

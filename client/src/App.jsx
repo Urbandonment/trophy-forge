@@ -12,6 +12,7 @@ const PROXY_BASE_URL = 'http://localhost:5000';
 
 function App() {
   const [psnId, setPsnId] = useState('');
+  const [isProfileVisible, setIsProfileVisible] = useState(false);
   const [avatarUrl, setAvatarUrl] = useState('');
   const [psnUsername, setPsnUsername] = useState('');
   const [plusStatus, setPlusStatus] = useState('');
@@ -49,7 +50,6 @@ function App() {
       const profileResponse = await fetch(`${PROXY_BASE_URL}/api/psn-profile/${psnId}`, {
         method: 'GET',
       });
-      console.log('RESPONSE CODE: ' + profileResponse.status);
 
       if (!profileResponse.ok) {
         setError(`Unable to find a PSN profile for: ${psnId}`);
@@ -62,7 +62,13 @@ function App() {
       setAvatarUrl(profileData.avatarUrl);
       setPsnUsername(profileData.onlineId);
       setPlusStatus(profileData.isPlus);
+      setLevel(profileData.level);
+      setPlatinumTrophies(profileData.platinumTrophies);
+      setGoldTrophies(profileData.goldTrophies);
+      setSilverTrophies(profileData.silverTrophies);
+      setBronzeTrophies(profileData.bronzeTrophies);
       setLoading(false);
+      setIsProfileVisible(true);
 
     } catch (err) {
       console.error('[CLIENT] Error during profile lookup via proxy:', err);
@@ -83,7 +89,7 @@ function App() {
         <span className='logo'><img src={Logo} alt='Site Logo' /></span>
         <div className='header-container'>
           <p className='welcome-message'>
-            Welcome to Custom Trophy Card
+            Welcome to <strong>TROPHY FORGE</strong>
             <br />
             Here you can generate your own custom trophy card using different templates
           </p>
@@ -119,6 +125,35 @@ function App() {
               <span className={`plus ${plusStatus ? 'plus-active' : ''}`}><img src={Plus} alt='Plus Icon' /></span>
               <p className='username'>{psnUsername.toUpperCase()}</p>
             </div>
+            {isProfileVisible && (
+              <div className='level-and-trophy'>
+                <div className='level-and-trophy-pair'>
+                  <span className='icon'>{<img src={Level} alt='Level Icon' />}</span>
+                  <p className='trophy-label'>LEVEL</p>
+                  <p className='icon-text'>{level}</p>
+                </div>
+                <div className='level-and-trophy-pair'>
+                  <span className='icon'>{<img src={Platinum} alt='Platinum Icon' />}</span>
+                  <p className='trophy-label' style={{color: '#E5E4E2'}}>PLATINUM</p>
+                  <p className='icon-text' style={{color: '#E5E4E2'}}>{platinumTrophies}</p>
+                </div>
+                <div className='level-and-trophy-pair'>
+                  <span className='icon'>{<img src={Gold} alt='Gold Icon' />}</span>
+                  <p className='trophy-label' style={{color: '#FFD700'}}>GOLD</p>
+                  <p className='icon-text' style={{color: '#FFD700'}}>{goldTrophies}</p>
+                </div>
+                <div className='level-and-trophy-pair'>
+                  <span className='icon'>{<img src={Silver} alt='Silver Icon' />}</span>
+                  <p className='trophy-label' style={{color: '#C0C0C0'}}>SILVER</p>
+                  <p className='icon-text' style={{color: '#C0C0C0'}}>{silverTrophies}</p>
+                </div>
+                <div className='level-and-trophy-pair'>
+                  <span className='icon'>{<img src={Bronze} alt='Bronze Icon' />}</span>
+                  <p className='trophy-label' style={{ color: '#CD7F32'}}>BRONZE</p>
+                  <p className='icon-text' style={{color: '#CD7F32'}}>{bronzeTrophies}</p>
+                </div>
+              </div>
+            )}
         </div>
         <div className='trophy-card-container'>
         </div>

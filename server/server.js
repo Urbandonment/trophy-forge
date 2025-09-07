@@ -62,7 +62,9 @@ app.get('/api/psn-profile/:username', async (req, res) => {
         const profile = await getProfileFromUserName(
             { accessToken: authTokens.accessToken }, username
         )
-        console.log('[SERVER] PLUS STATUS: ' + profile.profile.onlineId + ' - ' + profile.profile.plus);
+        console.log('[SERVER] PLUS STATUS: ' + profile.profile.onlineId + ' - ' + profile.profile.plus
+            + ' - ' + profile.profile.trophySummary.level
+        );
 
         // Response
         res.json({ accountId: profile.profile.accountId,
