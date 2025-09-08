@@ -3,7 +3,8 @@ import cors from 'cors';
 import { exchangeNpssoForAccessCode, 
     exchangeAccessCodeForAuthTokens, 
     makeUniversalSearch,
-    getProfileFromUserName } from 'psn-api';
+    getProfileFromUserName,
+    getUserPlayedGames } from 'psn-api';
 import { config } from 'dotenv';
 
 // Load environment variables from .env file
@@ -62,9 +63,11 @@ app.get('/api/psn-profile/:username', async (req, res) => {
         const profile = await getProfileFromUserName(
             { accessToken: authTokens.accessToken }, username
         )
-        console.log('[SERVER] PLUS STATUS: ' + profile.profile.onlineId + ' - ' + profile.profile.plus
-            + ' - ' + profile.profile.trophySummary.level
-        );
+
+        // Retrieve games from accountId
+        const userPlayedGames = await getUserPlayedGames(
+            { accessToken: authTokens.accessToken }, accountId
+        )
 
         // Response
         res.json({ accountId: profile.profile.accountId,

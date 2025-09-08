@@ -150,10 +150,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-
-.avatar {
-  margin-top: 30px;
+  justify-content: center;
 }
 
 .avatar img {
@@ -167,7 +164,7 @@
 }
 
 .username {
-  background: linear-gradient(to right, #8A9A5B, #FAA0A0);
+  background: linear-gradient(to right, #088F8F, #7FFFD4, #088F8F);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -233,4 +230,8 @@
   background-color: #011140;
   border-top-right-radius: 15px;
   border-bottom-right-radius: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
 }
