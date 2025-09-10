@@ -24,6 +24,7 @@ function Home() {
   const [bronzeTrophies, setBronzeTrophies] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [lastUpdated, setLastUpdated] = useState('');
   
   const handleInputChange = (event) => {
     setPsnId(event.target.value);
@@ -68,6 +69,19 @@ function Home() {
       setGoldTrophies(profileData.goldTrophies);
       setSilverTrophies(profileData.silverTrophies);
       setBronzeTrophies(profileData.bronzeTrophies);
+
+      // Log the last updated time
+      const now = new Date();
+      const formattedTime = new Intl.DateTimeFormat('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      }).format(now);
+
+      setLastUpdated(formattedTime);
       setLoading(false);
       setIsProfileVisible(true);
 
@@ -153,6 +167,11 @@ function Home() {
                   <p className='trophy-label' style={{ color: '#CD7F32'}}>BRONZE</p>
                   <p className='icon-text' style={{color: '#CD7F32'}}>{bronzeTrophies}</p>
                 </div>
+              </div>
+            )}
+            {isProfileVisible && lastUpdated && (
+              <div className="last-updated">
+                Last updated: {lastUpdated}
               </div>
             )}
         </div>
