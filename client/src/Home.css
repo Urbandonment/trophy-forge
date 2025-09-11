@@ -219,21 +219,29 @@
   font-family: 'Montserrat';
 }
 
-.trophy-label {
+.icon-label {
   font-family: 'Montserrat';
   font-weight: 800;
   font-style: italic;
   font-size: 20px;
 }
 
-.last-updated {
-  font-size: 15px;
-  font-style: italic;
-  font-weight: 700;
-  color: #E5E4E2;
+.last-message {
   margin-top: 20px;
+}
+
+.last-message-label {
+  font-size: 18px;
+  line-height: 1.5;
+  font-style: italic;
+  color: #E5E4E2;
   text-align: center;
   padding: 5px;
+  text-align: left;
+}
+
+.last-message-text {
+  font-weight: 700;
 }
 
 .trophy-card-container {

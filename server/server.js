@@ -1,7 +1,8 @@
 import express from 'express';
 import cors from 'cors';
 import { exchangeNpssoForAccessCode, 
-    exchangeAccessCodeForAuthTokens, 
+    exchangeAccessCodeForAuthTokens,
+    exchangeRefreshTokenForAuthTokens,
     makeUniversalSearch,
     getProfileFromUserName,
     getUserPlayedGames } from 'psn-api';
@@ -26,20 +27,32 @@ if (!NPSSO_TOKEN) {
 
 // We will use a simple token cache to avoid repeated authentication
 let authTokens = null;
+let tokenExpirationTime = 0;
 
-// Middleware to get or refresh the authentication tokens
+// Middleware to get or refresh the authentication tokens - https://psn-api.achievements.app/api-docs/authentication
 app.use(async (req, res, next) => {
     try {
+        const now = Date.now();
+        const isTokenExpired = authTokens && now >= tokenExpirationTime;
+
+
+        // Condition 1: No tokens exist, so perform initial authentication with NPSSO
         if (!authTokens) {
             console.log('Authenticating with NPSSO token...');
-            // Step 1: Exchange the NPSSO token for a temporary code
             const tempCode = await exchangeNpssoForAccessCode(NPSSO_TOKEN);
-            // Step 2: Exchange the temporary code for access and refresh tokens
             authTokens = await exchangeAccessCodeForAuthTokens(tempCode);
+            tokenExpirationTime = now + authTokens.expiresIn * 1000 - 60000;
+        }
+        // Condition 2: Tokens exist but the access token has expired
+        else if (isTokenExpired) {
+            console.log('[SERVER] Access token expired, refreshing...');
+            const newAuthTokens = await exchangeRefreshTokenForAuthTokens(authTokens.refreshToken);
+            authTokens = newAuthTokens;
+            tokenExpirationTime = now + authTokens.expiresIn * 1000 - 60000;
         }
         next();
     } catch (error) {
-        console.error('[SERVER] Authentication failed:', error);
+        console.error('[SERVER] Authentication or token refresh failed:', error);
         res.status(500).json({ message: 'Authentication failed. Please check your NPSSO token.' });
     }
 });
@@ -69,7 +82,11 @@ app.get('/api/psn-profile/:username', async (req, res) => {
             { accessToken: authTokens.accessToken }, accountId
         )
 
-        // Response
+        const lastGamePlayed = (userPlayedGames && userPlayedGames.titles && userPlayedGames.titles.length > 0)
+            ? userPlayedGames.titles[0].name
+            : 'No games played recently';
+
+        // API response
         res.json({ accountId: profile.profile.accountId,
             onlineId: profile.profile.onlineId,
             avatarUrl: profile.profile.avatarUrls[0].avatarUrl, 
@@ -78,7 +95,12 @@ app.get('/api/psn-profile/:username', async (req, res) => {
             platinumTrophies: profile.profile.trophySummary.earnedTrophies.platinum,
             goldTrophies: profile.profile.trophySummary.earnedTrophies.gold,
             silverTrophies: profile.profile.trophySummary.earnedTrophies.silver,
-            bronzeTrophies: profile.profile.trophySummary.earnedTrophies.bronze, });
+            bronzeTrophies: profile.profile.trophySummary.earnedTrophies.bronze,
+            earnedTrophies: profile.profile.trophySummary.earnedTrophies.platinum +
+                    profile.profile.trophySummary.earnedTrophies.gold +
+                    profile.profile.trophySummary.earnedTrophies.silver +
+                    profile.profile.trophySummary.earnedTrophies.bronze,
+            lastGamePlayed: lastGamePlayed });
 
     } catch (error) {
         console.error(`[SERVER] Proxy error during profile fetch for ${username}:`, error);

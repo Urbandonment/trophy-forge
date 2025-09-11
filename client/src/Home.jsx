@@ -22,6 +22,8 @@ function Home() {
   const [goldTrophies, setGoldTrophies] = useState('');
   const [silverTrophies, setSilverTrophies] = useState('');
   const [bronzeTrophies, setBronzeTrophies] = useState('');
+  const [earnedTrophies, setEarnedTrophies] = useState('');
+  const [lastGamePlayed, setLastGamePlayed] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [lastUpdated, setLastUpdated] = useState('');
@@ -69,6 +71,8 @@ function Home() {
       setGoldTrophies(profileData.goldTrophies);
       setSilverTrophies(profileData.silverTrophies);
       setBronzeTrophies(profileData.bronzeTrophies);
+      setEarnedTrophies(profileData.earnedTrophies);
+      setLastGamePlayed(profileData.lastGamePlayed);
 
       // Log the last updated time
       const now = new Date();
@@ -144,36 +148,47 @@ function Home() {
               <div className='level-and-trophy'>
                 <div className='level-and-trophy-pair'>
                   <span className='icon'>{<img src={Level} alt='Level Icon' />}</span>
-                  <p className='trophy-label' style={{color: '#45AAF2'}}>LEVEL</p>
+                  <p className='icon-label' style={{color: '#45AAF2'}}>LEVEL</p>
                   <p className='icon-text'style={{color: '#45AAF2'}}>{level}</p>
                 </div>
                 <div className='level-and-trophy-pair'>
                   <span className='icon'>{<img src={Platinum} alt='Platinum Icon' />}</span>
-                  <p className='trophy-label' style={{color: '#E5E4E2'}}>PLATINUM</p>
-                  <p className='icon-text' style={{color: '#E5E4E2'}}>{platinumTrophies}</p>
+                  <p className='icon-label' style={{color: '#F0FFFF',}}>PLATINUM</p>
+                  <p className='icon-text' style={{color: '#F0FFFF'}}>{platinumTrophies}</p>
                 </div>
                 <div className='level-and-trophy-pair'>
                   <span className='icon'>{<img src={Gold} alt='Gold Icon' />}</span>
-                  <p className='trophy-label' style={{color: '#FFD700'}}>GOLD</p>
+                  <p className='icon-label' style={{color: '#FFD700'}}>GOLD</p>
                   <p className='icon-text' style={{color: '#FFD700'}}>{goldTrophies}</p>
                 </div>
                 <div className='level-and-trophy-pair'>
                   <span className='icon'>{<img src={Silver} alt='Silver Icon' />}</span>
-                  <p className='trophy-label' style={{color: '#C0C0C0'}}>SILVER</p>
+                  <p className='icon-label' style={{color: '#C0C0C0'}}>SILVER</p>
                   <p className='icon-text' style={{color: '#C0C0C0'}}>{silverTrophies}</p>
                 </div>
                 <div className='level-and-trophy-pair'>
                   <span className='icon'>{<img src={Bronze} alt='Bronze Icon' />}</span>
-                  <p className='trophy-label' style={{ color: '#CD7F32'}}>BRONZE</p>
+                  <p className='icon-label' style={{ color: '#CD7F32'}}>BRONZE</p>
                   <p className='icon-text' style={{color: '#CD7F32'}}>{bronzeTrophies}</p>
+                </div>
+                <div className='level-and-trophy-pair'>
+                  <p className='icon-label' style={{ color: '#8A9A5B'}}>TOTAL</p>
+                  <p className='icon-text' style={{color: '#8A9A5B'}}>{earnedTrophies + ' trophies'}</p>
                 </div>
               </div>
             )}
-            {isProfileVisible && lastUpdated && (
-              <div className="last-updated">
-                Last updated: {lastUpdated}
-              </div>
-            )}
+            <div className='last-message'>
+              {isProfileVisible && (
+                <div className='last-message-label'>
+                  Last game played <span className='last-message-text'>{lastGamePlayed}</span>
+                </div>
+              )}
+              {isProfileVisible && lastUpdated && (
+                <div className='last-message-label'>
+                  Last updated <span className='last-message-text'>{lastUpdated}</span>
+                </div>
+              )}
+            </div>
         </div>
         <div className='trophy-card-container'>
           {isProfileVisible && (
