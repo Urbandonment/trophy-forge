@@ -48,15 +48,14 @@ function Home() {
       return;
     }
 
-    // let accountId = '';
-
     try {
       const profileResponse = await fetch(`${PROXY_BASE_URL}/api/psn-profile/${psnId}`, {
         method: 'GET',
       });
 
       if (!profileResponse.ok) {
-        setError(`Unable to find a PSN profile for: ${psnId}`);
+        const errorData = await profileResponse.json();
+        setError(errorData.message);
         setLoading(false);
         return;
       }
@@ -90,7 +89,7 @@ function Home() {
       setIsProfileVisible(true);
 
     } catch (err) {
-      console.error('[CLIENT] Error during profile lookup via proxy:', err);
+      console.error(`[CLIENT] Error during profile lookup for ${psnUsername}:`, err);
       if (err instanceof TypeError && err.message.includes('NetworkError')) {
         console.log('[CLIENT] The proxy server is not running');
         setError('The site is experiencing technical issues. Please try again later.');
