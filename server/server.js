@@ -92,6 +92,7 @@ app.get('/api/psn-profile/:username', async (req, res) => {
             avatarUrl: profile.profile.avatarUrls[0].avatarUrl, 
             isPlus: profile.profile.plus,
             level: profile.profile.trophySummary.level,
+            nextLevel: profile.profile.trophySummary.progress,
             platinumTrophies: profile.profile.trophySummary.earnedTrophies.platinum,
             goldTrophies: profile.profile.trophySummary.earnedTrophies.gold,
             silverTrophies: profile.profile.trophySummary.earnedTrophies.silver,
