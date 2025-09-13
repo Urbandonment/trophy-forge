@@ -192,7 +192,15 @@ function Home() {
           {isProfileVisible && (
             <div className='trophy-card'>
               <div className='content-overlay'>
-                <div className='top-row'></div>
+                <div className='top-row'>
+                  <span className='trophy-card-avatar'>
+                    {avatarUrl && <img src={avatarUrl} alt='User Avatar' />}
+                  </span>
+                  <div className='username-and-plus'>
+                    <span className={`trophy-card-plus ${plusStatus ? 'plus-active' : ''}`}><img src={Plus} alt='Plus Icon' /></span>
+                    <p className='trophy-card-username'>{psnUsername}</p>
+                  </div>
+                </div>
                 <div className='middle-row'></div>
                 <div className='bottom-row'></div>
               </div>
