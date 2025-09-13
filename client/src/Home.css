@@ -1,7 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,100..900;1,100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Play:wght@400;700&display=swap');
-/* Logo Color: #0455BF */
 /* Icon Attribution: https://www.flaticon.com/authors/wahya */
 
 #root {
@@ -42,7 +41,7 @@
 }
 
 .header-container {
-  background-color: #011140;
+  background-color: #353935;
   width: 100%;
   padding: 10px 10px 20px 20px;
   border-radius: 15px;
@@ -145,7 +144,7 @@
   flex-shrink: 0;
   max-width: 500px;
   width: 100%;
-  background-color: #011140;
+  background-color: #353935;
   border-top-left-radius: 15px;
   border-bottom-left-radius: 15px;
   display: flex;
@@ -195,7 +194,7 @@
 .level-and-trophy {
   display: flex;
   flex-direction: column;
-  background-color: rgb(255 255 255 / 30%);
+  background-color: rgb(255 255 255 / 10%);
   backdrop-filter: blur(10px);
   padding: 10px;
   border-radius: 15px;
@@ -247,7 +246,7 @@
 
 .trophy-card-container {
   flex-grow: 1;
-  background-color: #011140;
+  background-color: #353935;
   border-top-right-radius: 15px;
   border-bottom-right-radius: 15px;
   display: flex;

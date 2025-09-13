@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import './Home.css'
-import TrophyCard from './TrophyCard.jsx'
 import Logo from './assets/logo.png';
 import Plus from './assets/plus.png';
 import Level from './assets/level.png';
@@ -191,17 +190,14 @@ function Home() {
         </div>
         <div className='trophy-card-container'>
           {isProfileVisible && (
-          <TrophyCard
-            avatarUrl={avatarUrl}
-            psnUsername={psnUsername}
-            plusStatus={plusStatus}
-            level={level}
-            platinumTrophies={platinumTrophies}
-            goldTrophies={goldTrophies}
-            silverTrophies={silverTrophies}
-            bronzeTrophies={bronzeTrophies}
-          />
-        )}
+            <div className='trophy-card'>
+              <div className='content-overlay'>
+                <div className='top-row'></div>
+                <div className='middle-row'></div>
+                <div className='bottom-row'></div>
+              </div>
+            </div>
+          )}
         </div>
       </div>
 
