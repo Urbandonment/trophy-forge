@@ -258,7 +258,7 @@
   width: 600px;
   height: 200px;
   background-color: rgb(255 255 255 / 10%);
-  background-image: url('assets/trophy-card-background.png');
+  background-image: url('assets/trophy-card-background.jpg');
   background-size: cover;
   background-position: center;
   position: relative;
@@ -324,6 +324,23 @@
     1px -1px 0 #353935,
     -1px 1px 0 #353935,
     1px 1px 0 #353935;
+}
+
+.trophy-card-right-side-container {
+  display: flex;
+  gap: 20px;
+}
+
+.trophy-card-earned-trophies-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.trophy-card-earned-trophies-icon img {
+  width: 40px;
+  height: 40px;
+  display: block;
 }
 
 .trophy-card-level-container {

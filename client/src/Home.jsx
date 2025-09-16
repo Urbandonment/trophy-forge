@@ -7,6 +7,7 @@ import Bronze from './assets/bronze-trophy.png';
 import Silver from './assets/silver-trophy.png';
 import Gold from './assets/gold-trophy.png';
 import Platinum from './assets/platinum-trophy.png';
+import EarnedTrophies from './assets/earned-trophies.png';
 import Level99 from './assets/1-99.png';
 import Level199 from './assets/100-199.png';
 import Level299 from './assets/200-299.png';
@@ -247,15 +248,26 @@ function Home() {
                       <p className='trophy-card-username'>{psnUsername}</p>
                     </div>
                   </div>
-                  <div className='trophy-card-level-container'>
-                    <span className='trophy-card-level-icon'>
-                      <img src={getLevelIcon(level)}></img>
-                    </span>
-                    <div className='trophy-card-level-wrapper'>
-                      <p style={{ fontSize: '14px'}}>Level</p>
-                      <p className='trophy-card-level'>{level}</p>
+                    <div className='trophy-card-right-side-container'>
+                      <div className='trophy-card-earned-trophies-container'>
+                        <span className='trophy-card-earned-trophies-icon'>
+                          <img src={EarnedTrophies}></img>
+                        </span>
+                        <div className='trophy-card-level-wrapper'>
+                          <p style={{ fontSize: '14px'}}>Trophies</p>
+                          <p className='trophy-card-level'>{earnedTrophies}</p>
+                        </div>
+                      </div>
+                      <div className='trophy-card-level-container'>
+                        <span className='trophy-card-level-icon'>
+                          <img src={getLevelIcon(level)}></img>
+                        </span>
+                        <div className='trophy-card-level-wrapper'>
+                          <p style={{ fontSize: '14px'}}>Level</p>
+                          <p className='trophy-card-level'>{level}</p>
+                        </div>
+                      </div>
                     </div>
-                  </div>
                 </div>
                 <div className='bottom-row'></div>
               </div>
