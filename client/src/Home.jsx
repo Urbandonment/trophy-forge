@@ -171,10 +171,6 @@ function Home() {
                   <p className='icon-label' style={{ color: '#F66C4C'}}>BRONZE</p>
                   <p className='icon-text' style={{color: '#F66C4C'}}>{bronzeTrophies}</p>
                 </div>
-                <div className='level-and-trophy-pair'>
-                  <p className='icon-label' style={{ color: '#98DB7C'}}>TOTAL</p>
-                  <p className='icon-text' style={{color: '#98DB7C'}}>{earnedTrophies + ' trophies'}</p>
-                </div>
               </div>
             )}
             <div className='last-message'>
