@@ -206,19 +206,19 @@
   gap: 10px;
 }
 
-.icon img {
+.trophy-icon img {
   width: 35px;
   height: 35px;
 }
 
-.icon-text {
+.trophy-icon-text {
   font-style: italic;
   font-weight: 500;
   font-size: 18px;
   font-family: 'Montserrat';
 }
 
-.icon-label {
+.trophy-icon-label {
   font-style: italic;
   font-weight: 800;
   font-size: 18px;
@@ -284,7 +284,7 @@
   justify-content: space-between;
 }
 
-.user-container {
+.trophy-card-user-container {
   display: flex;
   align-items: center;
 }
@@ -300,13 +300,18 @@
 }
 
 .trophy-card-plus {
-  margin-top: 5px;
+  margin-top: 7px;
   margin-right: 5px;
+  display: none;
 }
 
-.trophy-card-plus img{
+.trophy-card-plus img {
   width: 20px;
   height: 20px;
+}
+
+.trophy-card-plus-active {
+  display: inline;
 }
 
 .trophy-card-username {
@@ -321,16 +326,47 @@
     1px 1px 0 #353935;
 }
 
-.level-container {
+.trophy-card-level-container {
   display: flex;
   align-items: center;
+  margin-right: 10px;
+  gap: 10px;
+}
+
+.trophy-card-level-icon img {
+  border: 2px solid #E5E4E2;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: block;
+  padding: 2px;
+}
+
+.trophy-card-level-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.trophy-card-level-wrapper p {
+  margin: 0;
+  color: #E5E4E2;
+  font-weight: 700;
+  font-family: 'Montserrat';
+  text-shadow: 
+    -1px -1px 0 #353935,  
+    1px -1px 0 #353935,
+    -1px 1px 0 #353935,
+    1px 1px 0 #353935;
+  margin-bottom: -8px;
 }
 
 .trophy-card-level {
   color: #E5E4E2;
-  font-weight: 600;
+  font-weight: 700;
   font-size: 20px;
-  font-family: 'Play';
+  font-family: 'Montserrat';
   text-shadow: 
     -1px -1px 0 #353935,  
     1px -1px 0 #353935,

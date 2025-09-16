@@ -7,8 +7,55 @@ import Bronze from './assets/bronze-trophy.png';
 import Silver from './assets/silver-trophy.png';
 import Gold from './assets/gold-trophy.png';
 import Platinum from './assets/platinum-trophy.png';
+import Level99 from './assets/1-99.png';
+import Level199 from './assets/100-199.png';
+import Level299 from './assets/200-299.png';
+import Level399 from './assets/300-399.png';
+import Level499 from './assets/400-499.png';
+import Level599 from './assets/500-599.png';
+import Level699 from './assets/600-699.png';
+import Level799 from './assets/700-799.png';
+import Level899 from './assets/800-899.png';
+import Level998 from './assets/900-998.png';
+import Level999 from './assets/999.png';
 
 const PROXY_BASE_URL = 'http://localhost:5000';
+
+function getLevelIcon(level) {
+  if (level >=1 && level <= 99) {
+    return Level99;
+  }
+  if (level >=100 && level <= 199) {
+    return Level199;
+  }
+  if (level >=200 && level <= 299) {
+    return Level299;
+  }
+  if (level >=300 && level <= 399) {
+    return Level399;
+  }
+  if (level >=400 && level <= 499) {
+    return Level499;
+  }
+  if (level >=500 && level <= 599) {
+    return Level599;
+  }
+  if (level >=600 && level <= 699) {
+    return Level699;
+  }
+  if (level >=700 && level <= 799) {
+    return Level799;
+  }
+  if (level >=800 && level <= 899) {
+    return Level899;
+  }
+  if (level >=900 && level <= 998) {
+    return Level998;
+  }
+  else {
+    return Level999;
+  }
+}
 
 function Home() {
   const [psnId, setPsnId] = useState('');
@@ -147,29 +194,29 @@ function Home() {
             {isProfileVisible && (
               <div className='level-and-trophy'>
                 <div className='level-and-trophy-pair'>
-                  <span className='icon'>{<img src={Level} alt='Level Icon' />}</span>
-                  <p className='icon-label' style={{color: '#98DB7C'}}>LEVEL</p>
-                  <p className='icon-text'style={{color: '#98DB7C'}}>{level}</p>
+                  <span className='trophy-icon'>{<img src={Level} alt='Level Icon' />}</span>
+                  <p className='trophy-icon-label' style={{color: '#98DB7C'}}>LEVEL</p>
+                  <p className='trophy-icon-text'style={{color: '#98DB7C'}}>{level}</p>
                 </div>
                 <div className='level-and-trophy-pair'>
-                  <span className='icon'>{<img src={Platinum} alt='Platinum Icon' />}</span>
-                  <p className='icon-label' style={{color: '#64B9FC',}}>PLATINUM</p>
-                  <p className='icon-text' style={{color: '#64B9FC'}}>{platinumTrophies}</p>
+                  <span className='trophy-icon'>{<img src={Platinum} alt='Platinum Icon' />}</span>
+                  <p className='trophy-icon-label' style={{color: '#64B9FC',}}>PLATINUM</p>
+                  <p className='trophy-icon-text' style={{color: '#64B9FC'}}>{platinumTrophies}</p>
                 </div>
                 <div className='level-and-trophy-pair'>
-                  <span className='icon'>{<img src={Gold} alt='Gold Icon' />}</span>
-                  <p className='icon-label' style={{color: '#FFC54B'}}>GOLD</p>
-                  <p className='icon-text' style={{color: '#FFC54B'}}>{goldTrophies}</p>
+                  <span className='trophy-icon'>{<img src={Gold} alt='Gold Icon' />}</span>
+                  <p className='trophy-icon-label' style={{color: '#FFC54B'}}>GOLD</p>
+                  <p className='trophy-icon-text' style={{color: '#FFC54B'}}>{goldTrophies}</p>
                 </div>
                 <div className='level-and-trophy-pair'>
-                  <span className='icon'>{<img src={Silver} alt='Silver Icon' />}</span>
-                  <p className='icon-label' style={{color: '#D4E3D8'}}>SILVER</p>
-                  <p className='icon-text' style={{color: '#D4E3D8'}}>{silverTrophies}</p>
+                  <span className='trophy-icon'>{<img src={Silver} alt='Silver Icon' />}</span>
+                  <p className='trophy-icon-label' style={{color: '#D4E3D8'}}>SILVER</p>
+                  <p className='trophy-icon-text' style={{color: '#D4E3D8'}}>{silverTrophies}</p>
                 </div>
                 <div className='level-and-trophy-pair'>
-                  <span className='icon'>{<img src={Bronze} alt='Bronze Icon' />}</span>
-                  <p className='icon-label' style={{ color: '#F66C4C'}}>BRONZE</p>
-                  <p className='icon-text' style={{color: '#F66C4C'}}>{bronzeTrophies}</p>
+                  <span className='trophy-icon'>{<img src={Bronze} alt='Bronze Icon' />}</span>
+                  <p className='trophy-icon-label' style={{ color: '#F66C4C'}}>BRONZE</p>
+                  <p className='trophy-icon-text' style={{color: '#F66C4C'}}>{bronzeTrophies}</p>
                 </div>
               </div>
             )}
@@ -191,17 +238,23 @@ function Home() {
             <div className='trophy-card'>
               <div className='content-overlay'>
                 <div className='top-row'>
-                  <div className='user-container'>
+                  <div className='trophy-card-user-container'>
                     <span className='trophy-card-avatar'>
                       {avatarUrl && <img src={avatarUrl} alt='User Avatar' />}
                     </span>
                     <div className='username-and-plus'>
-                      <span className={`trophy-card-plus ${plusStatus ? 'plus-active' : ''}`}><img src={Plus} alt='Plus Icon' /></span>
+                      <span className={`trophy-card-plus ${plusStatus ? 'trophy-card-plus-active' : ''}`}><img src={Plus} alt='Plus Icon' /></span>
                       <p className='trophy-card-username'>{psnUsername}</p>
                     </div>
                   </div>
-                  <div className='level-container'>
-                    <p className='trophy-card-level'>Level {level}</p>
+                  <div className='trophy-card-level-container'>
+                    <span className='trophy-card-level-icon'>
+                      <img src={getLevelIcon(level)}></img>
+                    </span>
+                    <div className='trophy-card-level-wrapper'>
+                      <p style={{ fontSize: '14px'}}>Level</p>
+                      <p className='trophy-card-level'>{level}</p>
+                    </div>
                   </div>
                 </div>
                 <div className='bottom-row'></div>
