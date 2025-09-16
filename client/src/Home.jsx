@@ -148,8 +148,8 @@ function Home() {
               <div className='level-and-trophy'>
                 <div className='level-and-trophy-pair'>
                   <span className='icon'>{<img src={Level} alt='Level Icon' />}</span>
-                  <p className='icon-label' style={{color: '#ECDAEC'}}>LEVEL</p>
-                  <p className='icon-text'style={{color: '#ECDAEC'}}>{level}</p>
+                  <p className='icon-label' style={{color: '#98DB7C'}}>LEVEL</p>
+                  <p className='icon-text'style={{color: '#98DB7C'}}>{level}</p>
                 </div>
                 <div className='level-and-trophy-pair'>
                   <span className='icon'>{<img src={Platinum} alt='Platinum Icon' />}</span>
@@ -172,8 +172,8 @@ function Home() {
                   <p className='icon-text' style={{color: '#F66C4C'}}>{bronzeTrophies}</p>
                 </div>
                 <div className='level-and-trophy-pair'>
-                  <p className='icon-label' style={{ color: '#8A9A5B'}}>TOTAL</p>
-                  <p className='icon-text' style={{color: '#8A9A5B'}}>{earnedTrophies + ' trophies'}</p>
+                  <p className='icon-label' style={{ color: '#98DB7C'}}>TOTAL</p>
+                  <p className='icon-text' style={{color: '#98DB7C'}}>{earnedTrophies + ' trophies'}</p>
                 </div>
               </div>
             )}
