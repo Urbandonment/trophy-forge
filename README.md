@@ -1,11 +1,11 @@
---ROUND 1--
+**Round 1**
 
-Done
+*Done*
 - Create UI (Web)
 - Fetch profile using psn-api
 - Display fetched data (avatar, username, plus status, trophies, level, last game played)
 
-In Progress
+*In Progress*
 - Create basic trophy card template
   - Avatar
   - Username
