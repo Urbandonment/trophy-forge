@@ -16,5 +16,7 @@
   - Last game trophies/platinums
   - Last game played's background
 - Change trophy card's background
+- Add border for containers
 - Dark mode (round 2)
 - List of recent earned trophies animated banner (round 2)
+- Create UI (Mobile) (round 3)
