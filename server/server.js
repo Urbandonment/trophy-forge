@@ -14,6 +14,7 @@ config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 const NPSSO_TOKEN = process.env.NPSSO_TOKEN;
+const DEFAULT_TROPHY_CARD_BACKGROUND = 'assets/trophy-card-background.jpg';
 
 // Use the cors middleware.
 app.use(cors({
@@ -77,7 +78,7 @@ app.get('/api/psn-profile/:username', async (req, res) => {
             { accessToken: authTokens.accessToken }, username
         )
 
-        // Retrieve games from accountId
+        // Retrieve played games from accountId
         const userPlayedGames = await getUserPlayedGames(
             { accessToken: authTokens.accessToken }, accountId
         )
@@ -85,6 +86,10 @@ app.get('/api/psn-profile/:username', async (req, res) => {
         const lastGamePlayed = (userPlayedGames && userPlayedGames.titles && userPlayedGames.titles.length > 0)
             ? userPlayedGames.titles[0].name
             : 'No games played recently';
+
+        const lastGamePlayedImageUrl = (userPlayedGames && userPlayedGames.titles && userPlayedGames.titles.length > 0)
+            ? userPlayedGames.titles[0].concept.media.images[0].url
+            : DEFAULT_TROPHY_CARD_BACKGROUND;
 
         // API response
         res.json({ accountId: profile.profile.accountId,
@@ -101,7 +106,8 @@ app.get('/api/psn-profile/:username', async (req, res) => {
                     profile.profile.trophySummary.earnedTrophies.gold +
                     profile.profile.trophySummary.earnedTrophies.silver +
                     profile.profile.trophySummary.earnedTrophies.bronze,
-            lastGamePlayed: lastGamePlayed });
+            lastGamePlayed: lastGamePlayed,
+            lastGamePlayedImageUrl: lastGamePlayedImageUrl });
 
     } catch (error) {
         console.error(`[SERVER] Error during profile lookup for ${username}:`, error);

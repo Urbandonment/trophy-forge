@@ -76,6 +76,7 @@ function Home() {
   const [bronzeTrophies, setBronzeTrophies] = useState('');
   const [earnedTrophies, setEarnedTrophies] = useState('');
   const [lastGamePlayed, setLastGamePlayed] = useState('');
+  const [lastGamePlayedImageUrl, setLastGamePlayedImageUrl] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [lastUpdated, setLastUpdated] = useState('');
@@ -125,6 +126,7 @@ function Home() {
       setBronzeTrophies(profileData.bronzeTrophies);
       setEarnedTrophies(profileData.earnedTrophies);
       setLastGamePlayed(profileData.lastGamePlayed);
+      setLastGamePlayedImageUrl(profileData.lastGamePlayedImageUrl);
 
       // Log the last updated time
       const now = new Date();
@@ -189,7 +191,7 @@ function Home() {
 
       <div className='content'>
         <div className='content-container'>
-          
+
           <div className='profile-container'>
               <span className='avatar'>
                 {avatarUrl && <img src={avatarUrl} alt='💀' />}
@@ -256,7 +258,11 @@ function Home() {
 
           <div className='trophy-card-container'>
             {isProfileVisible && (
-              <div className='trophy-card'>
+              <div 
+              className='trophy-card'
+              style={{
+                backgroundImage: `url('${lastGamePlayedImageUrl}')`
+              }}>
                 <div className='content-overlay'>
                   <div className='top-row'>
                     <div className='trophy-card-user-container'>
