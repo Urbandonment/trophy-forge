@@ -188,122 +188,140 @@ function Home() {
       </div>
 
       <div className='content'>
-        <div className='profile-container'>
-            <span className='avatar'>
-              {avatarUrl && <img src={avatarUrl} alt='💀' />}
-            </span>
-            <div className='username-and-plus'>
-              <span className={`plus ${plusStatus ? 'plus-active' : ''}`}><img src={Plus} alt='💀' /></span>
-              <p className='username'>{psnUsername.toUpperCase()}</p>
-            </div>
+        <div className='content-container'>
+          
+          <div className='profile-container'>
+              <span className='avatar'>
+                {avatarUrl && <img src={avatarUrl} alt='💀' />}
+              </span>
+              <div className='username-and-plus'>
+                <span className={`plus ${plusStatus ? 'plus-active' : ''}`}><img src={Plus} alt='💀' /></span>
+                <p className='username'>{psnUsername.toUpperCase()}</p>
+              </div>
+              {isProfileVisible && (
+                <div className='level-and-trophy'>
+                  <div className='level-and-trophy-pair'>
+                    <span className='trophy-icon'>{<img src={Level} alt='💀' />}</span>
+                    <p className='trophy-icon-label' style={{color: '#98DB7C'}}>LEVEL</p>
+                    <p className='trophy-icon-text'style={{color: '#98DB7C'}}>{level}</p>
+                    <div className='next-level-progress-bar'>
+                      <div 
+                        className='next-level-progress-bar-fill'
+                        style={{ width: `${nextLevel}%` }}
+                      >
+                        {nextLevel >= 20 && (
+                          <span className='next-level-progress-bar-text'>{nextLevel}%</span>
+                        )}
+                      </div>
+                      {nextLevel < 20 && (
+                        <span className='next-level-progress-bar-text-outside'>{nextLevel}%</span>
+                      )}
+                    </div>
+                  </div>
+                  <div className='level-and-trophy-pair'>
+                    <span className='trophy-icon'>{<img src={Platinum} alt='💀' />}</span>
+                    <p className='trophy-icon-label' style={{color: '#64B9FC',}}>PLATINUM</p>
+                    <p className='trophy-icon-text' style={{color: '#64B9FC'}}>{platinumTrophies}</p>
+                  </div>
+                  <div className='level-and-trophy-pair'>
+                    <span className='trophy-icon'>{<img src={Gold} alt='💀' />}</span>
+                    <p className='trophy-icon-label' style={{color: '#FFC54B'}}>GOLD</p>
+                    <p className='trophy-icon-text' style={{color: '#FFC54B'}}>{goldTrophies}</p>
+                  </div>
+                  <div className='level-and-trophy-pair'>
+                    <span className='trophy-icon'>{<img src={Silver} alt='💀' />}</span>
+                    <p className='trophy-icon-label' style={{color: '#D4E3D8'}}>SILVER</p>
+                    <p className='trophy-icon-text' style={{color: '#D4E3D8'}}>{silverTrophies}</p>
+                  </div>
+                  <div className='level-and-trophy-pair'>
+                    <span className='trophy-icon'>{<img src={Bronze} alt='💀' />}</span>
+                    <p className='trophy-icon-label' style={{ color: '#F66C4C'}}>BRONZE</p>
+                    <p className='trophy-icon-text' style={{color: '#F66C4C'}}>{bronzeTrophies}</p>
+                  </div>
+                </div>
+              )}
+              <div className='last-message'>
+                {isProfileVisible && (
+                  <div className='last-message-label'>
+                    Last game played <span className='last-message-text'>{lastGamePlayed}</span>
+                  </div>
+                )}
+                {isProfileVisible && lastUpdated && (
+                  <div className='last-message-label'>
+                    Last updated <span className='last-message-text'>{lastUpdated}</span>
+                  </div>
+                )}
+              </div>
+          </div>
+
+          <div className='trophy-card-container'>
             {isProfileVisible && (
-              <div className='level-and-trophy'>
-                <div className='level-and-trophy-pair'>
-                  <span className='trophy-icon'>{<img src={Level} alt='💀' />}</span>
-                  <p className='trophy-icon-label' style={{color: '#98DB7C'}}>LEVEL</p>
-                  <p className='trophy-icon-text'style={{color: '#98DB7C'}}>{level}</p>
-                </div>
-                <div className='level-and-trophy-pair'>
-                  <span className='trophy-icon'>{<img src={Platinum} alt='💀' />}</span>
-                  <p className='trophy-icon-label' style={{color: '#64B9FC',}}>PLATINUM</p>
-                  <p className='trophy-icon-text' style={{color: '#64B9FC'}}>{platinumTrophies}</p>
-                </div>
-                <div className='level-and-trophy-pair'>
-                  <span className='trophy-icon'>{<img src={Gold} alt='💀' />}</span>
-                  <p className='trophy-icon-label' style={{color: '#FFC54B'}}>GOLD</p>
-                  <p className='trophy-icon-text' style={{color: '#FFC54B'}}>{goldTrophies}</p>
-                </div>
-                <div className='level-and-trophy-pair'>
-                  <span className='trophy-icon'>{<img src={Silver} alt='💀' />}</span>
-                  <p className='trophy-icon-label' style={{color: '#D4E3D8'}}>SILVER</p>
-                  <p className='trophy-icon-text' style={{color: '#D4E3D8'}}>{silverTrophies}</p>
-                </div>
-                <div className='level-and-trophy-pair'>
-                  <span className='trophy-icon'>{<img src={Bronze} alt='💀' />}</span>
-                  <p className='trophy-icon-label' style={{ color: '#F66C4C'}}>BRONZE</p>
-                  <p className='trophy-icon-text' style={{color: '#F66C4C'}}>{bronzeTrophies}</p>
+              <div className='trophy-card'>
+                <div className='content-overlay'>
+                  <div className='top-row'>
+                    <div className='trophy-card-user-container'>
+                      <span className='trophy-card-avatar'>
+                        {avatarUrl && <img src={avatarUrl} alt='💀' />}
+                      </span>
+                      <div className='username-and-plus'>
+                        <span className={`trophy-card-plus ${plusStatus ? 'trophy-card-plus-active' : ''}`}><img src={Plus} alt='💀' /></span>
+                        <p className='trophy-card-username'>{psnUsername}</p>
+                      </div>
+                    </div>
+                      <div className='trophy-card-top-row-right-side-container'>
+                        <div className='trophy-card-level-container'>
+                          <span className='trophy-card-level-icon'>
+                            <img src={getLevelIcon(level)} alt='💀'></img>
+                          </span>
+                          <div className='trophy-card-level-wrapper'>
+                            <p style={{ fontSize: '14px'}}>Level</p>
+                            <p className='trophy-card-level'>{level}</p>
+                          </div>
+                        </div>
+                        <div className='trophy-card-earned-trophies-container'>
+                          <span className='trophy-card-earned-trophies-icon'>
+                            <img src={EarnedTrophies}></img>
+                          </span>
+                          <div className='trophy-card-level-wrapper'>
+                            <p style={{ fontSize: '14px'}}>Trophies</p>
+                            <p className='trophy-card-level'>{earnedTrophies}</p>
+                          </div>
+                        </div>
+                      </div>
+                  </div>
+                  <div className='bottom-row'>
+                    <div className='trophy-card-trophy-container'>
+                      <div className='trophy-card-trophy-pair'>
+                        <span className='trophy-card-trophy-icon'>
+                          <img src={PlatinumTC} alt='💀'></img>
+                        </span>
+                        <p className='trophy-card-trophy-text'>{platinumTrophies}</p>
+                      </div>
+                      <div className='trophy-card-trophy-pair'>
+                        <span className='trophy-card-trophy-icon'>
+                          <img src={GoldTC} alt='💀'></img>
+                        </span>
+                        <p className='trophy-card-trophy-text'>{goldTrophies}</p>
+                      </div>
+                      <div className='trophy-card-trophy-pair'>
+                        <span className='trophy-card-trophy-icon'>
+                          <img src={SilverTC} alt='💀'></img>
+                        </span>
+                        <p className='trophy-card-trophy-text'>{silverTrophies}</p>
+                      </div>
+                      <div className='trophy-card-trophy-pair'>
+                        <span className='trophy-card-trophy-icon'>
+                          <img src={BronzeTC} alt='💀'></img>
+                        </span>
+                        <p className='trophy-card-trophy-text'>{bronzeTrophies}</p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             )}
-            <div className='last-message'>
-              {isProfileVisible && (
-                <div className='last-message-label'>
-                  Last game played <span className='last-message-text'>{lastGamePlayed}</span>
-                </div>
-              )}
-              {isProfileVisible && lastUpdated && (
-                <div className='last-message-label'>
-                  Last updated <span className='last-message-text'>{lastUpdated}</span>
-                </div>
-              )}
-            </div>
-        </div>
-        <div className='trophy-card-container'>
-          {isProfileVisible && (
-            <div className='trophy-card'>
-              <div className='content-overlay'>
-                <div className='top-row'>
-                  <div className='trophy-card-user-container'>
-                    <span className='trophy-card-avatar'>
-                      {avatarUrl && <img src={avatarUrl} alt='💀' />}
-                    </span>
-                    <div className='username-and-plus'>
-                      <span className={`trophy-card-plus ${plusStatus ? 'trophy-card-plus-active' : ''}`}><img src={Plus} alt='💀' /></span>
-                      <p className='trophy-card-username'>{psnUsername}</p>
-                    </div>
-                  </div>
-                    <div className='trophy-card-top-row-right-side-container'>
-                      <div className='trophy-card-level-container'>
-                        <span className='trophy-card-level-icon'>
-                          <img src={getLevelIcon(level)} alt='💀'></img>
-                        </span>
-                        <div className='trophy-card-level-wrapper'>
-                          <p style={{ fontSize: '14px'}}>Level</p>
-                          <p className='trophy-card-level'>{level}</p>
-                        </div>
-                      </div>
-                      <div className='trophy-card-earned-trophies-container'>
-                        <span className='trophy-card-earned-trophies-icon'>
-                          <img src={EarnedTrophies}></img>
-                        </span>
-                        <div className='trophy-card-level-wrapper'>
-                          <p style={{ fontSize: '14px'}}>Trophies</p>
-                          <p className='trophy-card-level'>{earnedTrophies}</p>
-                        </div>
-                      </div>
-                    </div>
-                </div>
-                <div className='bottom-row'>
-                  <div className='trophy-card-trophy-container'>
-                    <div className='trophy-card-trophy-pair'>
-                      <span className='trophy-card-trophy-icon'>
-                        <img src={PlatinumTC} alt='💀'></img>
-                      </span>
-                      <p className='trophy-card-trophy-text'>{platinumTrophies}</p>
-                    </div>
-                    <div className='trophy-card-trophy-pair'>
-                      <span className='trophy-card-trophy-icon'>
-                        <img src={GoldTC} alt='💀'></img>
-                      </span>
-                      <p className='trophy-card-trophy-text'>{goldTrophies}</p>
-                    </div>
-                    <div className='trophy-card-trophy-pair'>
-                      <span className='trophy-card-trophy-icon'>
-                        <img src={SilverTC} alt='💀'></img>
-                      </span>
-                      <p className='trophy-card-trophy-text'>{silverTrophies}</p>
-                    </div>
-                    <div className='trophy-card-trophy-pair'>
-                      <span className='trophy-card-trophy-icon'>
-                        <img src={BronzeTC} alt='💀'></img>
-                      </span>
-                      <p className='trophy-card-trophy-text'>{bronzeTrophies}</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
+          </div>
+
         </div>
       </div>
 
