@@ -1,5 +1,8 @@
 import express from 'express';
 import cors from 'cors';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
 import { exchangeNpssoForAccessCode, 
     exchangeAccessCodeForAuthTokens,
     exchangeRefreshTokenForAuthTokens,
@@ -12,14 +15,20 @@ import { config } from 'dotenv';
 config();
 
 const app = express();
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 const PORT = process.env.PORT || 5000;
 const NPSSO_TOKEN = process.env.NPSSO_TOKEN;
-const DEFAULT_TROPHY_CARD_BACKGROUND = 'assets/trophy-card-background.jpg';
+const DEFAULT_TROPHY_CARD_BACKGROUND = '/assets/trophy-card-background.jpg';
 
-// Use the cors middleware.
+// Use the cors middleware
 app.use(cors({
     origin: 'http://localhost:5173'
 }));
+
+// Serve static files
+app.use('/assets', express.static(path.join(__dirname, '..', 'client', 'src', 'assets')));
+
 
 if (!NPSSO_TOKEN) {
     console.error('[SERVER] NPSSO_TOKEN is not defined in the .env file.');
@@ -87,9 +96,7 @@ app.get('/api/psn-profile/:username', async (req, res) => {
             ? userPlayedGames.titles[0].name
             : 'No games played recently';
 
-        const lastGamePlayedImageUrl = (userPlayedGames && userPlayedGames.titles && userPlayedGames.titles.length > 0)
-            ? userPlayedGames.titles[0].concept.media.images[0].url
-            : DEFAULT_TROPHY_CARD_BACKGROUND;
+        const lastGamePlayedImageUrl = userPlayedGames?.titles?.[0]?.concept?.media?.images?.[0]?.url ?? DEFAULT_TROPHY_CARD_BACKGROUND;
 
         // API response
         res.json({ accountId: profile.profile.accountId,

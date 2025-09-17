@@ -23,6 +23,7 @@ import BronzeTC from './assets/trophy-card-bronze-trophy.png';
 import SilverTC from './assets/trophy-card-silver-trophy.png';
 import GoldTC from './assets/trophy-card-gold-trophy.png';
 import PlatinumTC from './assets/trophy-card-platinum-trophy.png';
+import defaultBackgroundImage from './assets/trophy-card-background.jpg';
 
 const PROXY_BASE_URL = 'http://localhost:5000';
 
@@ -155,6 +156,8 @@ function Home() {
     }
   };
 
+  const lastGamePlayedImageUrlFinal = lastGamePlayedImageUrl || defaultBackgroundImage;
+
   return (
     <div className='page'>
 
@@ -261,7 +264,7 @@ function Home() {
               <div 
               className='trophy-card'
               style={{
-                backgroundImage: `url('${lastGamePlayedImageUrl}')`
+                backgroundImage: `url('${lastGamePlayedImageUrlFinal}')`
               }}>
                 <div className='content-overlay'>
                   <div className='top-row'>
