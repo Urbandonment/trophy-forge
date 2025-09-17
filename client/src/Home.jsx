@@ -153,7 +153,7 @@ function Home() {
     <div className='page'>
 
       <div className='header'>
-        <a href='/'><span className='logo'><img src={Logo} alt='Site Logo' /></span></a>
+        <a href='/'><span className='logo'><img src={Logo} alt='💀' /></span></a>
         <div className='header-container'>
           <p className='welcome-message'>
             Welcome to <strong>TROPHY FORGE</strong>
@@ -186,36 +186,36 @@ function Home() {
       <div className='content'>
         <div className='profile-container'>
             <span className='avatar'>
-              {avatarUrl && <img src={avatarUrl} alt='User Avatar' />}
+              {avatarUrl && <img src={avatarUrl} alt='💀' />}
             </span>
             <div className='username-and-plus'>
-              <span className={`plus ${plusStatus ? 'plus-active' : ''}`}><img src={Plus} alt='Plus Icon' /></span>
+              <span className={`plus ${plusStatus ? 'plus-active' : ''}`}><img src={Plus} alt='💀' /></span>
               <p className='username'>{psnUsername.toUpperCase()}</p>
             </div>
             {isProfileVisible && (
               <div className='level-and-trophy'>
                 <div className='level-and-trophy-pair'>
-                  <span className='trophy-icon'>{<img src={Level} alt='Level Icon' />}</span>
+                  <span className='trophy-icon'>{<img src={Level} alt='💀' />}</span>
                   <p className='trophy-icon-label' style={{color: '#98DB7C'}}>LEVEL</p>
                   <p className='trophy-icon-text'style={{color: '#98DB7C'}}>{level}</p>
                 </div>
                 <div className='level-and-trophy-pair'>
-                  <span className='trophy-icon'>{<img src={Platinum} alt='Platinum Icon' />}</span>
+                  <span className='trophy-icon'>{<img src={Platinum} alt='💀' />}</span>
                   <p className='trophy-icon-label' style={{color: '#64B9FC',}}>PLATINUM</p>
                   <p className='trophy-icon-text' style={{color: '#64B9FC'}}>{platinumTrophies}</p>
                 </div>
                 <div className='level-and-trophy-pair'>
-                  <span className='trophy-icon'>{<img src={Gold} alt='Gold Icon' />}</span>
+                  <span className='trophy-icon'>{<img src={Gold} alt='💀' />}</span>
                   <p className='trophy-icon-label' style={{color: '#FFC54B'}}>GOLD</p>
                   <p className='trophy-icon-text' style={{color: '#FFC54B'}}>{goldTrophies}</p>
                 </div>
                 <div className='level-and-trophy-pair'>
-                  <span className='trophy-icon'>{<img src={Silver} alt='Silver Icon' />}</span>
+                  <span className='trophy-icon'>{<img src={Silver} alt='💀' />}</span>
                   <p className='trophy-icon-label' style={{color: '#D4E3D8'}}>SILVER</p>
                   <p className='trophy-icon-text' style={{color: '#D4E3D8'}}>{silverTrophies}</p>
                 </div>
                 <div className='level-and-trophy-pair'>
-                  <span className='trophy-icon'>{<img src={Bronze} alt='Bronze Icon' />}</span>
+                  <span className='trophy-icon'>{<img src={Bronze} alt='💀' />}</span>
                   <p className='trophy-icon-label' style={{ color: '#F66C4C'}}>BRONZE</p>
                   <p className='trophy-icon-text' style={{color: '#F66C4C'}}>{bronzeTrophies}</p>
                 </div>
@@ -241,10 +241,10 @@ function Home() {
                 <div className='top-row'>
                   <div className='trophy-card-user-container'>
                     <span className='trophy-card-avatar'>
-                      {avatarUrl && <img src={avatarUrl} alt='User Avatar' />}
+                      {avatarUrl && <img src={avatarUrl} alt='💀' />}
                     </span>
                     <div className='username-and-plus'>
-                      <span className={`trophy-card-plus ${plusStatus ? 'trophy-card-plus-active' : ''}`}><img src={Plus} alt='Plus Icon' /></span>
+                      <span className={`trophy-card-plus ${plusStatus ? 'trophy-card-plus-active' : ''}`}><img src={Plus} alt='💀' /></span>
                       <p className='trophy-card-username'>{psnUsername}</p>
                     </div>
                   </div>
