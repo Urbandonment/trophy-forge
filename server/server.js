@@ -96,7 +96,17 @@ app.get('/api/psn-profile/:username', async (req, res) => {
             ? userPlayedGames.titles[0].name
             : 'No games played recently';
 
-        const lastGamePlayedImageUrl = userPlayedGames?.titles?.[0]?.concept?.media?.images?.[0]?.url ?? DEFAULT_TROPHY_CARD_BACKGROUND;
+        let lastGamePlayedImage = userPlayedGames?.titles?.[0]?.concept?.media?.images;
+        let lastGamePlayedDesiredImage = null;
+        if (lastGamePlayedImage) {
+            for (let i = 0; i < lastGamePlayedImage.length; i++) {
+                if (lastGamePlayedImage[i].type === 'GAMEHUB_COVER_ART') {
+                    lastGamePlayedDesiredImage = lastGamePlayedImage[i].url;
+                    break;
+                }
+            }
+        }
+        const lastGamePlayedImageUrl = lastGamePlayedDesiredImage ?? DEFAULT_TROPHY_CARD_BACKGROUND;
 
         // API response
         res.json({ accountId: profile.profile.accountId,
