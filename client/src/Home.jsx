@@ -221,8 +221,11 @@ function Home() {
                           <span className='next-level-progress-bar-text'>{nextLevel}%</span>
                         )}
                       </div>
-                      {nextLevel < 20 && (
+                      {level < 999 && nextLevel < 20 && (
                         <span className='next-level-progress-bar-text-outside'>{nextLevel}%</span>
+                      )}
+                      {level === 999 && (
+                        <span className='next-level-progress-bar-text-outside'>MAX</span>
                       )}
                     </div>
                   </div>
