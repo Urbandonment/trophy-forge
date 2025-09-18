@@ -131,7 +131,7 @@ app.get('/api/psn-profile/:username', async (req, res) => {
         if (error.message.includes('not found')) {
             res.status(404).json({ message: `Unable to find a profile for ${username}` });
         } else if (error.message.includes('Cannot read properties of undefined') || error.message.includes('hidden')) {
-            res.status(406).json({ message: `Unable to display the profile of ${username} due to its privacy setting` });
+            res.status(406).json({ message: `Unable to display the profile of ${username} due to their privacy setting` });
         }
         else {
             res.status(500).json({ message: 'Internal Server Error during profile lookup' });
