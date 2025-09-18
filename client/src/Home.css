@@ -6,6 +6,7 @@
 #root {
   width: 100%;
   font-family: 'Bitter';
+  --bottom-row-height: 15vh;
 }
 
 .page {
@@ -462,8 +463,27 @@
 
 .bottom-row {
   display: flex;
-  justify-content: flex-end;
-  align-items: center;
+  justify-content: space-between;
+  align-items: flex-start;
+  height: var(--bottom-row-height);
+}
+
+.trophy-card-game-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  place-items: center;
+  padding: 10px;
+}
+
+.trophy-card-game-pair {
+  display: flex;
+}
+
+.trophy-card-game-logo img {
+  width: calc(var(--bottom-row-height) * 0.5);
+  height: calc(var(--bottom-row-height) * 0.5);
+  display: block;
 }
 
 .trophy-card-trophy-container {

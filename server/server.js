@@ -96,10 +96,22 @@ app.get('/api/psn-profile/:username', async (req, res) => {
             ? userPlayedGames.titles[0].name
             : 'No games played recently';
 
+        // Trophy card game logo
+        let lastGamePlayedLogos = [];
+        for (let i = 0; i < 8; i++) {
+            let lastGamePlayedLogo = userPlayedGames?.titles?.[i]?.imageUrl;
+            if (lastGamePlayedLogo) {
+                lastGamePlayedLogos.push(lastGamePlayedLogo);
+            }
+        }
+        const lastGamePlayedLogosUrl = lastGamePlayedLogos ?? 'No games played recently';
+
+        // Trophy card background
         let lastGamePlayedImage = userPlayedGames?.titles?.[0]?.concept?.media?.images;
         let lastGamePlayedDesiredImage = null;
         if (lastGamePlayedImage) {
             for (let i = 0; i < lastGamePlayedImage.length; i++) {
+                // console.log('TYPE: ' + lastGamePlayedImage[i].type + '\n' + lastGamePlayedImage[i].url + '\n');
                 if (lastGamePlayedImage[i].type === 'GAMEHUB_COVER_ART') {
                     lastGamePlayedDesiredImage = lastGamePlayedImage[i].url;
                     break;
@@ -124,7 +136,8 @@ app.get('/api/psn-profile/:username', async (req, res) => {
                     profile.profile.trophySummary.earnedTrophies.silver +
                     profile.profile.trophySummary.earnedTrophies.bronze,
             lastGamePlayed: lastGamePlayed,
-            lastGamePlayedImageUrl: lastGamePlayedImageUrl });
+            lastGamePlayedImageUrl: lastGamePlayedImageUrl,
+            lastGamePlayedLogosUrl: lastGamePlayedLogosUrl });
 
     } catch (error) {
         console.error(`[SERVER] Error during profile lookup for ${username}:`, error);

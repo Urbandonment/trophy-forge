@@ -78,6 +78,7 @@ function Home() {
   const [earnedTrophies, setEarnedTrophies] = useState('');
   const [lastGamePlayed, setLastGamePlayed] = useState('');
   const [lastGamePlayedImageUrl, setLastGamePlayedImageUrl] = useState('');
+  const [lastGamePlayedLogosUrl, setLastGamePlayedLogosUrl] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [lastUpdated, setLastUpdated] = useState('');
@@ -128,6 +129,7 @@ function Home() {
       setEarnedTrophies(profileData.earnedTrophies);
       setLastGamePlayed(profileData.lastGamePlayed);
       setLastGamePlayedImageUrl(profileData.lastGamePlayedImageUrl);
+      setLastGamePlayedLogosUrl(profileData.lastGamePlayedLogosUrl);
 
       // Log the last updated time
       const now = new Date();
@@ -157,6 +159,7 @@ function Home() {
   };
 
   const lastGamePlayedImageUrlFinal = lastGamePlayedImageUrl || defaultBackgroundImage;
+  const lastGamePlayedLogos = lastGamePlayedLogosUrl;
 
   return (
     <div className='page'>
@@ -299,6 +302,17 @@ function Home() {
                       </div>
                   </div>
                   <div className='bottom-row'>
+                    <div className='trophy-card-game-container'>
+                      <div className='trophy-card-game-container'>
+                        {lastGamePlayedLogosUrl.map((logoUrl, index) => (
+                          <div className='trophy-card-game-pair' key={index}>
+                            <span className='trophy-card-game-logo'>
+                              <img src={logoUrl} alt=''></img>
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
                     <div className='trophy-card-trophy-container'>
                       <div className='trophy-card-trophy-pair'>
                         <span className='trophy-card-trophy-icon'>
