@@ -65,6 +65,13 @@
   position: relative;
 }
 
+.input-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+}
+
 .input-psn-id {
   background-color: #E5E4E2;
   color: #0455BF;
@@ -72,7 +79,7 @@
   width: 100%;
   font-family: 'Bitter';
   font-size: 16px;
-  width: 450px;
+  width: 400px;
   border: 0;
 }
 
@@ -82,13 +89,27 @@
   border: 0;
 }
 
+.input-psn-id:focus + .shortcut-keys {
+  opacity: 0.5;
+}
+
+.shortcut-keys {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  right: 5px;
+}
+
 .button-update {
+  font-weight: 700;
   font-size: 16px;
+  font-family: 'Montserrat';
+  font-style: italic;
   color: #E5E4E2;
   background-color: #0455BF;
   padding: 10px 15px;
-  border: #000000;
-  border-radius: 4px;
+  border: #353935;
+  border-radius: 3px;
 }
 
 .button-update:hover {
@@ -101,7 +122,7 @@
   background-color: #0047AB;
   transform: translateY(1px);
   box-shadow: none;
-  border: #000000;
+  border: #353935;
 }
 
 .message-container {
@@ -116,7 +137,7 @@
   color: #E5E4E2;
   font-size: 16px;
   font-weight: 700;
-  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  animation: pulse 1s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
 @keyframes pulse {
@@ -406,14 +427,13 @@
 }
 
 .trophy-card-level-icon img {
-  border: 2px solid #E5E4E2;
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
+  width: 45px;
+  height: 45px;
   padding: 2px;
-  display: flex;
+  display: block;
   justify-content: center;
   align-items: center;
+  box-sizing: border-box;
 }
 
 .trophy-card-level-wrapper {
@@ -456,8 +476,8 @@
 }
 
 .trophy-card-earned-trophies-icon img {
-  width: 40px;
-  height: 40px;
+  width: 35px;
+  height: 35px;
   display: block;
 }
 
@@ -483,6 +503,8 @@
 .trophy-card-game-logo img {
   width: calc(var(--bottom-row-height) * 0.5);
   height: calc(var(--bottom-row-height) * 0.5);
+  max-width: 51.2px;
+  max-height: 51.2px;
   display: block;
 }
 

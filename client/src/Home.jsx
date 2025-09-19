@@ -1,6 +1,8 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import './Home.css'
 import Logo from './assets/logo.png';
+import CtrlKey from './assets/ctrl-key.png';
+import KKey from './assets/k-key.png';
 import Plus from './assets/plus.png';
 import Level from './assets/level.png';
 import Bronze from './assets/bronze-trophy.png';
@@ -87,7 +89,30 @@ function Home() {
     setPsnId(event.target.value);
   };
 
-  const handleKeyDown = (event) => {
+  // Ctrl + K key down handling
+  const inputRef = useRef(null);
+  useEffect(() => {
+    const handleCtrlKKeyDown = (event) => {
+      if (event.ctrlKey && event.key === 'k') {
+        // Prevent the browser's default behavior (e.g., focusing on the address bar)
+        event.preventDefault();
+
+        // Focus the input field if the ref exists
+        if (inputRef.current) {
+          inputRef.current.focus();
+        }
+      }
+    };
+    // Add the event listener to the window
+    window.addEventListener('keydown', handleCtrlKKeyDown);
+    // Clean up the event listener when the component unmounts
+    return () => {
+      window.removeEventListener('keydown', handleCtrlKKeyDown);
+    };
+  }, []);
+
+  // Enter key down handling
+  const handleEnterKeyDown = (event) => {
     if (event.key === 'Enter') {
       handleUpdateClick();
     }
@@ -159,7 +184,6 @@ function Home() {
   };
 
   const lastGamePlayedImageUrlFinal = lastGamePlayedImageUrl || defaultBackgroundImage;
-  const lastGamePlayedLogos = lastGamePlayedLogosUrl;
 
   return (
     <div className='page'>
@@ -173,19 +197,26 @@ function Home() {
             Here you can generate your own custom trophy card using different templates
           </p>
           <div className='fetch-trophy-container'>
-              <input
-                type='text'
-                className='input-psn-id'
-                placeholder='Enter a PSN username'
-                value={psnId}
-                onChange={handleInputChange}
-                onKeyDown={handleKeyDown}
-              />
+              <div className='input-container'>
+                <input
+                  ref={inputRef}
+                  type='text'
+                  className='input-psn-id'
+                  placeholder='Enter a PSN username'
+                  value={psnId}
+                  onChange={handleInputChange}
+                  onKeyDown={handleEnterKeyDown}
+                />
+                <div className='shortcut-keys'>
+                  <img src={CtrlKey} alt='💀' style={{height: '37px'}} />
+                  <img src={KKey} alt='💀' style={{height: '30px'}} />
+                </div>
+              </div>
               <button
                 onClick={handleUpdateClick}
                 className='button-update'
               >
-                Update
+                UPDATE
               </button>
               <div className='message-container'>
                 {loading && <p className='loading-text'>Loading...</p>}
@@ -225,7 +256,7 @@ function Home() {
                         <span className='next-level-progress-bar-text-outside'>{nextLevel}%</span>
                       )}
                       {level === 999 && (
-                        <span className='next-level-progress-bar-text-outside'>MAX</span>
+                        <span className='next-level-progress-bar-text-outside' style={{fontStyle: 'italic'}}>MAX</span>
                       )}
                     </div>
                   </div>
@@ -295,7 +326,7 @@ function Home() {
                         </div>
                         <div className='trophy-card-earned-trophies-container'>
                           <span className='trophy-card-earned-trophies-icon'>
-                            <img src={EarnedTrophies}></img>
+                            <img src={EarnedTrophies} alt='💀'></img>
                           </span>
                           <div className='trophy-card-level-wrapper'>
                             <p style={{ fontSize: '14px'}}>Trophies</p>
