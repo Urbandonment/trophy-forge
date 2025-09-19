@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,100..900;1,100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Play:wght@400;700&display=swap');
-/* Icon Attribution: https://www.flaticon.com/authors/freepik */
+/* Icon Attribution: https://www.flaticon.com/authors/freepik | https://www.freepik.com/author/swky23 */
 
 #root {
   width: 100%;
@@ -100,7 +100,7 @@
   right: 5px;
 }
 
-.button-update {
+.buttons {
   font-weight: 700;
   font-size: 16px;
   font-family: 'Montserrat';
@@ -112,13 +112,13 @@
   border-radius: 3px;
 }
 
-.button-update:hover {
+.buttons:hover {
   cursor: pointer;
   outline: none;
   border: #E5E4E2;
 }
 
-.button-update:active {
+.buttons:active {
   background-color: #0047AB;
   transform: translateY(1px);
   box-shadow: none;
@@ -208,7 +208,7 @@
 
 .username {
   margin-top: 0;
-  background: linear-gradient(to right, #3D9970, #98FB98, #3D9970);
+  background: linear-gradient(to right, #3D9970, #98DB7C, #3D9970);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -335,6 +335,8 @@
   justify-content: center;
   align-items: center;
   padding: 20px;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .trophy-card {
@@ -540,4 +542,16 @@
     -1px 1px 0 #353935,
     1px 1px 0 #353935;
   margin: 0;
+}
+
+.trophy-card-function-container {
+  display: flex;
+  padding: 5px;
+  align-items: center;
+  justify-content: center;
+}
+
+.trophy-card-function {
+  display: flex;
+  gap: 10px;
 }
