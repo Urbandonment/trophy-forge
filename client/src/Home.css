@@ -169,7 +169,6 @@
   overflow: hidden;
 }
 
-.content-container::before,
 .content-container::after {
   content: '';
   position: absolute;
@@ -178,15 +177,10 @@
   width: 100%;
   z-index: 1;
   pointer-events: none;
-}
-
-.content-container::after {
-  background: radial-gradient(
-    ellipse at bottom,
-    #3D9970 0%,
-    transparent 60%
-  );
-  height: 60px;
+  background: linear-gradient(to top, #FB5B36, transparent);
+  height: 80px;
+  mask-image: url('/wave-mask.svg');
+  mask-size: 100% 100%;
 }
 
 .profile-container {

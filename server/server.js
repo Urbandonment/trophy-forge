@@ -106,7 +106,7 @@ app.get('/api/psn-profile/:username', async (req, res) => {
         }
         const lastGamePlayedLogosUrl = lastGamePlayedLogos ?? 'No games played recently';
 
-        // Trophy card background
+        // Trophy card background image
         let lastGamePlayedImage = userPlayedGames?.titles?.[0]?.concept?.media?.images;
         let lastGamePlayedDesiredImage = null;
         if (lastGamePlayedImage) {
