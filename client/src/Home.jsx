@@ -96,9 +96,11 @@ function Home() {
       if (event.ctrlKey && event.key === 'k') {
         // Prevent the browser's default behavior (e.g., focusing on the address bar)
         event.preventDefault();
-        // Focus the input field if the ref exists
         if (inputRef.current) {
           inputRef.current.focus();
+          setTimeout(() => {
+            inputRef.current.select();
+          }, 10);
         }
       }
     };
