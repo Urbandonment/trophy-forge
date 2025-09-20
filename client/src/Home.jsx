@@ -25,7 +25,6 @@ import BronzeTC from './assets/trophy-card-bronze-trophy.png';
 import SilverTC from './assets/trophy-card-silver-trophy.png';
 import GoldTC from './assets/trophy-card-gold-trophy.png';
 import PlatinumTC from './assets/trophy-card-platinum-trophy.png';
-import defaultBackgroundImage from './assets/trophy-card-background.jpg';
 
 const PROXY_BASE_URL = 'http://localhost:5000';
 
@@ -84,34 +83,13 @@ function Home() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [lastUpdated, setLastUpdated] = useState('');
-  const [isFunctionDetailOpen, setIsFunctionDetailOpen] = useState(false);
+  const [isFunctionFrameOpen, setIsFunctionFrameOpen] = useState(false);
   const [selectedFunction, setSelectedFunction] = useState(null);
-  
+  const [isOkButtonDisabled, setIsOkButtonDisabled] = useState('');
+
+  // Input username field handling
   const handleInputChange = (event) => {
     setPsnId(event.target.value);
-  };
-
-  // Toggle trophy card function detail frame
-  useEffect(() => {
-    if (isFunctionDetailOpen) {
-      const trophyCardFunction = document.querySelector('.trophy-card-function');
-      const trophyCardFunctionDetail = document.getElementById('trophy-card-function-detail');
-      // Ensure the elements exist before trying to access them
-      if (trophyCardFunction && trophyCardFunctionDetail) {
-        trophyCardFunctionDetail.style.width = `${trophyCardFunction.offsetWidth}px`;
-      }
-    }
-  }, [isFunctionDetailOpen]);
-
-  // Trophy card function buttons handling
-  const handleFunctionButtons = (functionType) => {
-    // Open the detail section if a new button is selected or close it if the same button is clicked again
-    if (selectedFunction === functionType) {
-      setIsFunctionDetailOpen(!isFunctionDetailOpen);
-    } else {
-      setSelectedFunction(functionType);
-      setIsFunctionDetailOpen(true);
-    }
   };
 
   // Ctrl + K shortcut handling
@@ -144,6 +122,7 @@ function Home() {
     }
   };
 
+  // Update button handling
   const handleUpdateClick = async () => {
     setLoading(true);
     setError('');
@@ -182,7 +161,7 @@ function Home() {
       setLastGamePlayedImageUrl(profileData.lastGamePlayedImageUrl);
       setLastGamePlayedLogosUrl(profileData.lastGamePlayedLogosUrl);
 
-      // Log the last updated time
+      // Log the update time
       const now = new Date();
       const formattedTime = new Intl.DateTimeFormat('en-US', {
       year: 'numeric',
@@ -196,6 +175,7 @@ function Home() {
       setLastUpdated(formattedTime);
       setLoading(false);
       setIsProfileVisible(true);
+      setIsOkButtonDisabled(true);
 
     } catch (err) {
       console.error(`[CLIENT] Error during profile lookup for ${psnUsername}:`, err);
@@ -209,8 +189,76 @@ function Home() {
     }
   };
 
-  const lastGamePlayedImageUrlFinal = lastGamePlayedImageUrl || defaultBackgroundImage;
+  // Trophy card function frame toggle handling
+  useEffect(() => {
+    if (isFunctionFrameOpen) {
+      const trophyCardFunction = document.querySelector('.trophy-card-function');
+      const trophyCardFunctionFrame = document.getElementById('trophy-card-function-frame');
+      // Ensure the elements exist before trying to access them
+      if (trophyCardFunction && trophyCardFunctionFrame) {
+        trophyCardFunctionFrame.style.width = `${trophyCardFunction.offsetWidth}px`;
+      }
+    }
+  }, [isFunctionFrameOpen]);
 
+  // Trophy card function buttons handling
+  const handleFunctionButtons = (functionType) => {
+    if (selectedFunction === functionType) {
+      setIsFunctionFrameOpen(!isFunctionFrameOpen);
+    } else {
+      setSelectedFunction(functionType);
+      setIsFunctionFrameOpen(true);
+    }
+  };
+
+  // Change image: OK button handling
+  const handleOkButton = () => {
+    setLastGamePlayedImageUrl();
+    setIsOkButtonDisabled(true);
+  };
+
+  // Change image: Browser button handling
+  const fileInputRef = useRef(null);
+  const handleBrowseButton = () => {
+    fileInputRef.current.click();
+  }
+
+  const handleBrowseFile = (event) => {
+    const file = event.target.files[0];
+    if (file && file.type.startsWith('image/')) {
+      const MAX_FILE_SIZE = 5 * 1024 * 1024;
+        if (file.size > MAX_FILE_SIZE) {
+          alert('File size exceeds the 5MB limit.');
+          return;
+        }
+
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const img = new Image();
+        img.onload = () => {
+          const MIN_WIDTH = 600;
+          const MIN_HEIGHT = 200;
+          const MAX_WIDTH = 3840;
+          const MAX_HEIGHT = 2160;
+
+          if (img.width < MIN_WIDTH || img.height < MIN_HEIGHT) {
+            alert(`Image dimensions are too small. Please upload an image at least ${MIN_WIDTH}x${MIN_HEIGHT} pixels.`);
+            return;
+          }
+          if (img.width > MAX_WIDTH || img.height > MAX_HEIGHT) {
+            alert(`Image dimensions are too large. Please upload an image no more than ${MAX_WIDTH}x${MAX_HEIGHT} pixels.`);
+            return;
+          }
+          setLastGamePlayedImageUrl(e.target.result);
+          setIsOkButtonDisabled(false);
+        };
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+ 
   return (
     <div className='page'>
       <div className='header'>
@@ -270,7 +318,7 @@ function Home() {
                     <div className='next-level-progress-bar'>
                       <div 
                         className='next-level-progress-bar-fill'
-                        style={{ width: `${nextLevel}%` }}
+                        style={{width: `${nextLevel}%`}}
                       >
                         {nextLevel >= 20 && (
                           <span className='next-level-progress-bar-text'>{nextLevel}%</span>
@@ -286,7 +334,7 @@ function Home() {
                   </div>
                   <div className='level-and-trophy-pair'>
                     <span className='trophy-icon'>{<img src={Platinum} alt='💀' />}</span>
-                    <p className='trophy-icon-label' style={{color: '#64B9FC',}}>PLATINUM</p>
+                    <p className='trophy-icon-label' style={{color: '#64B9FC'}}>PLATINUM</p>
                     <p className='trophy-icon-text' style={{color: '#64B9FC'}}>{platinumTrophies}</p>
                   </div>
                   <div className='level-and-trophy-pair'>
@@ -301,7 +349,7 @@ function Home() {
                   </div>
                   <div className='level-and-trophy-pair'>
                     <span className='trophy-icon'>{<img src={Bronze} alt='💀' />}</span>
-                    <p className='trophy-icon-label' style={{ color: '#F66C4C'}}>BRONZE</p>
+                    <p className='trophy-icon-label' style={{color: '#F66C4C'}}>BRONZE</p>
                     <p className='trophy-icon-text' style={{color: '#F66C4C'}}>{bronzeTrophies}</p>
                   </div>
                 </div>
@@ -325,9 +373,7 @@ function Home() {
               {isProfileVisible && (
                 <div 
                 className='trophy-card'
-                style={{
-                  backgroundImage: `url('${lastGamePlayedImageUrlFinal}')`
-                }}>
+                style={{backgroundImage: `url('${lastGamePlayedImageUrl}')`}}>
                   <div className='content-overlay'>
                     <div className='top-row'>
                       <div className='trophy-card-user-container'>
@@ -345,7 +391,7 @@ function Home() {
                               <img src={getLevelIcon(level)} alt='💀'></img>
                             </span>
                             <div className='trophy-card-level-wrapper'>
-                              <p style={{ fontSize: '14px'}}>Level</p>
+                              <p style={{fontSize: '14px'}}>Level</p>
                               <p className='trophy-card-level'>{level}</p>
                             </div>
                           </div>
@@ -354,7 +400,7 @@ function Home() {
                               <img src={EarnedTrophies} alt='💀'></img>
                             </span>
                             <div className='trophy-card-level-wrapper'>
-                              <p style={{ fontSize: '14px'}}>Trophies</p>
+                              <p style={{fontSize: '14px'}}>Trophies</p>
                               <p className='trophy-card-level'>{earnedTrophies}</p>
                             </div>
                           </div>
@@ -404,7 +450,7 @@ function Home() {
               )}
             </div>
             <div className='trophy-card-function-container'>
-              <div className='trophy-card-function-and-detail'>
+              <div className='trophy-card-function-and-frame'>
                 {isProfileVisible && (
                   <div className='trophy-card-function'>
                     <button className='buttons' onClick={() => handleFunctionButtons('change-image')}>
@@ -419,20 +465,56 @@ function Home() {
                   </div>
                 )}
                 <div 
-                  id='trophy-card-function-detail'
-                  className={`trophy-card-function-detail ${isFunctionDetailOpen ? 'open' : ''}`}>
+                  id='trophy-card-function-frame'
+                  className={`trophy-card-function-frame ${isFunctionFrameOpen ? 'open' : ''}`}>
                   {selectedFunction === 'change-image' && (
-                    <div>
-                      <p>Image change options go here.</p>
+                    <div className='trophy-card-function-frame-label'>
+                      <div className='trophy-card-function-frame-row'>
+                        <span>Use image from your latest game</span>
+                        <button 
+                          className={`function-frame-buttons ${isOkButtonDisabled ? 'is-disabled' : ''}`}
+                          onClick={handleOkButton}
+                          disabled={isOkButtonDisabled}
+                          style={{backgroundColor: isOkButtonDisabled ? '#808080' : '#0455BF',}}>
+                          OK
+                        </button>
+                      </div>
+                      <div className='trophy-card-function-frame-row'>
+                        <span>Upload your own image</span>
+                        <button className='function-frame-buttons' onClick={handleBrowseButton}>Browse</button>
+                        <input
+                          type="file"
+                          accept="image/*"
+                          ref={fileInputRef}
+                          onChange={handleBrowseFile}
+                          style={{display: 'none'}}
+                        />
+                      </div>
+                      <div className='trophy-card-function-frame-row'>
+                        <span>
+                          <input className='input-upload-image' style={{
+                              backgroundColor: '#E5E4E2',
+                              color: '#3D6685',
+                              padding: '5px',
+                              fontFamily: 'Bitter',
+                              fontSize: '14px',
+                              width: '300px',
+                              height: '17px',
+                              border: 0}}
+                            type='text'
+                            placeholder='Paste an image URL'
+                          /></span>
+                        <button className='function-frame-buttons'>Upload</button>
+                      </div>
                     </div>
                   )}
                   {selectedFunction === 'change-color' && (
-                    <div>
+                    <div className='trophy-card-function-frame-label'>
                       <p>Color selection options go here.</p>
                     </div>
                   )}
                   {selectedFunction === 'change-layout' && (
-                    <div>
+                    <div className='trophy-card-function-frame-label'>
                       <p>Layout options go here.</p>
                     </div>
                   )}

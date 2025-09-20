@@ -551,12 +551,13 @@
   align-items: center;
 }
 
-.trophy-card-function-and-detail {
+.trophy-card-function-and-frame {
   display: flex;
   flex-direction: column;
   align-items: center;
   width: fit-content;
-  box-sizing: border-box
+  box-sizing: border-box;
+  position: relative;
 }
 
 .trophy-card-function {
@@ -565,19 +566,90 @@
   justify-content: center;
 }
 
-.trophy-card-function-detail {
+.trophy-card-function-frame {
   width: 100%;
   box-sizing: border-box;
   opacity: 0;
   transform: translateY(-20px);
-  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+  transition: 
+    max-height 0.3s ease-in-out, 
+    transform 0.3s ease-in-out, 
+    opacity 0.3s ease-in-out;
+  position: absolute;
+  top: 100%;
+  z-index: 1;
+  max-height: 0;
+  overflow: hidden;
 }
 
-.trophy-card-function-detail.open {
+.trophy-card-function-frame.open {
   max-height: 500px;
   background-color: rgb(255 255 255 / 10%);
   padding: 10px;
   border-radius: 3px;
   opacity: 1;
   transform: translateY(0);
+  transition: 
+    max-height 0.3s ease-in-out, 
+    transform 0.3s ease-in-out, 
+    opacity 0.05s ease-in-out;
+}
+
+.trophy-card-function-frame-label {
+  color: #E5E4E2;
+  font-weight: 700;
+  font-size: 14px;
+  font-family: 'Bitter';
+  text-shadow:
+    -1px -1px 0 #353935,
+    1px -1px 0 #353935,
+    -1px 1px 0 #353935,
+    1px 1px 0 #353935;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.trophy-card-function-frame-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.input-upload-image:focus {
+  outline: none;
+  border: 0;
+}
+
+.function-frame-buttons {
+  font-weight: 700;
+  font-size: 12px;
+  font-family: 'Montserrat';
+  font-style: italic;
+  color: #E5E4E2;
+  background-color: #0455BF;
+  padding: 5px;
+  border: #353935;
+  border-radius: 3px;
+}
+
+.function-frame-buttons:hover {
+  cursor: pointer;
+  outline: none;
+  border: #E5E4E2;
+}
+
+.function-frame-buttons:active {
+  background-color: #0047AB;
+  transform: translateY(1px);
+  box-shadow: none;
+  border: #353935;
+}
+
+.function-frame-buttons.is-disabled:active {
+  background-color: #808080;
+  transform: none;
+  box-shadow: none;
+  border: #353935;
 }
