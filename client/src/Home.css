@@ -546,12 +546,38 @@
 
 .trophy-card-function-container {
   display: flex;
+  flex-direction: column;
   padding: 5px;
   align-items: center;
-  justify-content: center;
+}
+
+.trophy-card-function-and-detail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: fit-content;
+  box-sizing: border-box
 }
 
 .trophy-card-function {
   display: flex;
   gap: 10px;
+  justify-content: center;
+}
+
+.trophy-card-function-detail {
+  width: 100%;
+  box-sizing: border-box;
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+
+.trophy-card-function-detail.open {
+  max-height: 500px;
+  background-color: rgb(255 255 255 / 10%);
+  padding: 10px;
+  border-radius: 3px;
+  opacity: 1;
+  transform: translateY(0);
 }

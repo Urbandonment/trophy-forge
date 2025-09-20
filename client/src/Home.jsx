@@ -84,15 +84,40 @@ function Home() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [lastUpdated, setLastUpdated] = useState('');
+  const [isFunctionDetailOpen, setIsFunctionDetailOpen] = useState(false);
+  const [selectedFunction, setSelectedFunction] = useState(null);
   
   const handleInputChange = (event) => {
     setPsnId(event.target.value);
   };
 
-  // Ctrl + K key down handling
+  // Toggle trophy card function detail frame
+  useEffect(() => {
+    if (isFunctionDetailOpen) {
+      const trophyCardFunction = document.querySelector('.trophy-card-function');
+      const trophyCardFunctionDetail = document.getElementById('trophy-card-function-detail');
+      // Ensure the elements exist before trying to access them
+      if (trophyCardFunction && trophyCardFunctionDetail) {
+        trophyCardFunctionDetail.style.width = `${trophyCardFunction.offsetWidth}px`;
+      }
+    }
+  }, [isFunctionDetailOpen]);
+
+  // Trophy card function buttons handling
+  const handleFunctionButtons = (functionType) => {
+    // Open the detail section if a new button is selected or close it if the same button is clicked again
+    if (selectedFunction === functionType) {
+      setIsFunctionDetailOpen(!isFunctionDetailOpen);
+    } else {
+      setSelectedFunction(functionType);
+      setIsFunctionDetailOpen(true);
+    }
+  };
+
+  // Ctrl + K shortcut handling
   const inputRef = useRef(null);
   useEffect(() => {
-    const handleCtrlKKeyDown = (event) => {
+    const handleCtrlKShortcut = (event) => {
       if (event.ctrlKey && event.key === 'k') {
         // Prevent the browser's default behavior (e.g., focusing on the address bar)
         event.preventDefault();
@@ -105,15 +130,15 @@ function Home() {
       }
     };
     // Add the event listener to the window
-    window.addEventListener('keydown', handleCtrlKKeyDown, true);
+    window.addEventListener('keydown', handleCtrlKShortcut, true);
     // Clean up the event listener when the component unmounts
     return () => {
-      window.removeEventListener('keydown', handleCtrlKKeyDown, true);
+      window.removeEventListener('keydown', handleCtrlKShortcut, true);
     };
   }, []);
 
-  // Enter key down handling
-  const handleEnterKeyDown = (event) => {
+  // Enter key handling
+  const handleEnterKey = (event) => {
     if (event.key === 'Enter') {
       handleUpdateClick();
     }
@@ -188,7 +213,6 @@ function Home() {
 
   return (
     <div className='page'>
-
       <div className='header'>
         <a href='/'><span className='logo'><img src={Logo} alt='💀' /></span></a>
         <div className='header-container'>
@@ -206,7 +230,7 @@ function Home() {
                   placeholder='Enter a PSN username'
                   value={psnId}
                   onChange={handleInputChange}
-                  onKeyDown={handleEnterKeyDown}
+                  onKeyDown={handleEnterKey}
                 />
                 <div className='shortcut-keys'>
                   <img src={CtrlKey} alt='💀' style={{height: '37px'}} />
@@ -229,7 +253,6 @@ function Home() {
 
       <div className='content'>
         <div className='content-container'>
-
           <div className='profile-container'>
               <span className='avatar'>
                 {avatarUrl && <img src={avatarUrl} alt='💀' />}
@@ -381,25 +404,44 @@ function Home() {
               )}
             </div>
             <div className='trophy-card-function-container'>
-              {isProfileVisible && (
-                <div className='trophy-card-function'>
-                  <button className='buttons'>
-                    CHANGE IMAGE
-                  </button>
-                  <button className='buttons'>
-                    CHANGE COLOR
-                  </button>
-                  <button className='buttons'>
-                    CHANGE LAYOUT
-                  </button>
+              <div className='trophy-card-function-and-detail'>
+                {isProfileVisible && (
+                  <div className='trophy-card-function'>
+                    <button className='buttons' onClick={() => handleFunctionButtons('change-image')}>
+                      CHANGE IMAGE
+                    </button>
+                    <button className='buttons' onClick={() => handleFunctionButtons('change-color')}>
+                      CHANGE COLOR
+                    </button>
+                    <button className='buttons' onClick={() => handleFunctionButtons('change-layout')}>
+                      CHANGE LAYOUT
+                    </button>
+                  </div>
+                )}
+                <div 
+                  id='trophy-card-function-detail'
+                  className={`trophy-card-function-detail ${isFunctionDetailOpen ? 'open' : ''}`}>
+                  {selectedFunction === 'change-image' && (
+                    <div>
+                      <p>Image change options go here.</p>
+                    </div>
+                  )}
+                  {selectedFunction === 'change-color' && (
+                    <div>
+                      <p>Color selection options go here.</p>
+                    </div>
+                  )}
+                  {selectedFunction === 'change-layout' && (
+                    <div>
+                      <p>Layout options go here.</p>
+                    </div>
+                  )}
                 </div>
-              )}
+              </div>
             </div>
           </div>
-
         </div>
       </div>
-
     </div>
   );
 }
