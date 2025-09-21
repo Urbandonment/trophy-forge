@@ -619,9 +619,29 @@
   width: 100%;
 }
 
+.input-upload-image-container {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
 .input-upload-image:focus {
   outline: none;
   border: 0;
+}
+
+.input-upload-image-loading {
+    width: 15px;
+    height: 15px;
+    border: 5px solid transparent;
+    border-top: 5px solid #98DB7C;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
 
 .function-frame-buttons {

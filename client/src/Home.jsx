@@ -87,6 +87,7 @@ function Home() {
   const [selectedFunction, setSelectedFunction] = useState(null);
   const [currentBackgroundImage, setCurrentBackgroundImage] = useState('');
   const [imageUrlInput, setImageUrlInput] = useState('');
+  const [isImageUrlInputLoading, setIsImageUrlInputLoading] = useState(false);
 
   const isOkButtonDisabled = currentBackgroundImage === lastGamePlayedImageUrl;
 
@@ -266,6 +267,7 @@ function Home() {
 
   // Change image: Upload button handling
   const handleUploadButton = async () => {
+    setIsImageUrlInputLoading(true);
     if (!imageUrlInput) {
         alert('Please enter an image URL.');
         return;
@@ -298,6 +300,7 @@ function Home() {
                 return;
             }
             setCurrentBackgroundImage(imageUrlInput);
+            setIsImageUrlInputLoading(false);
         };
         img.src = response.url;
 
@@ -539,7 +542,7 @@ function Home() {
                         />
                       </div>
                       <div className='trophy-card-function-frame-row'>
-                        <span>
+                        <span className='input-upload-image-container'>
                           <input className='input-upload-image' style={{
                               backgroundColor: '#E5E4E2',
                               color: '#3D6685',
@@ -553,7 +556,9 @@ function Home() {
                             placeholder='Paste an image URL'
                             value={imageUrlInput}
                             onChange={(e) => setImageUrlInput(e.target.value)}
-                          /></span>
+                          />
+                          {isImageUrlInputLoading && <div className="input-upload-image-loading"></div>}
+                        </span>
                         <button className='function-frame-buttons' onClick={handleUploadButton}>Upload</button>
                       </div>
                     </div>
