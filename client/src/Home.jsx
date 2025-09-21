@@ -85,7 +85,15 @@ function Home() {
   const [lastUpdated, setLastUpdated] = useState('');
   const [isFunctionFrameOpen, setIsFunctionFrameOpen] = useState(false);
   const [selectedFunction, setSelectedFunction] = useState(null);
-  const [isOkButtonDisabled, setIsOkButtonDisabled] = useState('');
+  const [currentBackgroundImage, setCurrentBackgroundImage] = useState('');
+
+  const isOkButtonDisabled = currentBackgroundImage === lastGamePlayedImageUrl;
+
+  useEffect(() => {
+    if (lastGamePlayedImageUrl) {
+        setCurrentBackgroundImage(lastGamePlayedImageUrl);
+    }
+  }, [lastGamePlayedImageUrl]);
 
   // Input username field handling
   const handleInputChange = (event) => {
@@ -175,7 +183,6 @@ function Home() {
       setLastUpdated(formattedTime);
       setLoading(false);
       setIsProfileVisible(true);
-      setIsOkButtonDisabled(true);
 
     } catch (err) {
       console.error(`[CLIENT] Error during profile lookup for ${psnUsername}:`, err);
@@ -213,8 +220,7 @@ function Home() {
 
   // Change image: OK button handling
   const handleOkButton = () => {
-    setLastGamePlayedImageUrl();
-    setIsOkButtonDisabled(true);
+    setCurrentBackgroundImage(lastGamePlayedImageUrl);
   };
 
   // Change image: Browser button handling
@@ -249,7 +255,7 @@ function Home() {
             alert(`Image dimensions are too large. Please upload an image no more than ${MAX_WIDTH}x${MAX_HEIGHT} pixels.`);
             return;
           }
-          setLastGamePlayedImageUrl(e.target.result);
+          setCurrentBackgroundImage(e.target.result);
           setIsOkButtonDisabled(false);
         };
         img.src = e.target.result;
@@ -373,7 +379,7 @@ function Home() {
               {isProfileVisible && (
                 <div 
                 className='trophy-card'
-                style={{backgroundImage: `url('${lastGamePlayedImageUrl}')`}}>
+                style={{backgroundImage: `url('${currentBackgroundImage}')`}}>
                   <div className='content-overlay'>
                     <div className='top-row'>
                       <div className='trophy-card-user-container'>
