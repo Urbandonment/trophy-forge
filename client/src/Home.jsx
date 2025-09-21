@@ -86,6 +86,7 @@ function Home() {
   const [isFunctionFrameOpen, setIsFunctionFrameOpen] = useState(false);
   const [selectedFunction, setSelectedFunction] = useState(null);
   const [currentBackgroundImage, setCurrentBackgroundImage] = useState('');
+  const [imageUrlInput, setImageUrlInput] = useState('');
 
   const isOkButtonDisabled = currentBackgroundImage === lastGamePlayedImageUrl;
 
@@ -256,7 +257,6 @@ function Home() {
             return;
           }
           setCurrentBackgroundImage(e.target.result);
-          setIsOkButtonDisabled(false);
         };
         img.src = e.target.result;
       };
@@ -264,6 +264,48 @@ function Home() {
     }
   };
 
+  // Change image: Upload button handling
+  const handleUploadButton = async () => {
+    if (!imageUrlInput) {
+        alert('Please enter an image URL.');
+        return;
+    }
+
+    try {
+        const proxyUrl = `${PROXY_BASE_URL}/api/proxy-image?url=${encodeURIComponent(imageUrlInput)}`;
+        const response = await fetch(proxyUrl); // Removed { method: 'HEAD' } for full image fetch
+        
+        if (!response.ok) {
+            // Get the specific error from the backend, if available
+            const errorText = await response.text();
+            alert(`Could not validate the image URL. Server responded with: ${errorText}`);
+            return;
+        }
+
+        const img = new Image();
+        img.onload = () => {
+            const MIN_WIDTH = 600;
+            const MIN_HEIGHT = 200;
+            const MAX_WIDTH = 3840;
+            const MAX_HEIGHT = 2160;
+
+            if (img.width < MIN_WIDTH || img.height < MIN_HEIGHT) {
+                alert(`Image dimensions are too small. Please upload an image at least ${MIN_WIDTH}x${MIN_HEIGHT} pixels.`);
+                return;
+            }
+            if (img.width > MAX_WIDTH || img.height > MAX_HEIGHT) {
+                alert(`Image dimensions are too large. Please upload an image no more than ${MAX_WIDTH}x${MAX_HEIGHT} pixels.`);
+                return;
+            }
+            setCurrentBackgroundImage(imageUrlInput);
+        };
+        img.src = response.url;
+
+    } catch (err) {
+        console.error('Error fetching image from URL: ', err);
+        alert('An error occurred. Please check the URL and try again.');
+    }
+  };
  
   return (
     <div className='page'>
@@ -509,8 +551,10 @@ function Home() {
                               border: 0}}
                             type='text'
                             placeholder='Paste an image URL'
+                            value={imageUrlInput}
+                            onChange={(e) => setImageUrlInput(e.target.value)}
                           /></span>
-                        <button className='function-frame-buttons'>Upload</button>
+                        <button className='function-frame-buttons' onClick={handleUploadButton}>Upload</button>
                       </div>
                     </div>
                   )}

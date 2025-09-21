@@ -1,4 +1,5 @@
 import express from 'express';
+import fetch from 'node-fetch';
 import cors from 'cors';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -140,7 +141,7 @@ app.get('/api/psn-profile/:username', async (req, res) => {
 
     } catch (error) {
         console.error(`[SERVER] Error during profile lookup for ${username}:`, error);
-        if (error.message.includes('not found')) {
+        if (error.message.includes('not found') || error.message.includes('socialMetadata')) {
             res.status(404).json({ message: `Unable to find a profile for ${username}` });
         } else if (error.message.includes('Cannot read properties of undefined') || error.message.includes('hidden')) {
             res.status(406).json({ message: `Unable to display the profile of ${username} due to their privacy setting` });
@@ -148,6 +149,44 @@ app.get('/api/psn-profile/:username', async (req, res) => {
         else {
             res.status(500).json({ message: 'Internal Server Error during profile lookup' });
         }
+    }
+});
+
+// API to proxy the image request
+app.get('/api/proxy-image', async (req, res) => {
+    const imageUrl = req.query.url;
+    if (!imageUrl) {
+        return res.status(400).send('Image URL is required.');
+    }
+
+    try {
+        const imageResponse = await fetch(imageUrl);
+        
+        // Check if the response is valid (e.g., status 200-299)
+        if (!imageResponse.ok) {
+            return res.status(imageResponse.status).send(`Failed to fetch image: ${imageResponse.statusText}`);
+        }
+
+        // Check if the content type is an image
+        const contentType = imageResponse.headers.get('content-type');
+        if (!contentType || !contentType.startsWith('image/')) {
+            return res.status(400).send('URL does not point to a valid image.');
+        }
+
+        // Check for file size before streaming
+        const contentLength = imageResponse.headers.get('content-length');
+        const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
+        if (contentLength && parseInt(contentLength, 10) > MAX_FILE_SIZE) {
+            return res.status(413).send('Image size exceeds the 5MB limit.');
+        }
+
+        // Set the Content-Type header and stream the image
+        res.setHeader('Content-Type', contentType);
+        imageResponse.body.pipe(res);
+        
+    } catch (error) {
+        console.error("Proxy error:", error);
+        res.status(500).send('An internal server error occurred.');
     }
 });
 
