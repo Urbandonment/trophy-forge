@@ -200,6 +200,7 @@
 .avatar img {
   width: 192px;
   height: 192px;
+  opacity: 0.8;
 }
 
 .username-and-plus {
@@ -253,7 +254,6 @@
 .trophy-icon img {
   width: 35px;
   height: 35px;
-  opacity: 0.8;
 }
 
 .trophy-icon-text {
