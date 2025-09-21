@@ -421,7 +421,7 @@ function Home() {
               {isProfileVisible && (
                 <div 
                 className='trophy-card'
-                style={{backgroundImage: `url('${currentBackgroundImage}')`}}>
+                style={{backgroundImage: `url('${currentBackgroundImage}')`, opacity: '0.8'}}>
                   <div className='content-overlay'>
                     <div className='top-row'>
                       <div className='trophy-card-user-container'>
