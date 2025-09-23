@@ -20,7 +20,20 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const PORT = process.env.PORT || 5000;
 const NPSSO_TOKEN = process.env.NPSSO_TOKEN;
-const DEFAULT_TROPHY_CARD_BACKGROUND = '/assets/trophy-card-background.jpg';
+const DEFAULT_TROPHY_CARD_BACKGROUND = [
+    '/assets/trophy-card-default-background-1.png',
+    '/assets/trophy-card-default-background-2.png',
+    '/assets/trophy-card-default-background-3.png',
+    '/assets/trophy-card-default-background-4.png',
+    '/assets/trophy-card-default-background-5.png',
+    '/assets/trophy-card-default-background-6.png',
+];
+
+// Randomize default trophy card background image
+const getRandomBackground = () => {
+  const randomIndex = Math.floor(Math.random() * DEFAULT_TROPHY_CARD_BACKGROUND.length);
+  return DEFAULT_TROPHY_CARD_BACKGROUND[randomIndex];
+};
 
 // Use the cors middleware
 app.use(cors({
@@ -118,7 +131,7 @@ app.get('/api/psn-profile/:username', async (req, res) => {
                 }
             }
         }
-        const lastGamePlayedImageUrl = lastGamePlayedDesiredImage ?? DEFAULT_TROPHY_CARD_BACKGROUND;
+        const lastGamePlayedImageUrl = lastGamePlayedDesiredImage ?? getRandomBackground();
 
         // API response
         res.json({ accountId: profile.profile.accountId,
