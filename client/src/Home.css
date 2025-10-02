@@ -7,6 +7,7 @@
 #root {
   width: 100%;
   font-family: 'Bitter';
+  font-size: clamp(12px, 0.8vw, 16px);
   --bottom-row-height: 15vh;
 }
 
@@ -27,26 +28,26 @@
 }
 
 .logo {
-  margin-right: 15px;
+  margin-right: 0.938rem;
   flex-shrink: 0;
   transition: box-shadow 0.3s ease-in-out;
 }
 
 .logo img:hover {
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 0.625rem 1.25rem rgba(0, 0, 0, 0.4);
 }
 
 .logo img {
   width: 100%;
-  max-width: 347px;
-  margin-top: 15px;
+  max-width: 21.688rem;
+  margin-top: 0.938rem;
 }
 
 .header-container {
   background-color: #353935;
   width: 100%;
-  padding: 10px 10px 20px 20px;
-  border-radius: 15px;
+  padding: 0.625rem 0.625rem 1.25rem 1.25rem;
+  border-radius: 0.938rem;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -55,13 +56,13 @@
 
 .welcome-message {
   color: #E5E4E2;
-  font-size: 18px;
+  font-size: 1.125rem;
   line-height: 1.5;
 }
 
 .fetch-trophy-container {
   display: flex;
-  gap: 15px;
+  gap: 0.938rem;
   align-items: center;
   position: relative;
 }
@@ -76,17 +77,16 @@
 .input-psn-id {
   background-color: #E5E4E2;
   color: #3D6685;
-  padding: 10px 15px;
+  padding: 0.625rem 0.938rem;
   width: 100%;
   font-family: 'Bitter';
-  font-size: 16px;
-  width: 400px;
+  font-size: 1rem;
+  width: 25rem;
   border: 0;
 }
 
 .input-psn-id:focus {
   outline: none;
-  box-shadow: 0 0 30px #E5E4E2;
   border: 0;
 }
 
@@ -98,19 +98,19 @@
   display: flex;
   align-items: center;
   position: absolute;
-  right: 5px;
+  right: 0.313rem;
 }
 
 .buttons {
   font-weight: 700;
-  font-size: 16px;
+  font-size: 1rem;
   font-family: 'Montserrat';
   font-style: italic;
   color: #E5E4E2;
   background-color: #0455BF;
-  padding: 10px 15px;
+  padding: 0.625rem 0.938rem;
   border: #353935;
-  border-radius: 3px;
+  border-radius: 0.188rem;
 }
 
 .buttons:hover {
@@ -121,14 +121,14 @@
 
 .buttons:active {
   background-color: #0047AB;
-  transform: translateY(1px);
+  transform: translateY(0.063rem);
   box-shadow: none;
   border: #353935;
 }
 
 .message-container {
   position: absolute;
-  left: calc(100% + 15px);
+  left: calc(100% + 0.938rem);
   top: 50%;
   transform: translateY(-50%);
   white-space: nowrap;
@@ -136,7 +136,7 @@
 
 .loading-text {
   color: #E5E4E2;
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: 700;
   animation: pulse 1s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
@@ -157,7 +157,7 @@
 
 .content {
   display: flex;
-  margin-top: 16px;
+  margin-top: 1rem;
   background-color: #E5E4E2;
   flex-grow: 1;
   width: 100%;
@@ -179,18 +179,18 @@
   z-index: 1;
   pointer-events: none;
   background: linear-gradient(to top, #FB5B36, transparent);
-  height: 80px;
+  height: 5rem;
   mask-image: url('/wave-mask.svg');
   mask-size: 100% 100%;
 }
 
 .profile-container {
   flex-shrink: 0;
-  max-width: 600px;
+  max-width: 37.5rem;
   width: 100%;
   background-color: #353935;
-  border-top-left-radius: 15px;
-  border-bottom-left-radius: 15px;
+  border-top-left-radius: 0.938rem;
+  border-bottom-left-radius: 0.938rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -198,8 +198,8 @@
 }
 
 .avatar img {
-  width: 192px;
-  height: 192px;
+  width: 12rem;
+  height: 12rem;
   opacity: 0.8;
 }
 
@@ -216,20 +216,20 @@
   -webkit-text-fill-color: transparent;
   color: transparent;
   font-weight: 700;
-  font-size: 25px;
+  font-size: 1.563rem;
   font-family: 'Play';
 }
 
 .plus {
-  margin-bottom: 16px;
+  margin-bottom: 1rem;
   display: none;
-  margin-right: 10px;
+  margin-right: 0.625rem;
   flex-shrink: 0;
 }
 
 .plus img {
-  width: 25px;
-  height: 25px;
+  width: 1.563rem;
+  height: 1.563rem;
 }
 
 .plus-active {
@@ -240,42 +240,42 @@
   display: flex;
   flex-direction: column;
   background-color: rgb(255 255 255 / 10%);
-  padding: 10px;
-  border-radius: 15px;
+  padding: 0.625rem;
+  border-radius: 0.938rem;
   width: 50%;
 }
 
 .level-and-trophy-pair {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 0.625rem;
 }
 
 .trophy-icon img {
-  width: 35px;
-  height: 35px;
+  width: 2.188rem;
+  height: 2.188rem;
 }
 
 .trophy-icon-text {
   font-style: italic;
   font-weight: 500;
-  font-size: 18px;
+  font-size: 1.125rem;
   font-family: 'Montserrat';
 }
 
 .trophy-icon-label {
   font-style: italic;
   font-weight: 800;
-  font-size: 18px;
+  font-size: 1.125rem;
   font-family: 'Montserrat';
 }
 
 .next-level-progress-bar {
   width: 100%;
   background-color: #353935;
-  border: 1px solid #353935;
+  border: 0.063rem solid #353935;
   overflow: hidden;
-  height: 18px;
+  height: 1.125rem;
   position: relative;
 }
 
@@ -294,33 +294,33 @@
   color: #353935;
   font-style: italic;
   font-weight: 800;
-  font-size: 12px;
+  font-size: 0.75rem;
   font-family: 'Montserrat';
 }
 
 .next-level-progress-bar-text-outside {
   position: absolute;
   top: 50%;
-  right: 5px;
+  right: 0.313rem;
   transform: translateY(-50%);
   color: #E5E4E2;
   font-family: 'Montserrat';
-  font-size: 12px;
+  font-size: 0.75rem;
   font-weight: 800;
   z-index: 1;
 }
 
 .last-message {
-  margin-top: 20px;
+  margin-top: 1.25rem;
 }
 
 .last-message-label {
-  font-size: 18px;
+  font-size: 1.125rem;
   line-height: 1.5;
   font-style: italic;
   color: #E5E4E2;
   text-align: center;
-  padding: 5px;
+  padding: 0.313rem;
   text-align: left;
 }
 
@@ -331,19 +331,18 @@
 .trophy-card-container {
   flex-grow: 1;
   background-color: #353935;
-  border-top-right-radius: 15px;
-  border-bottom-right-radius: 15px;
+  border-top-right-radius: 0.938rem;
+  border-bottom-right-radius: 0.938rem;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 20px;
   flex-direction: column;
-  gap: 10px;
+  gap: 0.625rem;
 }
 
 .trophy-card {
-  width: 600px;
-  height: 200px;
+  width: 37.5rem;
+  height: 12.5rem;
   background-size: cover;
   background-position: center;
   position: relative;
@@ -351,11 +350,11 @@
 }
 
 .top-row {
-  height: 48px;
+  height: 3rem;
   background: rgba(0, 0, 0, 0.5);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(2px);
-  -webkit-backdrop-filter: blur(2px);
+  box-shadow: 0 0.25rem 1.875rem rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(0.125rem);
+  -webkit-backdrop-filter: blur(0.125rem);
   display: flex;
   justify-content: space-between;
   opacity: 0.9;
@@ -367,24 +366,24 @@
 }
 
 .trophy-card-avatar {
-  margin-right: 5px;
+  margin-right: 0.313rem;
 }
 
 .trophy-card-avatar img {
-  width: 48px;
-  height: 48px;
+  width: 3rem;
+  height: 3rem;
   display: block;
 }
 
 .trophy-card-plus {
-  margin-top: 7px;
-  margin-right: 5px;
+  margin-top: 0.438rem;
+  margin-right: 0.313rem;
   display: none;
 }
 
 .trophy-card-plus img {
-  width: 20px;
-  height: 20px;
+  width: 1.25rem;
+  height: 1.25rem;
 }
 
 .trophy-card-plus-active {
@@ -394,30 +393,30 @@
 .trophy-card-username {
   color: #E5E4E2;
   font-weight: 700;
-  font-size: 20px;
+  font-size: 1.25rem;
   font-family: 'Bitter';
   text-shadow: 
-    -1px -1px 0 #353935,  
-    1px -1px 0 #353935,
-    -1px 1px 0 #353935,
-    1px 1px 0 #353935;
+    -0.0625rem -0.0625rem 0 #353935,  
+    0.063rem -0.0625rem 0 #353935,
+    -0.0625rem 0.063rem 0 #353935,
+    0.063rem 0.063rem 0 #353935;
 }
 
 .trophy-card-top-row-right-side-container {
   display: flex;
-  gap: 20px;
+  gap: 1.25rem;
 }
 
 .trophy-card-level-container {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 0.625rem;
 }
 
 .trophy-card-level-icon img {
-  width: 45px;
-  height: 45px;
-  padding: 2px;
+  width: 2.813rem;
+  height: 2.813rem;
+  padding: 0.125rem;
   display: block;
   justify-content: center;
   align-items: center;
@@ -437,35 +436,35 @@
   font-weight: 700;
   font-family: 'Montserrat';
   text-shadow: 
-    -1px -1px 0 #353935,  
-    1px -1px 0 #353935,
-    -1px 1px 0 #353935,
-    1px 1px 0 #353935;
-  margin-bottom: -8px;
+    -0.0625rem -0.0625rem 0 #353935,  
+    0.063rem -0.0625rem 0 #353935,
+    -0.0625rem 0.063rem 0 #353935,
+    0.063rem 0.063rem 0 #353935;
+  margin-bottom: -0.5rem;
 }
 
 .trophy-card-level {
   color: #E5E4E2;
   font-weight: 700;
-  font-size: 20px;
+  font-size: 1.25rem;
   font-family: 'Montserrat';
   text-shadow: 
-    -1px -1px 0 #353935,  
-    1px -1px 0 #353935,
-    -1px 1px 0 #353935,
-    1px 1px 0 #353935;
+    -0.0625rem -0.0625rem 0 #353935,  
+    0.063rem -0.0625rem 0 #353935,
+    -0.0625rem 0.063rem 0 #353935,
+    0.063rem 0.063rem 0 #353935;
 }
 
 .trophy-card-earned-trophies-container {
   display: flex;
   align-items: center;
-  gap: 10px;
-  margin-right: 10px;
+  gap: 0.625rem;
+  margin-right: 0.625rem;
 }
 
 .trophy-card-earned-trophies-icon img {
-  width: 35px;
-  height: 35px;
+  width: 2.188rem;
+  height: 2.188rem;
   display: block;
 }
 
@@ -480,9 +479,9 @@
 .trophy-card-game-container {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
+  gap: 0.625rem;
   place-items: center;
-  padding: 10px;
+  padding: 0.625rem;
 }
 
 .trophy-card-game-pair {
@@ -492,55 +491,55 @@
 .trophy-card-game-logo img {
   width: calc(var(--bottom-row-height) * 0.5);
   height: calc(var(--bottom-row-height) * 0.5);
-  max-width: 51.2px;
-  max-height: 51.2px;
+  max-width: 3.2rem;
+  max-height: 3.2rem;
   display: block;
 }
 
 .trophy-card-trophy-container {
   background: rgba(0, 0, 0, 0.5);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(2px);
-  -webkit-backdrop-filter: blur(2px);
+  box-shadow: 0 0.25rem 1.875rem rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(0.125rem);
+  -webkit-backdrop-filter: blur(0.125rem);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
   flex-wrap: wrap;
-  gap: 5px;
+  gap: 0.313rem;
 }
 
 .trophy-card-trophy-pair {
   display: flex;
   align-items: center;
-  gap: 5px;
-  margin-right: 10px;
-  margin-top: 5px;
+  gap: 0.313rem;
+  margin-right: 0.625rem;
+  margin-top: 0.313rem;
 }
 
 .trophy-card-trophy-icon img {
-  width: 25px;
-  height: 25px;
+  width: 1.563rem;
+  height: 1.563rem;
   display: block;
 }
 
 .trophy-card-trophy-text {
   color: #E5E4E2;
   font-weight: 700;
-  font-size: 15px;
+  font-size: 0.938rem;
   font-family: 'Montserrat';
   text-shadow: 
-    -1px -1px 0 #353935,  
-    1px -1px 0 #353935,
-    -1px 1px 0 #353935,
-    1px 1px 0 #353935;
+    -0.0625rem -0.0625rem 0 #353935,  
+    0.063rem -0.0625rem 0 #353935,
+    -0.0625rem 0.063rem 0 #353935,
+    0.063rem 0.063rem 0 #353935;
   margin: 0;
 }
 
 .trophy-card-function-container {
   display: flex;
   flex-direction: column;
-  padding: 5px;
+  padding: 0.313rem;
   align-items: center;
 }
 
@@ -555,7 +554,7 @@
 
 .trophy-card-function {
   display: flex;
-  gap: 10px;
+  gap: 0.625rem;
   justify-content: center;
 }
 
@@ -563,7 +562,7 @@
   width: 100%;
   box-sizing: border-box;
   opacity: 0;
-  transform: translateY(-20px);
+  transform: translateY(-1.25rem);
   transition: 
     max-height 0.3s ease-in-out, 
     transform 0.3s ease-in-out, 
@@ -576,10 +575,10 @@
 }
 
 .trophy-card-function-frame.open {
-  max-height: 500px;
+  max-height: 31.25rem;
   background-color: rgb(255 255 255 / 10%);
-  padding: 10px;
-  border-radius: 3px;
+  padding: 0.625rem;
+  border-radius: 0.188rem;
   opacity: 1;
   transform: translateY(0);
   transition: 
@@ -591,16 +590,16 @@
 .trophy-card-function-frame-label {
   color: #E5E4E2;
   font-weight: 700;
-  font-size: 14px;
+  font-size: 0.875rem;
   font-family: 'Bitter';
   text-shadow:
-    -1px -1px 0 #353935,
-    1px -1px 0 #353935,
-    -1px 1px 0 #353935,
-    1px 1px 0 #353935;
+    -0.0625rem -0.0625rem 0 #353935,  
+    0.063rem -0.0625rem 0 #353935,
+    -0.0625rem 0.063rem 0 #353935,
+    0.063rem 0.063rem 0 #353935;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 0.625rem;
 }
 
 .trophy-card-function-frame-row {
@@ -612,7 +611,7 @@
 
 .input-upload-image-container {
   display: flex;
-  gap: 10px;
+  gap: 0.625rem;
   justify-content: center;
 }
 
@@ -622,10 +621,10 @@
 }
 
 .input-upload-image-loading {
-    width: 15px;
-    height: 15px;
-    border: 5px solid transparent;
-    border-top: 5px solid #98DB7C;
+    width: 0.938rem;
+    height: 0.938rem;
+    border: 0.313rem solid transparent;
+    border-top: 0.313rem solid #98DB7C;
     border-radius: 50%;
     animation: spin 1s linear infinite;
 }
@@ -637,14 +636,14 @@
 
 .function-frame-buttons {
   font-weight: 700;
-  font-size: 12px;
+  font-size: 0.75rem;
   font-family: 'Montserrat';
   font-style: italic;
   color: #E5E4E2;
   background-color: #0455BF;
-  padding: 5px;
+  padding: 0.313rem;
   border: #353935;
-  border-radius: 3px;
+  border-radius: 0.188rem;
 }
 
 .function-frame-buttons:hover {
@@ -655,7 +654,7 @@
 
 .function-frame-buttons:active {
   background-color: #0047AB;
-  transform: translateY(1px);
+  transform: translateY(0.063rem);
   box-shadow: none;
   border: #353935;
 }
