@@ -99,7 +99,16 @@ function Home() {
 
   // Input username field handling
   const handleInputChange = (event) => {
-    setPsnId(event.target.value);
+    const inputValue = event.target.value;
+    const MAX_LENGTH = 16;
+    if (inputValue.length <= MAX_LENGTH) {
+      setPsnId(inputValue);
+    }
+    if (inputValue.length >= MAX_LENGTH) {
+        setError('Maximum character limit reached (16 characters)');
+    } else {
+        setError('');
+    }
   };
 
   // Ctrl + K shortcut handling
@@ -328,6 +337,7 @@ function Home() {
                   className='input-psn-id'
                   placeholder='Enter a PSN username'
                   value={psnId}
+                  maxLength={16}
                   onChange={handleInputChange}
                   onKeyDown={handleEnterKey}
                 />
