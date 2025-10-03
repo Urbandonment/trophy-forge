@@ -7,7 +7,6 @@
 #root {
   width: 100%;
   font-family: 'Bitter';
-  font-size: clamp(12px, 0.8vw, 16px);
   --bottom-row-height: 15vh;
 }
 
@@ -131,7 +130,8 @@
   left: calc(100% + 0.938rem);
   top: 50%;
   transform: translateY(-50%);
-  white-space: nowrap;
+  white-space: normal;
+  width: 23.5rem;
 }
 
 .loading-text {
