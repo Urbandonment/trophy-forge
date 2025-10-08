@@ -55,7 +55,8 @@
 
 .welcome-message {
   color: #E5E4E2;
-  font-size: 1.125rem;
+  /* font-size: 1.125rem; */
+  font-size: clamp(calc(1.125rem * 0.8), 0.879vw, calc(1.125rem * 1.2));
   line-height: 1.5;
 }
 
