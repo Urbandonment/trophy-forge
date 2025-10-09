@@ -180,8 +180,8 @@
     z-index: 0;
     background-image: linear-gradient(
         to bottom, 
-        transparent 20%,
-        #353935 50%
+        transparent 10%,
+        #353935 60%
     );
     pointer-events: none;
 }
