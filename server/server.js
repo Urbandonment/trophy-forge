@@ -125,6 +125,7 @@ app.get('/api/psn-profile/:username', async (req, res) => {
         let lastGamePlayedDesiredImage = null;
         if (lastGamePlayedImage) {
             for (let i = 0; i < lastGamePlayedImage.length; i++) {
+                // console.log(lastGamePlayedImage[i].type + ': ' + lastGamePlayedImage[i].url);
                 if (lastGamePlayedImage[i].type === 'GAMEHUB_COVER_ART') {
                     lastGamePlayedDesiredImage = lastGamePlayedImage[i].url;
                     break;

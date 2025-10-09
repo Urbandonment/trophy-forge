@@ -361,7 +361,15 @@ function Home() {
       </div>
 
       <div className='content'>
-        <div className='content-container'>
+        <div className='content-container'
+          style={{
+            backgroundImage: `url('${currentBackgroundImage}')`, 
+            backgroundColor: 'rgba(0, 0, 0, 0.6)',
+            backgroundBlendMode: 'overlay',
+            backgroundSize: 'cover',
+            backgroundPosition: '50% 55%',
+            backgroundRepeat: 'no-repeat',
+            borderRadius: '0.938rem'}}>
           <div className='profile-container'>
               <span className='avatar'>
                 {avatarUrl && <img src={avatarUrl} alt='💀' />}
@@ -437,6 +445,8 @@ function Home() {
                 style={{
                   backgroundImage: `url('${currentBackgroundImage}')`, 
                   backgroundColor: 'rgba(0, 0, 0, 0.3)',
+                  backgroundSize: 'cover',
+                  backgroundPosition: '50% 45%',
                   backgroundBlendMode: 'overlay'}}>
                   <div className='top-row'>
                     <div className='trophy-card-user-container'>
