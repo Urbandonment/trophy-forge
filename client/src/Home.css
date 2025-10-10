@@ -361,6 +361,27 @@
   gap: clamp(calc(0.625rem * 0.7), 0.488vw, calc(0.625rem * 1.2));
 }
 
+.trophy-card-top-container {
+  display: flex;
+  flex-direction: row;
+  width: max-content;
+  align-items: center;
+}
+
+.trophy-card-side-buttons-container {
+  flex-grow: 1;
+}
+
+.trophy-card-side-buttons {
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+  box-sizing: border-box;
+  position: relative;
+  gap: 1rem;
+  margin-left: 1rem;
+}
+
 .trophy-card {
   width: clamp(calc(37.5rem * 0.7), 29.297vw, calc(37.5rem * 1.2));
   height: clamp(calc(12.5rem * 0.7), 9.766vw, calc(12.5rem * 1.2));

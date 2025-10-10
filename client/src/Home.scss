@@ -401,6 +401,27 @@ $target-viewport-width: 2048;
   @include rem-clamp(gap, 0.625rem);
 }
 
+.trophy-card-top-container {
+  display: flex;
+  flex-direction: row;
+  width: max-content;
+  align-items: center;
+}
+
+.trophy-card-side-buttons-container {
+  flex-grow: 1;
+}
+
+.trophy-card-side-buttons {
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+  box-sizing: border-box;
+  position: relative;
+  gap: 1rem;
+  margin-left: 1rem;
+}
+
 .trophy-card {
   @include rem-clamp(width, 37.5rem);
   @include rem-clamp(height, 12.5rem);
