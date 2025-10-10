@@ -1,3 +1,4 @@
+@use "sass:math";
 @import url('https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,100..900;1,100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Play:wght@400;700&display=swap');
@@ -12,16 +13,16 @@ $target-viewport-width: 2048;
 
 // Helper function to remove units (necessary for clean SCSS math)
 @function strip-unit($value) {
-  @return $value / ($value * 0 + 1);
+  @return math.div($value, $value * 0 + 1);
 }
 
 @function rem-to-vw($rem-value) {
     // 1. Get the unitless number from the rem value (e.g., 1.125)
     $unitless-rem: strip-unit($rem-value); 
     // 2. Perform the full calculation as a unitless number in SASS
-    $vw-factor: $unitless-rem * $base-font-size / $target-viewport-width * 100;
+    $vw-factor: math.div($unitless-rem * $base-font-size, $target-viewport-width) * 100;
     // 3. Round the unitless number to 3 decimal places
-    $rounded-factor: round($vw-factor * 1000) / 1000;
+    $rounded-factor: math.div(round($vw-factor * 1000), 1000);
     // 4. Attach the 'vw' unit and return
     @return $rounded-factor * 1vw;
 }
