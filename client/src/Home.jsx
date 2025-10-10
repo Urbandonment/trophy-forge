@@ -342,8 +342,8 @@ function Home() {
                   onKeyDown={handleEnterKey}
                 />
                 <div className='shortcut-keys'>
-                  <img src={CtrlKey} alt='💀' style={{height: '37px'}} />
-                  <img src={KKey} alt='💀' style={{height: '30px'}} />
+                  <img id='ctrl-key' src={CtrlKey} alt='💀' />
+                  <img id='k-key' src={KKey} alt='💀' />
                 </div>
               </div>
               <button
@@ -464,7 +464,7 @@ function Home() {
                             <img src={getLevelIcon(level)} alt='💀'></img>
                           </span>
                           <div className='trophy-card-level-wrapper'>
-                            <p style={{fontSize: '14px'}}>Level</p>
+                            <p>Level</p>
                             <p className='trophy-card-level'>{level}</p>
                           </div>
                         </div>
@@ -473,7 +473,7 @@ function Home() {
                             <img src={EarnedTrophies} alt='💀'></img>
                           </span>
                           <div className='trophy-card-level-wrapper'>
-                            <p style={{fontSize: '14px'}}>Trophies</p>
+                            <p>Trophies</p>
                             <p className='trophy-card-level'>{earnedTrophies}</p>
                           </div>
                         </div>
@@ -567,11 +567,7 @@ function Home() {
                           <input className='input-upload-image' style={{
                               backgroundColor: '#E5E4E2',
                               color: '#3D6685',
-                              padding: '5px',
                               fontFamily: 'Bitter',
-                              fontSize: '14px',
-                              width: '300px',
-                              height: '17px',
                               border: 0}}
                             type='text'
                             placeholder='Paste an image URL'

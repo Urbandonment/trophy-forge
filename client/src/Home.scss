@@ -1,0 +1,735 @@
+@import url('https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Play:wght@400;700&display=swap');
+/* Icon Attribution: https://www.flaticon.com/authors/freepik | https://www.freepik.com/author/swky23 */
+/* Test Image URL: https://images4.alphacoders.com/115/1159970.jpg */
+
+// Base REM size used for calculations
+$base-font-size: 16;
+
+// Target viewport width for accurate vw conversion
+$target-viewport-width: 2048;
+
+// Helper function to remove units (necessary for clean SCSS math)
+@function strip-unit($value) {
+  @return $value / ($value * 0 + 1);
+}
+
+@function rem-to-vw($rem-value) {
+    // 1. Get the unitless number from the rem value (e.g., 1.125)
+    $unitless-rem: strip-unit($rem-value); 
+    // 2. Perform the full calculation as a unitless number in SASS
+    $vw-factor: $unitless-rem * $base-font-size / $target-viewport-width * 100;
+    // 3. Round the unitless number to 3 decimal places
+    $rounded-factor: round($vw-factor * 1000) / 1000;
+    // 4. Attach the 'vw' unit and return
+    @return $rounded-factor * 1vw;
+}
+
+@mixin rem-clamp($property, $rem-value) {
+    // Define MIN, PREFERRED (vw), and MAX values
+    $min-rem: calc(#{$rem-value} * 0.7);
+    $max-rem: calc(#{$rem-value} * 1.2);
+    $vw-value: rem-to-vw($rem-value);
+    // Output the final CSS property with clamp()
+    #{$property}: clamp(#{$min-rem}, #{$vw-value}, #{$max-rem});
+}
+
+#root {
+  width: 100%;
+  font-family: 'Bitter';
+  --bottom-row-height: 15vh;
+}
+
+.page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+//   @include rem-clamp(padding, 1rem);
+  @include rem-clamp(padding, 1rem);
+  background-color: #E5E4E2;
+  box-sizing: border-box;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  width: 100%;
+}
+
+.logo {
+  @include rem-clamp(margin-right, 0.938rem);
+  flex-shrink: 0;
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+.logo img:hover {
+  box-shadow: 0 0.625rem 1.25rem rgba(0, 0, 0, 0.4);
+}
+
+.logo img {
+  width: 100%;
+  @include rem-clamp(max-width, 21.688rem);
+  @include rem-clamp(margin-top, 0.938rem);
+}
+
+.header-container {
+  background-color: #353935;
+  width: 100%;
+  padding: 0.625rem 0.625rem 1.25rem 1.25rem;
+  @include rem-clamp(border-radius, 0.938rem);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  flex-grow: 1;
+}
+
+.welcome-message {
+  color: #E5E4E2;
+  @include rem-clamp(font-size, 1.125rem);
+  line-height: 1.5;
+}
+
+.fetch-trophy-container {
+  display: flex;
+  @include rem-clamp(gap, 0.938rem);
+  align-items: center;
+  position: relative;
+}
+
+.input-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+}
+
+.input-psn-id {
+  background-color: #E5E4E2;
+  color: #3D6685;
+  padding: 0.625rem 0.938rem;
+  width: 100%;
+  font-family: 'Bitter';
+  @include rem-clamp(font-size, 1rem);
+  @include rem-clamp(width, 25rem);
+  border: 0;
+}
+
+.input-psn-id:focus {
+  outline: none;
+  border: 0;
+}
+
+.input-psn-id:focus + .shortcut-keys {
+  opacity: 0.5;
+}
+
+.shortcut-keys {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  @include rem-clamp(right, 0.313rem);
+}
+
+.shortcut-keys #ctrl-key {
+    @include rem-clamp(height, 2.313rem);
+}
+
+.shortcut-keys #k-key {
+    @include rem-clamp(height, 1.875rem);
+}
+
+.buttons {
+  font-weight: 700;
+  @include rem-clamp(font-size, 1rem);
+  font-family: 'Montserrat';
+  font-style: italic;
+  color: #E5E4E2;
+  background-color: #0455BF;
+  padding: 0.625rem 0.938rem;
+  border: #353935;
+  @include rem-clamp(border-radius, 0.188rem);
+}
+
+.buttons:hover {
+  cursor: pointer;
+  outline: none;
+  border: #E5E4E2;
+}
+
+.buttons:active {
+  background-color: #0047AB;
+  transform: translateY(0.063rem);
+  box-shadow: none;
+  border: #353935;
+}
+
+.message-container {
+  position: absolute;
+  left: calc(100% + 0.938rem);
+  top: 50%;
+  transform: translateY(-50%);
+  width: 100%;
+}
+
+.loading-text {
+  color: #E5E4E2;
+  @include rem-clamp(font-size, 1rem);
+  font-weight: 700;
+  animation: pulse 1s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.3;
+  }
+}
+
+.error-text {
+  color: #EE4B2B;
+  font-weight: 700;
+  @include rem-clamp(font-size, 1.125rem);
+}
+
+.content {
+  display: flex;
+  @include rem-clamp(margin-top, 1rem);
+  flex-grow: 1;
+  width: 100%;
+}
+
+.content-container {
+  display: flex;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  background-color: #353935;
+}
+
+.content-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    background-image: linear-gradient(
+        to bottom, 
+        transparent 10%,
+        #353935 65%
+    );
+    pointer-events: none;
+}
+
+.content-container::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(to top, #FB5B36, transparent);
+  @include rem-clamp(height, 5rem);
+  mask-image: url('/wave-mask.svg');
+  mask-size: 100% 100%;
+}
+
+.profile-container {
+  flex-shrink: 0;
+  @include rem-clamp(max-width, 37.5rem);
+  width: 100%;
+  @include rem-clamp(border-top-left-radius, 0.938rem);
+  @include rem-clamp(border-bottom-left-radius, 0.938rem);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative; 
+  z-index: 2;
+}
+
+.avatar img {
+  @include rem-clamp(width, 12rem);
+  @include rem-clamp(height, 12rem);
+  opacity: 0.8;
+}
+
+.username-and-plus {
+  display: flex;
+  align-items: center;
+}
+
+.username {
+  margin-top: 0;
+  background: linear-gradient(to right, #3D9970, #98DB7C, #3D9970);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  font-weight: 700;
+  @include rem-clamp(font-size, 1.563rem);
+  font-family: 'Play';
+}
+
+.plus {
+  @include rem-clamp(margin-bottom, 1rem);
+  display: none;
+  @include rem-clamp(margin-right, 0.625rem);
+  flex-shrink: 0;
+}
+
+.plus img {
+  @include rem-clamp(width, 1.563rem);
+  @include rem-clamp(height, 1.563rem);
+}
+
+.plus-active {
+  display: inline;
+}
+
+.level-and-trophy {
+  display: flex;
+  flex-direction: column;
+  background: rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0.25rem 1.875rem rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(0.125rem);
+  -webkit-backdrop-filter: blur(0.125rem);
+  @include rem-clamp(padding, 0.625rem);
+  @include rem-clamp(border-radius, 0.938rem);
+  width: 50%;
+}
+
+.level-and-trophy-pair {
+  display: flex;
+  align-items: center;
+  @include rem-clamp(gap, 0.625rem);
+}
+
+.trophy-icon img {
+  @include rem-clamp(width, 2.188rem);
+  @include rem-clamp(height, 2.188rem);
+}
+
+.trophy-icon-text {
+  font-style: italic;
+  font-weight: 500;
+  @include rem-clamp(font-size, 1.125rem);
+  font-family: 'Montserrat';
+}
+
+.trophy-icon-label {
+  font-style: italic;
+  font-weight: 800;
+  @include rem-clamp(font-size, 1.125rem);
+  font-family: 'Montserrat';
+}
+
+.next-level-progress-bar {
+  width: 100%;
+  background-color: #353935;
+  border: 0.063rem solid #353935;
+  overflow: hidden;
+  @include rem-clamp(height, 1.125rem);
+  position: relative;
+}
+
+.next-level-progress-bar-fill {
+  height: 100%;
+  background-color: #98DB7C;
+  transition: width 0.3s ease-in-out;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  box-sizing: border-box;
+}
+
+.next-level-progress-bar-text {
+  color: #353935;
+  font-style: italic;
+  font-weight: 800;
+  @include rem-clamp(font-size, 0.75rem);
+  font-family: 'Montserrat';
+}
+
+.next-level-progress-bar-text-outside {
+  position: absolute;
+  top: 50%;
+  @include rem-clamp(right, 0.313rem);
+  transform: translateY(-50%);
+  color: #E5E4E2;
+  font-family: 'Montserrat';
+  @include rem-clamp(font-size, 0.75rem);
+  font-weight: 800;
+  z-index: 1;
+}
+
+.last-message {
+  @include rem-clamp(margin-top, 1.25rem);
+}
+
+.last-message-label {
+//   @include rem-clamp(font-size, 1.125rem);
+  @include rem-clamp(font-size, 1.125rem);
+  line-height: 1.5;
+  font-style: italic;
+  color: #E5E4E2;
+  text-align: center;
+  @include rem-clamp(padding, 0.313rem);
+  text-align: left;
+}
+
+.last-message-text {
+  font-weight: 700;
+}
+
+.trophy-card-container {
+  flex-grow: 1;
+  @include rem-clamp(border-top-right-radius, 0.938rem);
+  @include rem-clamp(border-bottom-right-radius, 0.938rem);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  @include rem-clamp(gap, 0.625rem);
+}
+
+.trophy-card {
+  @include rem-clamp(width, 37.5rem);
+  @include rem-clamp(height, 12.5rem);
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.top-row {
+  @include rem-clamp(height, 3rem);
+  background: rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0.25rem 1.875rem rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(0.125rem);
+  -webkit-backdrop-filter: blur(0.125rem);
+  display: flex;
+  justify-content: space-between;
+  opacity: 0.9;
+}
+
+.trophy-card-user-container {
+  display: flex;
+  align-items: center;
+}
+
+.trophy-card-avatar {
+  @include rem-clamp(margin-right, 0.313rem);
+}
+
+.trophy-card-avatar img {
+  @include rem-clamp(width, 3rem);
+  @include rem-clamp(height, 3rem);
+  display: block;
+}
+
+.trophy-card-plus {
+  @include rem-clamp(margin-top, 0.438rem);
+  @include rem-clamp(margin-right, 0.313rem);
+  display: none;
+}
+
+.trophy-card-plus img {
+  @include rem-clamp(width, 1.25rem);
+  @include rem-clamp(height, 1.25rem);
+}
+
+.trophy-card-plus-active {
+  display: inline;
+}
+
+.trophy-card-username {
+  color: #E5E4E2;
+  font-weight: 700;
+  @include rem-clamp(font-size, 1.25rem);
+  font-family: 'Bitter';
+  text-shadow: 
+    -0.0625rem -0.0625rem 0 #353935,  
+    0.063rem -0.0625rem 0 #353935,
+    -0.0625rem 0.063rem 0 #353935,
+    0.063rem 0.063rem 0 #353935;
+}
+
+.trophy-card-top-row-right-side-container {
+  display: flex;
+  @include rem-clamp(gap, 1.25rem);
+}
+
+.trophy-card-level-container {
+  display: flex;
+  align-items: center;
+  @include rem-clamp(gap, 0.625rem);
+}
+
+.trophy-card-level-icon img {
+  @include rem-clamp(width, 2.813rem);
+  @include rem-clamp(height, 2.813rem);
+  @include rem-clamp(padding, 0.125rem);
+  display: block;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.trophy-card-level-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  @include rem-clamp(font-size, 0.875rem);
+}
+
+.trophy-card-level-wrapper p {
+  margin: 0;
+  color: #E5E4E2;
+  font-weight: 700;
+  font-family: 'Montserrat';
+  text-shadow: 
+    -0.0625rem -0.0625rem 0 #353935,  
+    0.063rem -0.0625rem 0 #353935,
+    -0.0625rem 0.063rem 0 #353935,
+    0.063rem 0.063rem 0 #353935;
+  @include rem-clamp(margin-bottom, -0.5rem);
+}
+
+.trophy-card-level {
+  color: #E5E4E2;
+  font-weight: 700;
+  @include rem-clamp(font-size, 1.25rem);
+  font-family: 'Montserrat';
+  text-shadow: 
+    -0.0625rem -0.0625rem 0 #353935,  
+    0.063rem -0.0625rem 0 #353935,
+    -0.0625rem 0.063rem 0 #353935,
+    0.063rem 0.063rem 0 #353935;
+}
+
+.trophy-card-earned-trophies-container {
+  display: flex;
+  align-items: center;
+  @include rem-clamp(gap, 0.625rem);
+  @include rem-clamp(margin-right, 0.625rem);
+}
+
+.trophy-card-earned-trophies-icon img {
+  @include rem-clamp(width, 2.188rem);
+  @include rem-clamp(height, 2.188rem);
+  display: block;
+}
+
+.bottom-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  height: var(--bottom-row-height);
+  opacity: 0.9;
+}
+
+.trophy-card-game-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  @include rem-clamp(gap, 0.625rem);
+  place-items: center;
+  @include rem-clamp(padding, 0.625rem);
+}
+
+.trophy-card-game-pair {
+  display: flex;
+}
+
+.trophy-card-game-logo img {
+  width: calc(var(--bottom-row-height) * 0.5);
+  height: calc(var(--bottom-row-height) * 0.5);
+  @include rem-clamp(max-width, 3.2rem);
+  @include rem-clamp(max-height, 3.2rem);
+  display: block;
+}
+
+.trophy-card-trophy-container {
+  background: rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0.25rem 1.875rem rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(0.125rem);
+  -webkit-backdrop-filter: blur(0.125rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  @include rem-clamp(gap, 0.313rem);
+}
+
+.trophy-card-trophy-pair {
+  display: flex;
+  align-items: center;
+  @include rem-clamp(gap, 0.313rem);
+  @include rem-clamp(margin-right, 0.625rem);
+  @include rem-clamp(margin-top, 0.313rem);
+}
+
+.trophy-card-trophy-icon img {
+  @include rem-clamp(width, 1.563rem);
+  @include rem-clamp(height, 1.563rem);
+  display: block;
+}
+
+.trophy-card-trophy-text {
+  color: #E5E4E2;
+  font-weight: 700;
+  @include rem-clamp(font-size, 0.938rem);
+  font-family: 'Montserrat';
+  text-shadow: 
+    -0.0625rem -0.0625rem 0 #353935,  
+    0.063rem -0.0625rem 0 #353935,
+    -0.0625rem 0.063rem 0 #353935,
+    0.063rem 0.063rem 0 #353935;
+  margin: 0;
+}
+
+.trophy-card-function-container {
+  display: flex;
+  flex-direction: column;
+  @include rem-clamp(padding, 0.313rem);
+  align-items: center;
+}
+
+.trophy-card-function-and-frame {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: fit-content;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.trophy-card-function {
+  display: flex;
+  @include rem-clamp(gap, 0.625rem);
+  justify-content: center;
+}
+
+.trophy-card-function-frame {
+  width: 100%;
+  box-sizing: border-box;
+  opacity: 0;
+  transform: translateY(-1.25rem);
+  transition: 
+    max-height 0.3s ease-in-out, 
+    transform 0.3s ease-in-out, 
+    opacity 0.3s ease-in-out;
+  position: absolute;
+  top: 100%;
+  z-index: 1;
+  max-height: 0;
+  overflow: hidden;
+}
+
+.trophy-card-function-frame.open {
+  @include rem-clamp(max-height, 31.25rem);
+  background-color: rgb(255 255 255 / 10%);
+  @include rem-clamp(padding, 0.625rem);
+  @include rem-clamp(border-radius, 0.188rem);
+  opacity: 1;
+  transform: translateY(0);
+  transition: 
+    max-height 0.3s ease-in-out, 
+    transform 0.3s ease-in-out, 
+    opacity 0.05s ease-in-out;
+}
+
+.trophy-card-function-frame-label {
+  color: #E5E4E2;
+  font-weight: 700;
+  @include rem-clamp(font-size, 0.875rem);
+  font-family: 'Bitter';
+  text-shadow:
+    -0.0625rem -0.0625rem 0 #353935,  
+    0.063rem -0.0625rem 0 #353935,
+    -0.0625rem 0.063rem 0 #353935,
+    0.063rem 0.063rem 0 #353935;
+  display: flex;
+  flex-direction: column;
+  @include rem-clamp(gap, 0.625rem);
+}
+
+.trophy-card-function-frame-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.input-upload-image-container {
+  display: flex;
+  @include rem-clamp(gap, 0.625rem);
+  justify-content: center;
+}
+
+.input-upload-image {
+    @include rem-clamp(padding, 0.313rem);
+    @include rem-clamp(font-size, 0.875rem);
+    @include rem-clamp(width, 18.75rem);
+    @include rem-clamp(height, 1.063rem);
+}
+
+.input-upload-image:focus {
+  outline: none;
+  border: 0;
+}
+
+.input-upload-image-loading {
+    @include rem-clamp(width, 0.938rem);
+    @include rem-clamp(height, 0.938rem);
+    border: 0.313rem solid transparent;
+    border-top: 0.313rem solid #98DB7C;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.function-frame-buttons {
+  font-weight: 700;
+  @include rem-clamp(font-size, 0.75rem);
+  font-family: 'Montserrat';
+  font-style: italic;
+  color: #E5E4E2;
+  background-color: #0455BF;
+  @include rem-clamp(padding, 0.313rem);
+  border: #353935;
+  @include rem-clamp(border-radius, 0.188rem);
+}
+
+.function-frame-buttons:hover {
+  cursor: pointer;
+  outline: none;
+  border: #E5E4E2;
+}
+
+.function-frame-buttons:active {
+  background-color: #0047AB;
+  transform: translateY(0.063rem);
+  box-shadow: none;
+  border: #353935;
+}
+
+.function-frame-buttons.is-disabled:active {
+  background-color: #808080;
+  transform: none;
+  box-shadow: none;
+  border: #353935;
+}

@@ -1,12 +1,11 @@
-@import url('https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,100..900;1,100..900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Play:wght@400;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,100..900;1,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Play:wght@400;700&display=swap");
 /* Icon Attribution: https://www.flaticon.com/authors/freepik | https://www.freepik.com/author/swky23 */
 /* Test Image URL: https://images4.alphacoders.com/115/1159970.jpg */
-
 #root {
   width: 100%;
-  font-family: 'Bitter';
+  font-family: "Bitter";
   --bottom-row-height: 15vh;
 }
 
@@ -14,7 +13,7 @@
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  padding: 1rem;
+  padding: clamp(calc(1rem * 0.7), 0.781vw, calc(1rem * 1.2));
   background-color: #E5E4E2;
   box-sizing: border-box;
 }
@@ -27,7 +26,7 @@
 }
 
 .logo {
-  margin-right: 0.938rem;
+  margin-right: clamp(calc(0.938rem * 0.7), 0.733vw, calc(0.938rem * 1.2));
   flex-shrink: 0;
   transition: box-shadow 0.3s ease-in-out;
 }
@@ -38,15 +37,15 @@
 
 .logo img {
   width: 100%;
-  max-width: 21.688rem;
-  margin-top: 0.938rem;
+  max-width: clamp(calc(21.688rem * 0.7), 16.944vw, calc(21.688rem * 1.2));
+  margin-top: clamp(calc(0.938rem * 0.7), 0.733vw, calc(0.938rem * 1.2));
 }
 
 .header-container {
   background-color: #353935;
   width: 100%;
   padding: 0.625rem 0.625rem 1.25rem 1.25rem;
-  border-radius: 0.938rem;
+  border-radius: clamp(calc(0.938rem * 0.7), 0.733vw, calc(0.938rem * 1.2));
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -55,14 +54,13 @@
 
 .welcome-message {
   color: #E5E4E2;
-  /* font-size: 1.125rem; */
-  font-size: clamp(calc(1.125rem * 0.8), 0.879vw, calc(1.125rem * 1.2));
+  font-size: clamp(calc(1.125rem * 0.7), 0.879vw, calc(1.125rem * 1.2));
   line-height: 1.5;
 }
 
 .fetch-trophy-container {
   display: flex;
-  gap: 0.938rem;
+  gap: clamp(calc(0.938rem * 0.7), 0.733vw, calc(0.938rem * 1.2));
   align-items: center;
   position: relative;
 }
@@ -79,9 +77,9 @@
   color: #3D6685;
   padding: 0.625rem 0.938rem;
   width: 100%;
-  font-family: 'Bitter';
-  font-size: 1rem;
-  width: 25rem;
+  font-family: "Bitter";
+  font-size: clamp(calc(1rem * 0.7), 0.781vw, calc(1rem * 1.2));
+  width: clamp(calc(25rem * 0.7), 19.531vw, calc(25rem * 1.2));
   border: 0;
 }
 
@@ -98,19 +96,27 @@
   display: flex;
   align-items: center;
   position: absolute;
-  right: 0.313rem;
+  right: clamp(calc(0.313rem * 0.7), 0.245vw, calc(0.313rem * 1.2));
+}
+
+.shortcut-keys #ctrl-key {
+  height: clamp(calc(2.313rem * 0.7), 1.807vw, calc(2.313rem * 1.2));
+}
+
+.shortcut-keys #k-key {
+  height: clamp(calc(1.875rem * 0.7), 1.465vw, calc(1.875rem * 1.2));
 }
 
 .buttons {
   font-weight: 700;
-  font-size: 1rem;
-  font-family: 'Montserrat';
+  font-size: clamp(calc(1rem * 0.7), 0.781vw, calc(1rem * 1.2));
+  font-family: "Montserrat";
   font-style: italic;
   color: #E5E4E2;
   background-color: #0455BF;
   padding: 0.625rem 0.938rem;
   border: #353935;
-  border-radius: 0.188rem;
+  border-radius: clamp(calc(0.188rem * 0.7), 0.147vw, calc(0.188rem * 1.2));
 }
 
 .buttons:hover {
@@ -136,7 +142,7 @@
 
 .loading-text {
   color: #E5E4E2;
-  font-size: 1rem;
+  font-size: clamp(calc(1rem * 0.7), 0.781vw, calc(1rem * 1.2));
   font-weight: 700;
   animation: pulse 1s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
@@ -149,15 +155,15 @@
     opacity: 0.3;
   }
 }
-
 .error-text {
   color: #EE4B2B;
   font-weight: 700;
+  font-size: clamp(calc(1.125rem * 0.7), 0.879vw, calc(1.125rem * 1.2));
 }
 
 .content {
   display: flex;
-  margin-top: 1rem;
+  margin-top: clamp(calc(1rem * 0.7), 0.781vw, calc(1rem * 1.2));
   flex-grow: 1;
   width: 100%;
 }
@@ -171,23 +177,19 @@
 }
 
 .content-container::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 0;
-    background-image: linear-gradient(
-        to bottom, 
-        transparent 10%,
-        #353935 65%
-    );
-    pointer-events: none;
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  background-image: linear-gradient(to bottom, transparent 10%, #353935 65%);
+  pointer-events: none;
 }
 
 .content-container::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: 0;
   left: 0;
@@ -195,28 +197,28 @@
   z-index: 1;
   pointer-events: none;
   background: linear-gradient(to top, #FB5B36, transparent);
-  height: 5rem;
-  mask-image: url('/wave-mask.svg');
+  height: clamp(calc(5rem * 0.7), 3.906vw, calc(5rem * 1.2));
+  mask-image: url("/wave-mask.svg");
   mask-size: 100% 100%;
 }
 
 .profile-container {
   flex-shrink: 0;
-  max-width: 37.5rem;
+  max-width: clamp(calc(37.5rem * 0.7), 29.297vw, calc(37.5rem * 1.2));
   width: 100%;
-  border-top-left-radius: 0.938rem;
-  border-bottom-left-radius: 0.938rem;
+  border-top-left-radius: clamp(calc(0.938rem * 0.7), 0.733vw, calc(0.938rem * 1.2));
+  border-bottom-left-radius: clamp(calc(0.938rem * 0.7), 0.733vw, calc(0.938rem * 1.2));
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  position: relative; 
+  position: relative;
   z-index: 2;
 }
 
 .avatar img {
-  width: 12rem;
-  height: 12rem;
+  width: clamp(calc(12rem * 0.7), 9.375vw, calc(12rem * 1.2));
+  height: clamp(calc(12rem * 0.7), 9.375vw, calc(12rem * 1.2));
   opacity: 0.8;
 }
 
@@ -233,20 +235,20 @@
   -webkit-text-fill-color: transparent;
   color: transparent;
   font-weight: 700;
-  font-size: 1.563rem;
-  font-family: 'Play';
+  font-size: clamp(calc(1.563rem * 0.7), 1.221vw, calc(1.563rem * 1.2));
+  font-family: "Play";
 }
 
 .plus {
-  margin-bottom: 1rem;
+  margin-bottom: clamp(calc(1rem * 0.7), 0.781vw, calc(1rem * 1.2));
   display: none;
-  margin-right: 0.625rem;
+  margin-right: clamp(calc(0.625rem * 0.7), 0.488vw, calc(0.625rem * 1.2));
   flex-shrink: 0;
 }
 
 .plus img {
-  width: 1.563rem;
-  height: 1.563rem;
+  width: clamp(calc(1.563rem * 0.7), 1.221vw, calc(1.563rem * 1.2));
+  height: clamp(calc(1.563rem * 0.7), 1.221vw, calc(1.563rem * 1.2));
 }
 
 .plus-active {
@@ -260,34 +262,34 @@
   box-shadow: 0 0.25rem 1.875rem rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(0.125rem);
   -webkit-backdrop-filter: blur(0.125rem);
-  padding: 0.625rem;
-  border-radius: 0.938rem;
+  padding: clamp(calc(0.625rem * 0.7), 0.488vw, calc(0.625rem * 1.2));
+  border-radius: clamp(calc(0.938rem * 0.7), 0.733vw, calc(0.938rem * 1.2));
   width: 50%;
 }
 
 .level-and-trophy-pair {
   display: flex;
   align-items: center;
-  gap: 0.625rem;
+  gap: clamp(calc(0.625rem * 0.7), 0.488vw, calc(0.625rem * 1.2));
 }
 
 .trophy-icon img {
-  width: 2.188rem;
-  height: 2.188rem;
+  width: clamp(calc(2.188rem * 0.7), 1.709vw, calc(2.188rem * 1.2));
+  height: clamp(calc(2.188rem * 0.7), 1.709vw, calc(2.188rem * 1.2));
 }
 
 .trophy-icon-text {
   font-style: italic;
   font-weight: 500;
-  font-size: 1.125rem;
-  font-family: 'Montserrat';
+  font-size: clamp(calc(1.125rem * 0.7), 0.879vw, calc(1.125rem * 1.2));
+  font-family: "Montserrat";
 }
 
 .trophy-icon-label {
   font-style: italic;
   font-weight: 800;
-  font-size: 1.125rem;
-  font-family: 'Montserrat';
+  font-size: clamp(calc(1.125rem * 0.7), 0.879vw, calc(1.125rem * 1.2));
+  font-family: "Montserrat";
 }
 
 .next-level-progress-bar {
@@ -295,7 +297,7 @@
   background-color: #353935;
   border: 0.063rem solid #353935;
   overflow: hidden;
-  height: 1.125rem;
+  height: clamp(calc(1.125rem * 0.7), 0.879vw, calc(1.125rem * 1.2));
   position: relative;
 }
 
@@ -314,33 +316,33 @@
   color: #353935;
   font-style: italic;
   font-weight: 800;
-  font-size: 0.75rem;
-  font-family: 'Montserrat';
+  font-size: clamp(calc(0.75rem * 0.7), 0.586vw, calc(0.75rem * 1.2));
+  font-family: "Montserrat";
 }
 
 .next-level-progress-bar-text-outside {
   position: absolute;
   top: 50%;
-  right: 0.313rem;
+  right: clamp(calc(0.313rem * 0.7), 0.245vw, calc(0.313rem * 1.2));
   transform: translateY(-50%);
   color: #E5E4E2;
-  font-family: 'Montserrat';
-  font-size: 0.75rem;
+  font-family: "Montserrat";
+  font-size: clamp(calc(0.75rem * 0.7), 0.586vw, calc(0.75rem * 1.2));
   font-weight: 800;
   z-index: 1;
 }
 
 .last-message {
-  margin-top: 1.25rem;
+  margin-top: clamp(calc(1.25rem * 0.7), 0.977vw, calc(1.25rem * 1.2));
 }
 
 .last-message-label {
-  font-size: 1.125rem;
+  font-size: clamp(calc(1.125rem * 0.7), 0.879vw, calc(1.125rem * 1.2));
   line-height: 1.5;
   font-style: italic;
   color: #E5E4E2;
   text-align: center;
-  padding: 0.313rem;
+  padding: clamp(calc(0.313rem * 0.7), 0.245vw, calc(0.313rem * 1.2));
   text-align: left;
 }
 
@@ -350,18 +352,18 @@
 
 .trophy-card-container {
   flex-grow: 1;
-  border-top-right-radius: 0.938rem;
-  border-bottom-right-radius: 0.938rem;
+  border-top-right-radius: clamp(calc(0.938rem * 0.7), 0.733vw, calc(0.938rem * 1.2));
+  border-bottom-right-radius: clamp(calc(0.938rem * 0.7), 0.733vw, calc(0.938rem * 1.2));
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  gap: 0.625rem;
+  gap: clamp(calc(0.625rem * 0.7), 0.488vw, calc(0.625rem * 1.2));
 }
 
 .trophy-card {
-  width: 37.5rem;
-  height: 12.5rem;
+  width: clamp(calc(37.5rem * 0.7), 29.297vw, calc(37.5rem * 1.2));
+  height: clamp(calc(12.5rem * 0.7), 9.766vw, calc(12.5rem * 1.2));
   background-size: cover;
   background-position: center;
   position: relative;
@@ -369,8 +371,8 @@
 }
 
 .top-row {
-  height: 3rem;
-  background: rgba(0, 0, 0, 0.5);
+  height: clamp(calc(3rem * 0.7), 2.344vw, calc(3rem * 1.2));
+  background: rgba(0, 0, 0, 0.3);
   box-shadow: 0 0.25rem 1.875rem rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(0.125rem);
   -webkit-backdrop-filter: blur(0.125rem);
@@ -385,24 +387,24 @@
 }
 
 .trophy-card-avatar {
-  margin-right: 0.313rem;
+  margin-right: clamp(calc(0.313rem * 0.7), 0.245vw, calc(0.313rem * 1.2));
 }
 
 .trophy-card-avatar img {
-  width: 3rem;
-  height: 3rem;
+  width: clamp(calc(3rem * 0.7), 2.344vw, calc(3rem * 1.2));
+  height: clamp(calc(3rem * 0.7), 2.344vw, calc(3rem * 1.2));
   display: block;
 }
 
 .trophy-card-plus {
-  margin-top: 0.438rem;
-  margin-right: 0.313rem;
+  margin-top: clamp(calc(0.438rem * 0.7), 0.342vw, calc(0.438rem * 1.2));
+  margin-right: clamp(calc(0.313rem * 0.7), 0.245vw, calc(0.313rem * 1.2));
   display: none;
 }
 
 .trophy-card-plus img {
-  width: 1.25rem;
-  height: 1.25rem;
+  width: clamp(calc(1.25rem * 0.7), 0.977vw, calc(1.25rem * 1.2));
+  height: clamp(calc(1.25rem * 0.7), 0.977vw, calc(1.25rem * 1.2));
 }
 
 .trophy-card-plus-active {
@@ -412,30 +414,26 @@
 .trophy-card-username {
   color: #E5E4E2;
   font-weight: 700;
-  font-size: 1.25rem;
-  font-family: 'Bitter';
-  text-shadow: 
-    -0.0625rem -0.0625rem 0 #353935,  
-    0.063rem -0.0625rem 0 #353935,
-    -0.0625rem 0.063rem 0 #353935,
-    0.063rem 0.063rem 0 #353935;
+  font-size: clamp(calc(1.25rem * 0.7), 0.977vw, calc(1.25rem * 1.2));
+  font-family: "Bitter";
+  text-shadow: -0.0625rem -0.0625rem 0 #353935, 0.063rem -0.0625rem 0 #353935, -0.0625rem 0.063rem 0 #353935, 0.063rem 0.063rem 0 #353935;
 }
 
 .trophy-card-top-row-right-side-container {
   display: flex;
-  gap: 1.25rem;
+  gap: clamp(calc(1.25rem * 0.7), 0.977vw, calc(1.25rem * 1.2));
 }
 
 .trophy-card-level-container {
   display: flex;
   align-items: center;
-  gap: 0.625rem;
+  gap: clamp(calc(0.625rem * 0.7), 0.488vw, calc(0.625rem * 1.2));
 }
 
 .trophy-card-level-icon img {
-  width: 2.813rem;
-  height: 2.813rem;
-  padding: 0.125rem;
+  width: clamp(calc(2.813rem * 0.7), 2.198vw, calc(2.813rem * 1.2));
+  height: clamp(calc(2.813rem * 0.7), 2.198vw, calc(2.813rem * 1.2));
+  padding: clamp(calc(0.125rem * 0.7), 0.098vw, calc(0.125rem * 1.2));
   display: block;
   justify-content: center;
   align-items: center;
@@ -447,43 +445,36 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  font-size: clamp(calc(0.875rem * 0.7), 0.684vw, calc(0.875rem * 1.2));
 }
 
 .trophy-card-level-wrapper p {
   margin: 0;
   color: #E5E4E2;
   font-weight: 700;
-  font-family: 'Montserrat';
-  text-shadow: 
-    -0.0625rem -0.0625rem 0 #353935,  
-    0.063rem -0.0625rem 0 #353935,
-    -0.0625rem 0.063rem 0 #353935,
-    0.063rem 0.063rem 0 #353935;
-  margin-bottom: -0.5rem;
+  font-family: "Montserrat";
+  text-shadow: -0.0625rem -0.0625rem 0 #353935, 0.063rem -0.0625rem 0 #353935, -0.0625rem 0.063rem 0 #353935, 0.063rem 0.063rem 0 #353935;
+  margin-bottom: clamp(calc(-0.5rem * 0.7), -0.391vw, calc(-0.5rem * 1.2));
 }
 
 .trophy-card-level {
   color: #E5E4E2;
   font-weight: 700;
-  font-size: 1.25rem;
-  font-family: 'Montserrat';
-  text-shadow: 
-    -0.0625rem -0.0625rem 0 #353935,  
-    0.063rem -0.0625rem 0 #353935,
-    -0.0625rem 0.063rem 0 #353935,
-    0.063rem 0.063rem 0 #353935;
+  font-size: clamp(calc(1.25rem * 0.7), 0.977vw, calc(1.25rem * 1.2));
+  font-family: "Montserrat";
+  text-shadow: -0.0625rem -0.0625rem 0 #353935, 0.063rem -0.0625rem 0 #353935, -0.0625rem 0.063rem 0 #353935, 0.063rem 0.063rem 0 #353935;
 }
 
 .trophy-card-earned-trophies-container {
   display: flex;
   align-items: center;
-  gap: 0.625rem;
-  margin-right: 0.625rem;
+  gap: clamp(calc(0.625rem * 0.7), 0.488vw, calc(0.625rem * 1.2));
+  margin-right: clamp(calc(0.625rem * 0.7), 0.488vw, calc(0.625rem * 1.2));
 }
 
 .trophy-card-earned-trophies-icon img {
-  width: 2.188rem;
-  height: 2.188rem;
+  width: clamp(calc(2.188rem * 0.7), 1.709vw, calc(2.188rem * 1.2));
+  height: clamp(calc(2.188rem * 0.7), 1.709vw, calc(2.188rem * 1.2));
   display: block;
 }
 
@@ -498,9 +489,9 @@
 .trophy-card-game-container {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 0.625rem;
+  gap: clamp(calc(0.625rem * 0.7), 0.488vw, calc(0.625rem * 1.2));
   place-items: center;
-  padding: 0.625rem;
+  padding: clamp(calc(0.625rem * 0.7), 0.488vw, calc(0.625rem * 1.2));
 }
 
 .trophy-card-game-pair {
@@ -510,13 +501,13 @@
 .trophy-card-game-logo img {
   width: calc(var(--bottom-row-height) * 0.5);
   height: calc(var(--bottom-row-height) * 0.5);
-  max-width: 3.2rem;
-  max-height: 3.2rem;
+  max-width: clamp(calc(3.2rem * 0.7), 2.5vw, calc(3.2rem * 1.2));
+  max-height: clamp(calc(3.2rem * 0.7), 2.5vw, calc(3.2rem * 1.2));
   display: block;
 }
 
 .trophy-card-trophy-container {
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.3);
   box-shadow: 0 0.25rem 1.875rem rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(0.125rem);
   -webkit-backdrop-filter: blur(0.125rem);
@@ -525,40 +516,36 @@
   justify-content: center;
   align-items: flex-start;
   flex-wrap: wrap;
-  gap: 0.313rem;
+  gap: clamp(calc(0.313rem * 0.7), 0.245vw, calc(0.313rem * 1.2));
 }
 
 .trophy-card-trophy-pair {
   display: flex;
   align-items: center;
-  gap: 0.313rem;
-  margin-right: 0.625rem;
-  margin-top: 0.313rem;
+  gap: clamp(calc(0.313rem * 0.7), 0.245vw, calc(0.313rem * 1.2));
+  margin-right: clamp(calc(0.625rem * 0.7), 0.488vw, calc(0.625rem * 1.2));
+  margin-top: clamp(calc(0.313rem * 0.7), 0.245vw, calc(0.313rem * 1.2));
 }
 
 .trophy-card-trophy-icon img {
-  width: 1.563rem;
-  height: 1.563rem;
+  width: clamp(calc(1.563rem * 0.7), 1.221vw, calc(1.563rem * 1.2));
+  height: clamp(calc(1.563rem * 0.7), 1.221vw, calc(1.563rem * 1.2));
   display: block;
 }
 
 .trophy-card-trophy-text {
   color: #E5E4E2;
   font-weight: 700;
-  font-size: 0.938rem;
-  font-family: 'Montserrat';
-  text-shadow: 
-    -0.0625rem -0.0625rem 0 #353935,  
-    0.063rem -0.0625rem 0 #353935,
-    -0.0625rem 0.063rem 0 #353935,
-    0.063rem 0.063rem 0 #353935;
+  font-size: clamp(calc(0.938rem * 0.7), 0.733vw, calc(0.938rem * 1.2));
+  font-family: "Montserrat";
+  text-shadow: -0.0625rem -0.0625rem 0 #353935, 0.063rem -0.0625rem 0 #353935, -0.0625rem 0.063rem 0 #353935, 0.063rem 0.063rem 0 #353935;
   margin: 0;
 }
 
 .trophy-card-function-container {
   display: flex;
   flex-direction: column;
-  padding: 0.313rem;
+  padding: clamp(calc(0.313rem * 0.7), 0.245vw, calc(0.313rem * 1.2));
   align-items: center;
 }
 
@@ -573,7 +560,7 @@
 
 .trophy-card-function {
   display: flex;
-  gap: 0.625rem;
+  gap: clamp(calc(0.625rem * 0.7), 0.488vw, calc(0.625rem * 1.2));
   justify-content: center;
 }
 
@@ -582,10 +569,7 @@
   box-sizing: border-box;
   opacity: 0;
   transform: translateY(-1.25rem);
-  transition: 
-    max-height 0.3s ease-in-out, 
-    transform 0.3s ease-in-out, 
-    opacity 0.3s ease-in-out;
+  transition: max-height 0.3s ease-in-out, transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
   position: absolute;
   top: 100%;
   z-index: 1;
@@ -594,31 +578,24 @@
 }
 
 .trophy-card-function-frame.open {
-  max-height: 31.25rem;
-  background-color: rgb(255 255 255 / 10%);
-  padding: 0.625rem;
-  border-radius: 0.188rem;
+  max-height: clamp(calc(31.25rem * 0.7), 24.414vw, calc(31.25rem * 1.2));
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: clamp(calc(0.625rem * 0.7), 0.488vw, calc(0.625rem * 1.2));
+  border-radius: clamp(calc(0.188rem * 0.7), 0.147vw, calc(0.188rem * 1.2));
   opacity: 1;
   transform: translateY(0);
-  transition: 
-    max-height 0.3s ease-in-out, 
-    transform 0.3s ease-in-out, 
-    opacity 0.05s ease-in-out;
+  transition: max-height 0.3s ease-in-out, transform 0.3s ease-in-out, opacity 0.05s ease-in-out;
 }
 
 .trophy-card-function-frame-label {
   color: #E5E4E2;
   font-weight: 700;
-  font-size: 0.875rem;
-  font-family: 'Bitter';
-  text-shadow:
-    -0.0625rem -0.0625rem 0 #353935,  
-    0.063rem -0.0625rem 0 #353935,
-    -0.0625rem 0.063rem 0 #353935,
-    0.063rem 0.063rem 0 #353935;
+  font-size: clamp(calc(0.875rem * 0.7), 0.684vw, calc(0.875rem * 1.2));
+  font-family: "Bitter";
+  text-shadow: -0.0625rem -0.0625rem 0 #353935, 0.063rem -0.0625rem 0 #353935, -0.0625rem 0.063rem 0 #353935, 0.063rem 0.063rem 0 #353935;
   display: flex;
   flex-direction: column;
-  gap: 0.625rem;
+  gap: clamp(calc(0.625rem * 0.7), 0.488vw, calc(0.625rem * 1.2));
 }
 
 .trophy-card-function-frame-row {
@@ -630,8 +607,15 @@
 
 .input-upload-image-container {
   display: flex;
-  gap: 0.625rem;
+  gap: clamp(calc(0.625rem * 0.7), 0.488vw, calc(0.625rem * 1.2));
   justify-content: center;
+}
+
+.input-upload-image {
+  padding: clamp(calc(0.313rem * 0.7), 0.245vw, calc(0.313rem * 1.2));
+  font-size: clamp(calc(0.875rem * 0.7), 0.684vw, calc(0.875rem * 1.2));
+  width: clamp(calc(18.75rem * 0.7), 14.648vw, calc(18.75rem * 1.2));
+  height: clamp(calc(1.063rem * 0.7), 0.83vw, calc(1.063rem * 1.2));
 }
 
 .input-upload-image:focus {
@@ -640,29 +624,32 @@
 }
 
 .input-upload-image-loading {
-    width: 0.938rem;
-    height: 0.938rem;
-    border: 0.313rem solid transparent;
-    border-top: 0.313rem solid #98DB7C;
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
+  width: clamp(calc(0.938rem * 0.7), 0.733vw, calc(0.938rem * 1.2));
+  height: clamp(calc(0.938rem * 0.7), 0.733vw, calc(0.938rem * 1.2));
+  border: 0.313rem solid transparent;
+  border-top: 0.313rem solid #98DB7C;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
 }
 
 @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
-
 .function-frame-buttons {
   font-weight: 700;
-  font-size: 0.75rem;
-  font-family: 'Montserrat';
+  font-size: clamp(calc(0.75rem * 0.7), 0.586vw, calc(0.75rem * 1.2));
+  font-family: "Montserrat";
   font-style: italic;
   color: #E5E4E2;
   background-color: #0455BF;
-  padding: 0.313rem;
+  padding: clamp(calc(0.313rem * 0.7), 0.245vw, calc(0.313rem * 1.2));
   border: #353935;
-  border-radius: 0.188rem;
+  border-radius: clamp(calc(0.188rem * 0.7), 0.147vw, calc(0.188rem * 1.2));
 }
 
 .function-frame-buttons:hover {
@@ -684,3 +671,5 @@
   box-shadow: none;
   border: #353935;
 }
+
+/*# sourceMappingURL=Home.css.map */
