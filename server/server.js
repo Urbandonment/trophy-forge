@@ -173,6 +173,11 @@ app.get('/api/proxy-image', async (req, res) => {
         return res.status(400).send('Image URL is required.');
     }
 
+    // Basic security check: ensure the URL uses http or https
+    if (!imageUrl.startsWith('http://') && !imageUrl.startsWith('https://')) {
+        return res.status(400).send('Invalid image URL protocol.');
+    }
+
     try {
         const imageResponse = await fetch(imageUrl);
         
@@ -195,7 +200,16 @@ app.get('/api/proxy-image', async (req, res) => {
         }
 
         // Set the Content-Type header and stream the image
+        res.setHeader('Access-Control-Allow-Origin', '*'); 
         res.setHeader('Content-Type', contentType);
+
+        imageResponse.body.on('error', (err) => {
+        console.error("Stream pipe error:", err);
+        // Use an appropriate status code if the response has not been sent yet
+        if (!res.headersSent) {
+            res.status(500).send('Stream error.');
+        }
+    });
         imageResponse.body.pipe(res);
         
     } catch (error) {

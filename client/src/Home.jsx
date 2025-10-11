@@ -98,6 +98,15 @@ function Home() {
     }
   }, [lastGamePlayedImageUrl]);
 
+  const getProxyUrl = (originalUrl) => {
+    // Check if the URL is valid and needs to be proxied
+    if (!originalUrl || originalUrl.startsWith('/api/')) {
+        return originalUrl; // Don't proxy if already proxied or empty
+    }
+    // Construct the proxy URL
+    return `/api/proxy-image?url=${encodeURIComponent(originalUrl)}`;
+  };
+
   // Input username field handling
   const handleInputChange = (event) => {
     const inputValue = event.target.value;
@@ -229,7 +238,8 @@ function Home() {
         // 2. Render the HTML element to a canvas
         const canvas = await html2canvas(element, {
             scale: 2,
-            backgroundColor: null
+            backgroundColor: null,
+            useCORS: true,
         });
         // 3. Convert the canvas image data to a Blob (PNG format)
         canvas.toBlob(async (blob) => {
@@ -487,7 +497,7 @@ function Home() {
                   <div 
                   className='trophy-card'
                   style={{
-                    backgroundImage: `url('${currentBackgroundImage}')`, 
+                    backgroundImage: `url('${getProxyUrl(currentBackgroundImage)}')`, 
                     backgroundColor: 'rgba(0, 0, 0, 0.3)',
                     backgroundSize: 'cover',
                     backgroundPosition: '50% 45%',
@@ -495,7 +505,7 @@ function Home() {
                     <div className='top-row'>
                       <div className='trophy-card-user-container'>
                         <span className='trophy-card-avatar'>
-                          {avatarUrl && <img src={avatarUrl} alt='💀' />}
+                          {avatarUrl && <img src={getProxyUrl(avatarUrl)} alt='💀' />}
                         </span>
                         <div className='username-and-plus'>
                           <span className={`trophy-card-plus ${plusStatus ? 'trophy-card-plus-active' : ''}`}><img src={Plus} alt='💀' /></span>
@@ -529,7 +539,7 @@ function Home() {
                           {lastGamePlayedLogosUrl.map((logoUrl, index) => (
                             <div className='trophy-card-game-pair' key={index}>
                               <span className='trophy-card-game-logo'>
-                                <img src={logoUrl} alt=''></img>
+                                <img src={getProxyUrl(logoUrl)} alt=''></img>
                               </span>
                             </div>
                           ))}
