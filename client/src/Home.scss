@@ -46,7 +46,6 @@ $target-viewport-width: 2048;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-//   @include rem-clamp(padding, 1rem);
   @include rem-clamp(padding, 1rem);
   background-color: #E5E4E2;
   box-sizing: border-box;
@@ -376,7 +375,6 @@ $target-viewport-width: 2048;
 }
 
 .last-message-label {
-//   @include rem-clamp(font-size, 1.125rem);
   @include rem-clamp(font-size, 1.125rem);
   line-height: 1.5;
   font-style: italic;
@@ -392,8 +390,16 @@ $target-viewport-width: 2048;
 
 .trophy-card-container {
   flex-grow: 1;
+  display: flex;
+  flex-direction: row;
+  width: max-content;
+  align-items: center;
+  justify-content: center;
   @include rem-clamp(border-top-right-radius, 0.938rem);
   @include rem-clamp(border-bottom-right-radius, 0.938rem);
+}
+
+.trophy-card-and-functions {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -401,15 +407,11 @@ $target-viewport-width: 2048;
   @include rem-clamp(gap, 0.625rem);
 }
 
-.trophy-card-top-container {
-  display: flex;
-  flex-direction: row;
-  width: max-content;
-  align-items: center;
-}
-
 .trophy-card-side-buttons-container {
-  flex-grow: 1;
+  margin-top: 0;
+  flex-grow: 0;
+  @include rem-clamp(padding, 0.313rem);
+  @include rem-clamp(margin-left, 0.625rem);
 }
 
 .trophy-card-side-buttons {
@@ -418,8 +420,27 @@ $target-viewport-width: 2048;
   width: fit-content;
   box-sizing: border-box;
   position: relative;
-  gap: 1rem;
-  margin-left: 1rem;
+  @include rem-clamp(gap, 0.625rem);
+}
+
+.trophy-card-side-buttons #copy-button {
+  background-image: url('./assets/copy-button.png');
+  background-color: #E5E4E2;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 60%;
+  @include rem-clamp(width, 2rem);
+  @include rem-clamp(height, 2rem);
+}
+
+.trophy-card-side-buttons #save-button {
+  background-image: url('./assets/save-button.png');
+  background-color: #E5E4E2;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 60%;
+  @include rem-clamp(width, 2rem);
+  @include rem-clamp(height, 2rem);
 }
 
 .trophy-card {

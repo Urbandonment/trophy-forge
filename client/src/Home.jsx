@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
+import html2canvas from 'html2canvas';
 import './Home.css'
 import Logo from './assets/logo.png';
 import CtrlKey from './assets/ctrl-key.png';
@@ -101,6 +102,14 @@ function Home() {
   const handleInputChange = (event) => {
     const inputValue = event.target.value;
     const MAX_LENGTH = 16;
+
+    // Space character validation
+    if (inputValue.includes(' ')) {
+        setError('Space character is not allowed');
+        return;
+    }
+
+    // Maximum length validation
     if (inputValue.length <= MAX_LENGTH) {
       setPsnId(inputValue);
     }
@@ -137,12 +146,12 @@ function Home() {
   // Enter key handling
   const handleEnterKey = (event) => {
     if (event.key === 'Enter') {
-      handleUpdateClick();
+      handleUpdateButton();
     }
   };
 
   // Update button handling
-  const handleUpdateClick = async () => {
+  const handleUpdateButton = async () => {
     setLoading(true);
     setError('');
 
@@ -207,6 +216,39 @@ function Home() {
     }
   };
 
+  // Trophy card copy button handling
+  const trophyCardRef = useRef(null);
+  const handleCopyButton = async () => {
+    // 1. Get the HTML element to be captured
+    const element = trophyCardRef.current;
+    if (!element) {
+        console.error("Trophy card element not found.");
+        return;
+    }
+    try {
+        // 2. Render the HTML element to a canvas
+        const canvas = await html2canvas(element, {
+            scale: 2,
+            backgroundColor: null
+        });
+        // 3. Convert the canvas image data to a Blob (PNG format)
+        canvas.toBlob(async (blob) => {
+            if (!blob) {
+                console.error("Failed to convert canvas to blob.");
+                return;
+            }
+            // 4. Use the Clipboard API to copy the Blob (image)
+            const item = new ClipboardItem({'image/png': blob});
+            await navigator.clipboard.write([item]);
+            console.log("Trophy card image copied to clipboard successfully!");
+        }, 'image/png');
+    } catch (error) {
+        console.error("Error copying image: ", error);
+    }
+  };
+
+  // Trophy card save button handling
+
   // Trophy card function frame toggle handling
   useEffect(() => {
     if (isFunctionFrameOpen) {
@@ -234,7 +276,7 @@ function Home() {
     setCurrentBackgroundImage(lastGamePlayedImageUrl);
   };
 
-  // Change image: Browser button handling
+  // Change image: Browse button handling
   const fileInputRef = useRef(null);
   const handleBrowseButton = () => {
     fileInputRef.current.click();
@@ -347,7 +389,7 @@ function Home() {
                 </div>
               </div>
               <button
-                onClick={handleUpdateClick}
+                onClick={handleUpdateButton}
                 className='buttons'
               >
                 UPDATE
@@ -438,8 +480,9 @@ function Home() {
           </div>
 
           <div className='trophy-card-container'>
-            <div className='trophy-card-top-container'>
-              <div className='trophy-card-template-container'>
+            <div className='trophy-card-and-functions'>
+              <div className='trophy-card-template-container'
+              ref={trophyCardRef}>
                 {isProfileVisible && (
                   <div 
                   className='trophy-card'
@@ -522,90 +565,88 @@ function Home() {
                   </div>
                 )}
               </div>
-              <div className='trophy-card-side-buttons-container'>
-                {isProfileVisible && (
-                  <div className='trophy-card-side-buttons'>
-                    <button className='buttons'>
-                      Copy
-                    </button>
-                    <button className='buttons'>
-                      Save
-                    </button>
-                  </div>
-                )}
-              </div>
-            </div>
-            <div className='trophy-card-function-container'>
-              <div className='trophy-card-function-and-frame'>
-                {isProfileVisible && (
-                  <div className='trophy-card-function'>
-                    <button className='buttons' onClick={() => handleFunctionButtons('change-image')}>
-                      CHANGE IMAGE
-                    </button>
-                    <button className='buttons' onClick={() => handleFunctionButtons('change-color')}>
-                      CHANGE COLOR
-                    </button>
-                    <button className='buttons' onClick={() => handleFunctionButtons('change-layout')}>
-                      CHANGE LAYOUT
-                    </button>
-                  </div>
-                )}
-                <div 
-                  id='trophy-card-function-frame'
-                  className={`trophy-card-function-frame ${isFunctionFrameOpen ? 'open' : ''}`}>
-                  {selectedFunction === 'change-image' && (
-                    <div className='trophy-card-function-frame-label'>
-                      <div className='trophy-card-function-frame-row'>
-                        <span>Use image from your latest game</span>
-                        <button 
-                          className={`function-frame-buttons ${isOkButtonDisabled ? 'is-disabled' : ''}`}
-                          onClick={handleOkButton}
-                          disabled={isOkButtonDisabled}
-                          style={{backgroundColor: isOkButtonDisabled ? '#808080' : '#0455BF',}}>
-                          OK
-                        </button>
-                      </div>
-                      <div className='trophy-card-function-frame-row'>
-                        <span>Upload your own image</span>
-                        <button className='function-frame-buttons' onClick={handleBrowseButton}>Browse</button>
-                        <input
-                          type="file"
-                          accept="image/*"
-                          ref={fileInputRef}
-                          onChange={handleBrowseFile}
-                          style={{display: 'none'}}
-                        />
-                      </div>
-                      <div className='trophy-card-function-frame-row'>
-                        <span className='input-upload-image-container'>
-                          <input className='input-upload-image' style={{
-                              backgroundColor: '#E5E4E2',
-                              color: '#3D6685',
-                              fontFamily: 'Bitter',
-                              border: 0}}
-                            type='text'
-                            placeholder='Paste an image URL'
-                            value={imageUrlInput}
-                            onChange={(e) => setImageUrlInput(e.target.value)}
+              <div className='trophy-card-function-container'>
+                <div className='trophy-card-function-and-frame'>
+                  {isProfileVisible && (
+                    <div className='trophy-card-function'>
+                      <button className='buttons' onClick={() => handleFunctionButtons('change-image')}>
+                        CHANGE IMAGE
+                      </button>
+                      <button className='buttons' onClick={() => handleFunctionButtons('change-color')}>
+                        CHANGE COLOR
+                      </button>
+                      <button className='buttons' onClick={() => handleFunctionButtons('change-layout')}>
+                        CHANGE LAYOUT
+                      </button>
+                    </div>
+                  )}
+                  <div 
+                    id='trophy-card-function-frame'
+                    className={`trophy-card-function-frame ${isFunctionFrameOpen ? 'open' : ''}`}>
+                    {selectedFunction === 'change-image' && (
+                      <div className='trophy-card-function-frame-label'>
+                        <div className='trophy-card-function-frame-row'>
+                          <span>Use image from your latest game</span>
+                          <button 
+                            className={`function-frame-buttons ${isOkButtonDisabled ? 'is-disabled' : ''}`}
+                            onClick={handleOkButton}
+                            disabled={isOkButtonDisabled}
+                            style={{backgroundColor: isOkButtonDisabled ? '#808080' : '#0455BF',}}>
+                            OK
+                          </button>
+                        </div>
+                        <div className='trophy-card-function-frame-row'>
+                          <span>Upload your own image</span>
+                          <button className='function-frame-buttons' onClick={handleBrowseButton}>Browse</button>
+                          <input
+                            type="file"
+                            accept="image/*"
+                            ref={fileInputRef}
+                            onChange={handleBrowseFile}
+                            style={{display: 'none'}}
                           />
-                          {isImageUrlInputLoading && <div className="input-upload-image-loading"></div>}
-                        </span>
-                        <button className='function-frame-buttons' onClick={handleUploadButton}>Upload</button>
+                        </div>
+                        <div className='trophy-card-function-frame-row'>
+                          <span className='input-upload-image-container'>
+                            <input className='input-upload-image' style={{
+                                backgroundColor: '#E5E4E2',
+                                color: '#3D6685',
+                                fontFamily: 'Bitter',
+                                border: 0}}
+                              type='text'
+                              placeholder='Paste an image URL'
+                              value={imageUrlInput}
+                              onChange={(e) => setImageUrlInput(e.target.value)}
+                            />
+                            {isImageUrlInputLoading && <div className="input-upload-image-loading"></div>}
+                          </span>
+                          <button className='function-frame-buttons' onClick={handleUploadButton}>Upload</button>
+                        </div>
                       </div>
-                    </div>
-                  )}
-                  {selectedFunction === 'change-color' && (
-                    <div className='trophy-card-function-frame-label'>
-                      <p>Color selection options go here.</p>
-                    </div>
-                  )}
-                  {selectedFunction === 'change-layout' && (
-                    <div className='trophy-card-function-frame-label'>
-                      <p>Layout options go here.</p>
-                    </div>
-                  )}
+                    )}
+                    {selectedFunction === 'change-color' && (
+                      <div className='trophy-card-function-frame-label'>
+                        <p>Color selection options go here.</p>
+                      </div>
+                    )}
+                    {selectedFunction === 'change-layout' && (
+                      <div className='trophy-card-function-frame-label'>
+                        <p>Layout options go here.</p>
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
+            </div>
+            <div className='trophy-card-side-buttons-container'>
+              {isProfileVisible && (
+                <div className='trophy-card-side-buttons'>
+                  <button id='copy-button' className='buttons' onClick={handleCopyButton}>
+                  </button>
+                  <button id='save-button' className='buttons'>
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         </div>

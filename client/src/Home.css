@@ -352,8 +352,16 @@
 
 .trophy-card-container {
   flex-grow: 1;
+  display: flex;
+  flex-direction: row;
+  width: max-content;
+  align-items: center;
+  justify-content: center;
   border-top-right-radius: clamp(calc(0.938rem * 0.7), 0.733vw, calc(0.938rem * 1.2));
   border-bottom-right-radius: clamp(calc(0.938rem * 0.7), 0.733vw, calc(0.938rem * 1.2));
+}
+
+.trophy-card-and-functions {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -361,15 +369,11 @@
   gap: clamp(calc(0.625rem * 0.7), 0.488vw, calc(0.625rem * 1.2));
 }
 
-.trophy-card-top-container {
-  display: flex;
-  flex-direction: row;
-  width: max-content;
-  align-items: center;
-}
-
 .trophy-card-side-buttons-container {
-  flex-grow: 1;
+  margin-top: 0;
+  flex-grow: 0;
+  padding: clamp(calc(0.313rem * 0.7), 0.245vw, calc(0.313rem * 1.2));
+  margin-left: clamp(calc(0.625rem * 0.7), 0.488vw, calc(0.625rem * 1.2));
 }
 
 .trophy-card-side-buttons {
@@ -378,8 +382,27 @@
   width: fit-content;
   box-sizing: border-box;
   position: relative;
-  gap: 1rem;
-  margin-left: 1rem;
+  gap: clamp(calc(0.625rem * 0.7), 0.488vw, calc(0.625rem * 1.2));
+}
+
+.trophy-card-side-buttons #copy-button {
+  background-image: url("./assets/copy-button.png");
+  background-color: #E5E4E2;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 60%;
+  width: clamp(calc(2rem * 0.7), 1.563vw, calc(2rem * 1.2));
+  height: clamp(calc(2rem * 0.7), 1.563vw, calc(2rem * 1.2));
+}
+
+.trophy-card-side-buttons #save-button {
+  background-image: url("./assets/save-button.png");
+  background-color: #E5E4E2;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 60%;
+  width: clamp(calc(2rem * 0.7), 1.563vw, calc(2rem * 1.2));
+  height: clamp(calc(2rem * 0.7), 1.563vw, calc(2rem * 1.2));
 }
 
 .trophy-card {
