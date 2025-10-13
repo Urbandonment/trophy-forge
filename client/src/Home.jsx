@@ -97,14 +97,25 @@ function Home() {
         setCurrentBackgroundImage(lastGamePlayedImageUrl);
     }
   }, [lastGamePlayedImageUrl]);
-
-  const getProxyUrl = (originalUrl) => {
-    // Check if the URL is valid and needs to be proxied
-    if (!originalUrl || originalUrl.startsWith('/api/')) {
-        return originalUrl; // Don't proxy if already proxied or empty
+  
+  // getProxyURL
+  const isExternalUrl = (url) => {
+    try {
+        new URL(url);
+        return true;
+    } catch (e) {
+        return false;
     }
-    // Construct the proxy URL
-    return `/api/proxy-image?url=${encodeURIComponent(originalUrl)}`;
+  };
+
+const getProxyUrl = (originalUrl) => {
+    if (!originalUrl) {
+        return originalUrl; 
+    }
+    if (isExternalUrl(originalUrl)) {
+        return `/api/proxy-image?url=${encodeURIComponent(originalUrl)}`;
+    }
+    return originalUrl;
   };
 
   // Input username field handling
@@ -237,7 +248,7 @@ function Home() {
     try {
         // 2. Render the HTML element to a canvas
         const canvas = await html2canvas(element, {
-            scale: 2,
+            scale: 3,
             backgroundColor: null,
             useCORS: true,
         });
@@ -500,6 +511,7 @@ function Home() {
                     backgroundImage: `url('${getProxyUrl(currentBackgroundImage)}')`, 
                     backgroundColor: 'rgba(0, 0, 0, 0.3)',
                     backgroundSize: 'cover',
+                    backgroundRepeat: 'no-repeat',
                     backgroundPosition: '50% 45%',
                     backgroundBlendMode: 'overlay'}}>
                     <div className='top-row'>
