@@ -248,7 +248,7 @@ const getProxyUrl = (originalUrl) => {
     try {
         // 2. Render the HTML element to a canvas
         const canvas = await html2canvas(element, {
-            scale: 2,
+            scale: 1,
             backgroundColor: null,
             useCORS: true,
             x: 1,
