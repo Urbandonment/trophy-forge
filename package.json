@@ -1,13 +1,13 @@
 {
-  "name": "custom-trophy-card",
+  "name": "trophy-forge",
   "version": "1.0.0",
-  "description": "A full-stack application with client and server directories.",
+  "description": "Here you can generate your own custom trophy card using different templates.",
   "main": "index.js",
   "scripts": {
     "dev": "concurrently \"npm run dev --prefix client\" \"npm run start --prefix server\" \"npm run open-browser\"",
     "open-browser": "npx wait-on http://localhost:5173 && npx open-cli http://localhost:5173",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "react-scripts build"
+    "build": "npm run build"
   },
   "keywords": [],
   "author": "",
