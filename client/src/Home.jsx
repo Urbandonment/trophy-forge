@@ -248,9 +248,10 @@ const getProxyUrl = (originalUrl) => {
     try {
         // 2. Render the HTML element to a canvas
         const canvas = await html2canvas(element, {
-            scale: 3,
+            scale: 1,
             backgroundColor: null,
             useCORS: true,
+            x: 1,
         });
         // 3. Convert the canvas image data to a Blob (PNG format)
         canvas.toBlob(async (blob) => {
