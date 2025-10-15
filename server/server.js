@@ -17,7 +17,7 @@ config();
 
 const app = express();
 const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const __dirname = dirname(__filename);
 const PORT = process.env.PORT || 5000;
 const NPSSO_TOKEN = process.env.NPSSO_TOKEN;
 const DEFAULT_TROPHY_CARD_BACKGROUND = [
