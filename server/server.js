@@ -17,7 +17,7 @@ config();
 
 const app = express();
 const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+const __dirname = path.dirname(__filename);
 const PORT = process.env.PORT || 5000;
 const NPSSO_TOKEN = process.env.NPSSO_TOKEN;
 const DEFAULT_TROPHY_CARD_BACKGROUND = [
@@ -221,3 +221,12 @@ app.get('/api/proxy-image', async (req, res) => {
 app.listen(PORT, () => {
     console.log(`Proxy server is running on http://localhost:${PORT}`);
 });
+
+// Serve static files and handle routing
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "../client/dist")));
+
+  app.get("*", (req, res) => {
+    return res.sendFile(path.join(__dirname, "../client/dist/index.html"));
+  });
+}
