@@ -1,5 +1,5 @@
 {
-  "name": "custom-trophy-card",
+  "name": "trophy-forge",
   "version": "1.0.0",
   "description": "A full-stack application with client and server directories.",
   "main": "index.js",
