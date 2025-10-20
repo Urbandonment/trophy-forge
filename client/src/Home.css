@@ -369,42 +369,6 @@
   gap: clamp(calc(0.625rem * 0.7), 0.488vw, calc(0.625rem * 1.2));
 }
 
-.trophy-card-side-buttons-container {
-  margin-top: 0;
-  flex-grow: 0;
-  padding: clamp(calc(0.313rem * 0.7), 0.245vw, calc(0.313rem * 1.2));
-  margin-left: clamp(calc(0.625rem * 0.7), 0.488vw, calc(0.625rem * 1.2));
-}
-
-.trophy-card-side-buttons {
-  display: flex;
-  flex-direction: column;
-  width: fit-content;
-  box-sizing: border-box;
-  position: relative;
-  gap: clamp(calc(0.625rem * 0.7), 0.488vw, calc(0.625rem * 1.2));
-}
-
-.trophy-card-side-buttons #copy-button {
-  background-image: url("./assets/copy-button.png");
-  background-color: #E5E4E2;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 60%;
-  width: clamp(calc(2rem * 0.7), 1.563vw, calc(2rem * 1.2));
-  height: clamp(calc(2rem * 0.7), 1.563vw, calc(2rem * 1.2));
-}
-
-.trophy-card-side-buttons #save-button {
-  background-image: url("./assets/save-button.png");
-  background-color: #E5E4E2;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 60%;
-  width: clamp(calc(2rem * 0.7), 1.563vw, calc(2rem * 1.2));
-  height: clamp(calc(2rem * 0.7), 1.563vw, calc(2rem * 1.2));
-}
-
 .trophy-card {
   width: clamp(calc(37.5rem * 0.7), 29.297vw, calc(37.5rem * 1.2));
   height: clamp(calc(12.5rem * 0.7), 9.766vw, calc(12.5rem * 1.2));
@@ -460,7 +424,7 @@
   font-weight: 700;
   font-size: clamp(calc(1.25rem * 0.7), 0.977vw, calc(1.25rem * 1.2));
   font-family: "Bitter";
-  text-shadow: -0.0625rem -0.0625rem 0 #353935, 0.063rem -0.0625rem 0 #353935, -0.0625rem 0.063rem 0 #353935, 0.063rem 0.063rem 0 #353935;
+  text-shadow: 0.1rem 0.1rem 0 #353935;
 }
 
 .trophy-card-top-row-right-side-container {
@@ -497,7 +461,7 @@
   color: #E5E4E2;
   font-weight: 700;
   font-family: "Montserrat";
-  text-shadow: -0.0625rem -0.0625rem 0 #353935, 0.063rem -0.0625rem 0 #353935, -0.0625rem 0.063rem 0 #353935, 0.063rem 0.063rem 0 #353935;
+  text-shadow: 0.1rem 0.1rem 0 #353935;
   margin-bottom: clamp(calc(-0.5rem * 0.7), -0.391vw, calc(-0.5rem * 1.2));
 }
 
@@ -506,7 +470,7 @@
   font-weight: 700;
   font-size: clamp(calc(1.25rem * 0.7), 0.977vw, calc(1.25rem * 1.2));
   font-family: "Montserrat";
-  text-shadow: -0.0625rem -0.0625rem 0 #353935, 0.063rem -0.0625rem 0 #353935, -0.0625rem 0.063rem 0 #353935, 0.063rem 0.063rem 0 #353935;
+  text-shadow: 0.1rem 0.1rem 0 #353935;
 }
 
 .trophy-card-earned-trophies-container {
@@ -582,7 +546,7 @@
   font-weight: 700;
   font-size: clamp(calc(0.938rem * 0.7), 0.733vw, calc(0.938rem * 1.2));
   font-family: "Montserrat";
-  text-shadow: -0.0625rem -0.0625rem 0 #353935, 0.063rem -0.0625rem 0 #353935, -0.0625rem 0.063rem 0 #353935, 0.063rem 0.063rem 0 #353935;
+  text-shadow: 0.1rem 0.1rem 0 #353935;
   margin: 0;
 }
 
@@ -634,9 +598,8 @@
 .trophy-card-function-frame-label {
   color: #E5E4E2;
   font-weight: 700;
-  font-size: clamp(calc(0.875rem * 0.7), 0.684vw, calc(0.875rem * 1.2));
+  font-size: clamp(calc(1rem * 0.7), 0.781vw, calc(1rem * 1.2));
   font-family: "Bitter";
-  text-shadow: -0.0625rem -0.0625rem 0 #353935, 0.063rem -0.0625rem 0 #353935, -0.0625rem 0.063rem 0 #353935, 0.063rem 0.063rem 0 #353935;
   display: flex;
   flex-direction: column;
   gap: clamp(calc(0.625rem * 0.7), 0.488vw, calc(0.625rem * 1.2));
@@ -657,7 +620,7 @@
 
 .input-upload-image {
   padding: clamp(calc(0.313rem * 0.7), 0.245vw, calc(0.313rem * 1.2));
-  font-size: clamp(calc(0.875rem * 0.7), 0.684vw, calc(0.875rem * 1.2));
+  font-size: clamp(calc(1rem * 0.7), 0.781vw, calc(1rem * 1.2));
   width: clamp(calc(18.75rem * 0.7), 14.648vw, calc(18.75rem * 1.2));
   height: clamp(calc(1.063rem * 0.7), 0.83vw, calc(1.063rem * 1.2));
 }
@@ -686,7 +649,7 @@
 }
 .function-frame-buttons {
   font-weight: 700;
-  font-size: clamp(calc(0.75rem * 0.7), 0.586vw, calc(0.75rem * 1.2));
+  font-size: clamp(calc(1rem * 0.7), 0.781vw, calc(1rem * 1.2));
   font-family: "Montserrat";
   font-style: italic;
   color: #E5E4E2;
@@ -714,6 +677,42 @@
   transform: none;
   box-shadow: none;
   border: #353935;
+}
+
+.trophy-card-side-buttons-container {
+  margin-top: 0;
+  flex-grow: 0;
+  padding: clamp(calc(0.313rem * 0.7), 0.245vw, calc(0.313rem * 1.2));
+  margin-left: clamp(calc(0.625rem * 0.7), 0.488vw, calc(0.625rem * 1.2));
+}
+
+.trophy-card-side-buttons {
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+  box-sizing: border-box;
+  position: relative;
+  gap: clamp(calc(0.625rem * 0.7), 0.488vw, calc(0.625rem * 1.2));
+}
+
+.trophy-card-side-buttons #copy-button {
+  background-image: url("./assets/copy-button.png");
+  background-color: #E5E4E2;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 60%;
+  width: clamp(calc(2rem * 0.7), 1.563vw, calc(2rem * 1.2));
+  height: clamp(calc(2rem * 0.7), 1.563vw, calc(2rem * 1.2));
+}
+
+.trophy-card-side-buttons #save-button {
+  background-image: url("./assets/save-button.png");
+  background-color: #E5E4E2;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 60%;
+  width: clamp(calc(2rem * 0.7), 1.563vw, calc(2rem * 1.2));
+  height: clamp(calc(2rem * 0.7), 1.563vw, calc(2rem * 1.2));
 }
 
 /*# sourceMappingURL=Home.css.map */

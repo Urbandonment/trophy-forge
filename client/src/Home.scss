@@ -407,42 +407,6 @@ $target-viewport-width: 2048;
   @include rem-clamp(gap, 0.625rem);
 }
 
-.trophy-card-side-buttons-container {
-  margin-top: 0;
-  flex-grow: 0;
-  @include rem-clamp(padding, 0.313rem);
-  @include rem-clamp(margin-left, 0.625rem);
-}
-
-.trophy-card-side-buttons {
-  display: flex;
-  flex-direction: column;
-  width: fit-content;
-  box-sizing: border-box;
-  position: relative;
-  @include rem-clamp(gap, 0.625rem);
-}
-
-.trophy-card-side-buttons #copy-button {
-  background-image: url('./assets/copy-button.png');
-  background-color: #E5E4E2;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 60%;
-  @include rem-clamp(width, 2rem);
-  @include rem-clamp(height, 2rem);
-}
-
-.trophy-card-side-buttons #save-button {
-  background-image: url('./assets/save-button.png');
-  background-color: #E5E4E2;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 60%;
-  @include rem-clamp(width, 2rem);
-  @include rem-clamp(height, 2rem);
-}
-
 .trophy-card {
   @include rem-clamp(width, 37.5rem);
   @include rem-clamp(height, 12.5rem);
@@ -498,11 +462,8 @@ $target-viewport-width: 2048;
   font-weight: 700;
   @include rem-clamp(font-size, 1.25rem);
   font-family: 'Bitter';
-  text-shadow: 
-    -0.0625rem -0.0625rem 0 #353935,  
-    0.063rem -0.0625rem 0 #353935,
-    -0.0625rem 0.063rem 0 #353935,
-    0.063rem 0.063rem 0 #353935;
+  text-shadow:
+    0.1rem 0.1rem 0 #353935;
 }
 
 .trophy-card-top-row-right-side-container {
@@ -539,11 +500,8 @@ $target-viewport-width: 2048;
   color: #E5E4E2;
   font-weight: 700;
   font-family: 'Montserrat';
-  text-shadow: 
-    -0.0625rem -0.0625rem 0 #353935,  
-    0.063rem -0.0625rem 0 #353935,
-    -0.0625rem 0.063rem 0 #353935,
-    0.063rem 0.063rem 0 #353935;
+  text-shadow:
+    0.1rem 0.1rem 0 #353935;
   @include rem-clamp(margin-bottom, -0.5rem);
 }
 
@@ -552,11 +510,8 @@ $target-viewport-width: 2048;
   font-weight: 700;
   @include rem-clamp(font-size, 1.25rem);
   font-family: 'Montserrat';
-  text-shadow: 
-    -0.0625rem -0.0625rem 0 #353935,  
-    0.063rem -0.0625rem 0 #353935,
-    -0.0625rem 0.063rem 0 #353935,
-    0.063rem 0.063rem 0 #353935;
+  text-shadow:
+    0.1rem 0.1rem 0 #353935;
 }
 
 .trophy-card-earned-trophies-container {
@@ -632,11 +587,8 @@ $target-viewport-width: 2048;
   font-weight: 700;
   @include rem-clamp(font-size, 0.938rem);
   font-family: 'Montserrat';
-  text-shadow: 
-    -0.0625rem -0.0625rem 0 #353935,  
-    0.063rem -0.0625rem 0 #353935,
-    -0.0625rem 0.063rem 0 #353935,
-    0.063rem 0.063rem 0 #353935;
+  text-shadow:
+    0.1rem 0.1rem 0 #353935;
   margin: 0;
 }
 
@@ -694,13 +646,8 @@ $target-viewport-width: 2048;
 .trophy-card-function-frame-label {
   color: #E5E4E2;
   font-weight: 700;
-  @include rem-clamp(font-size, 0.875rem);
+  @include rem-clamp(font-size, 1rem);
   font-family: 'Bitter';
-  text-shadow:
-    -0.0625rem -0.0625rem 0 #353935,  
-    0.063rem -0.0625rem 0 #353935,
-    -0.0625rem 0.063rem 0 #353935,
-    0.063rem 0.063rem 0 #353935;
   display: flex;
   flex-direction: column;
   @include rem-clamp(gap, 0.625rem);
@@ -721,7 +668,7 @@ $target-viewport-width: 2048;
 
 .input-upload-image {
     @include rem-clamp(padding, 0.313rem);
-    @include rem-clamp(font-size, 0.875rem);
+    @include rem-clamp(font-size, 1rem);
     @include rem-clamp(width, 18.75rem);
     @include rem-clamp(height, 1.063rem);
 }
@@ -747,7 +694,7 @@ $target-viewport-width: 2048;
 
 .function-frame-buttons {
   font-weight: 700;
-  @include rem-clamp(font-size, 0.75rem);
+  @include rem-clamp(font-size, 1rem);
   font-family: 'Montserrat';
   font-style: italic;
   color: #E5E4E2;
@@ -775,4 +722,40 @@ $target-viewport-width: 2048;
   transform: none;
   box-shadow: none;
   border: #353935;
+}
+
+.trophy-card-side-buttons-container {
+  margin-top: 0;
+  flex-grow: 0;
+  @include rem-clamp(padding, 0.313rem);
+  @include rem-clamp(margin-left, 0.625rem);
+}
+
+.trophy-card-side-buttons {
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+  box-sizing: border-box;
+  position: relative;
+  @include rem-clamp(gap, 0.625rem);
+}
+
+.trophy-card-side-buttons #copy-button {
+  background-image: url('./assets/copy-button.png');
+  background-color: #E5E4E2;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 60%;
+  @include rem-clamp(width, 2rem);
+  @include rem-clamp(height, 2rem);
+}
+
+.trophy-card-side-buttons #save-button {
+  background-image: url('./assets/save-button.png');
+  background-color: #E5E4E2;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 60%;
+  @include rem-clamp(width, 2rem);
+  @include rem-clamp(height, 2rem);
 }
