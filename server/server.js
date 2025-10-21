@@ -59,12 +59,11 @@ app.use(async (req, res, next) => {
     try {
         const now = Date.now();
         const isTokenExpired = authTokens && now >= tokenExpirationTime;
-
+        const { default: psn } = await import('psn-api');
 
         // Condition 1: No tokens exist, so perform initial authentication with NPSSO
         if (!authTokens) {
             console.log('Authenticating with NPSSO token...');
-            const { default: psn } = await import('psn-api');
             const tempCode = await psn.exchangeNpssoForAccessCode(NPSSO_TOKEN);
             authTokens = await psn.exchangeAccessCodeForAuthTokens(tempCode);
             tokenExpirationTime = now + authTokens.expiresIn * 1000 - 60000;
