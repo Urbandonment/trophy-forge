@@ -4,12 +4,6 @@ import cors from 'cors';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
-// import { exchangeNpssoForAccessCode, 
-//     exchangeAccessCodeForAuthTokens,
-//     exchangeRefreshTokenForAuthTokens,
-//     makeUniversalSearch,
-//     getProfileFromUserName,
-//     getUserPlayedGames } from 'psn-api';
 import * as psn from 'psn-api';
 import { config } from 'dotenv';
 
@@ -59,11 +53,6 @@ app.use(async (req, res, next) => {
     try {
         const now = Date.now();
         const isTokenExpired = authTokens && now >= tokenExpirationTime;
-
-        // if (!psn) { 
-        //     const { default: psnModule } = await import('psn-api');
-        //     psn = psnModule;
-        // }
 
         // Condition 1: No tokens exist, so perform initial authentication with NPSSO
         if (!authTokens) {
