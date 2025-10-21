@@ -4,12 +4,13 @@ import cors from 'cors';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
-import { exchangeNpssoForAccessCode, 
-    exchangeAccessCodeForAuthTokens,
-    exchangeRefreshTokenForAuthTokens,
-    makeUniversalSearch,
-    getProfileFromUserName,
-    getUserPlayedGames } from 'psn-api';
+// import { exchangeNpssoForAccessCode, 
+//     exchangeAccessCodeForAuthTokens,
+//     exchangeRefreshTokenForAuthTokens,
+//     makeUniversalSearch,
+//     getProfileFromUserName,
+//     getUserPlayedGames } from 'psn-api';
+import * as psn from 'psn-api';
 import { config } from 'dotenv';
 
 // Load environment variables from .env file
@@ -63,14 +64,14 @@ app.use(async (req, res, next) => {
         // Condition 1: No tokens exist, so perform initial authentication with NPSSO
         if (!authTokens) {
             console.log('Authenticating with NPSSO token...');
-            const tempCode = await exchangeNpssoForAccessCode(NPSSO_TOKEN);
-            authTokens = await exchangeAccessCodeForAuthTokens(tempCode);
+            const tempCode = await psn.exchangeNpssoForAccessCode(NPSSO_TOKEN);
+            authTokens = await psn.exchangeAccessCodeForAuthTokens(tempCode);
             tokenExpirationTime = now + authTokens.expiresIn * 1000 - 60000;
         }
         // Condition 2: Tokens exist but the access token has expired
         else if (isTokenExpired) {
             console.log('[SERVER] Access token expired, refreshing...');
-            const newAuthTokens = await exchangeRefreshTokenForAuthTokens(authTokens.refreshToken);
+            const newAuthTokens = await psn.exchangeRefreshTokenForAuthTokens(authTokens.refreshToken);
             authTokens = newAuthTokens;
             tokenExpirationTime = now + authTokens.expiresIn * 1000 - 60000;
         }
@@ -87,7 +88,7 @@ app.get('/api/psn-profile/:username', async (req, res) => {
 
     try {
         // Retrieve accountId from username
-        const searchResult = await makeUniversalSearch(
+        const searchResult = await psn.makeUniversalSearch(
             { accessToken: authTokens.accessToken },
             username, 'SocialAllAccounts'
         );
@@ -97,12 +98,12 @@ app.get('/api/psn-profile/:username', async (req, res) => {
         const accountId = (username.toLowerCase() == 'urbandonment') ? 'me' : searchResult.domainResponses[0].results[0].socialMetadata.accountId;
 
         // Retrieve profile from username
-        const profile = await getProfileFromUserName(
+        const profile = await psn.getProfileFromUserName(
             { accessToken: authTokens.accessToken }, username
         )
 
         // Retrieve played games from accountId
-        const userPlayedGames = await getUserPlayedGames(
+        const userPlayedGames = await psn.getUserPlayedGames(
             { accessToken: authTokens.accessToken }, accountId
         )
 
