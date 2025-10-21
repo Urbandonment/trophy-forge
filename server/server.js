@@ -4,7 +4,7 @@ import cors from 'cors';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
-import * as psn from 'psn-api';
+// import * as psn from 'psn-api';
 import { config } from 'dotenv';
 
 // Load environment variables from .env file
@@ -47,6 +47,7 @@ if (!NPSSO_TOKEN) {
 // We will use a simple token cache to avoid repeated authentication
 let authTokens = null;
 let tokenExpirationTime = 0;
+let psn = {};
 
 // Middleware to get or refresh the authentication tokens - https://psn-api.achievements.app/api-docs/authentication
 app.use(async (req, res, next) => {
@@ -54,10 +55,30 @@ app.use(async (req, res, next) => {
         const now = Date.now();
         const isTokenExpired = authTokens && now >= tokenExpirationTime;
 
+        if (Object.keys(psn).length === 0) { // Check if psn is empty
+            try {
+                // The original named import that failed first
+                const psnModule = await import('psn-api');
+                
+                // Assign all exports to the psn object
+                // If it's a dual module, exports are often on .default
+                Object.assign(psn, psnModule.default || psnModule);
+                
+                // If the module fails to export functions, the object will be empty or wrong.
+                if (!psn.exchangeNpssoForAccessCode) {
+                    console.error("[SERVER] FATAL: PSN functions not found after import.");
+                    throw new Error("PSN module failed to load functions.");
+                }
+
+            } catch (err) {
+                console.error("[SERVER] Module import failed:", err.message);
+                throw err;
+            }
+        }
+
         // Condition 1: No tokens exist, so perform initial authentication with NPSSO
         if (!authTokens) {
             console.log('Authenticating with NPSSO token...');
-            console.log('NPSSO Token length:', (process.env.NPSSO_TOKEN || 'MISSING').length);
             const tempCode = await psn.exchangeNpssoForAccessCode(NPSSO_TOKEN);
             authTokens = await psn.exchangeAccessCodeForAuthTokens(tempCode);
             tokenExpirationTime = now + authTokens.expiresIn * 1000 - 60000;
