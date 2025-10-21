@@ -80,6 +80,14 @@ app.use(async (req, res, next) => {
         if (!authTokens) {
             console.log('Authenticating with NPSSO token...');
             const tempCode = await psn.exchangeNpssoForAccessCode(NPSSO_TOKEN);
+
+            const tokenValue = process.env.NPSSO_TOKEN;
+            console.log('--- NPSSO DIAGNOSTICS ---');
+            console.log('Token Type:', typeof tokenValue);
+            console.log('Token Length:', tokenValue ? tokenValue.length : 0);
+            console.log('Token Starts With:', tokenValue ? tokenValue.substring(0, 5) : 'N/A');
+            console.log('--- END DIAGNOSTICS ---');
+
             authTokens = await psn.exchangeAccessCodeForAuthTokens(tempCode);
             tokenExpirationTime = now + authTokens.expiresIn * 1000 - 60000;
         }
