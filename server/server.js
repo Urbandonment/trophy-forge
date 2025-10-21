@@ -10,7 +10,7 @@ import { dirname } from 'path';
 //     makeUniversalSearch,
 //     getProfileFromUserName,
 //     getUserPlayedGames } from 'psn-api';
-// import * as psn from 'psn-api';
+import * as psn from 'psn-api';
 import { config } from 'dotenv';
 
 // Load environment variables from .env file
@@ -53,18 +53,17 @@ if (!NPSSO_TOKEN) {
 // We will use a simple token cache to avoid repeated authentication
 let authTokens = null;
 let tokenExpirationTime = 0;
-let psn = null;
 
 // Middleware to get or refresh the authentication tokens - https://psn-api.achievements.app/api-docs/authentication
 app.use(async (req, res, next) => {
     try {
         const now = Date.now();
         const isTokenExpired = authTokens && now >= tokenExpirationTime;
-        
-        if (!psn) { 
-            const { default: psnModule } = await import('psn-api');
-            psn = psnModule;
-        }
+
+        // if (!psn) { 
+        //     const { default: psnModule } = await import('psn-api');
+        //     psn = psnModule;
+        // }
 
         // Condition 1: No tokens exist, so perform initial authentication with NPSSO
         if (!authTokens) {
