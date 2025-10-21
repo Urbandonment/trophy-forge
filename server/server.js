@@ -10,8 +10,20 @@ import { dirname } from 'path';
 //     makeUniversalSearch,
 //     getProfileFromUserName,
 //     getUserPlayedGames } from 'psn-api';
-import * as psn from 'psn-api';
+// import * as psn from 'psn-api';
 import { config } from 'dotenv';
+
+// Define a variable to hold the functions
+let psn;
+
+// Load the module using CommonJS 'require' inside the logic
+try {
+    // This loads the entire module object using the CJS mechanism
+    psn = require('psn-api'); 
+} catch (error) {
+    console.error("Failed to load 'psn-api' using require:", error);
+    // Handle error or re-throw
+}
 
 // Load environment variables from .env file
 config();
