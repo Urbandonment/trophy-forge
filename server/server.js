@@ -13,18 +13,6 @@ import { dirname } from 'path';
 // import * as psn from 'psn-api';
 import { config } from 'dotenv';
 
-// Define a variable to hold the functions
-let psn;
-
-// Load the module using CommonJS 'require' inside the logic
-try {
-    // This loads the entire module object using the CJS mechanism
-    psn = require('psn-api'); 
-} catch (error) {
-    console.error("Failed to load 'psn-api' using require:", error);
-    // Handle error or re-throw
-}
-
 // Load environment variables from .env file
 config();
 
@@ -76,6 +64,7 @@ app.use(async (req, res, next) => {
         // Condition 1: No tokens exist, so perform initial authentication with NPSSO
         if (!authTokens) {
             console.log('Authenticating with NPSSO token...');
+            const { default: psn } = await import('psn-api');
             const tempCode = await psn.exchangeNpssoForAccessCode(NPSSO_TOKEN);
             authTokens = await psn.exchangeAccessCodeForAuthTokens(tempCode);
             tokenExpirationTime = now + authTokens.expiresIn * 1000 - 60000;
