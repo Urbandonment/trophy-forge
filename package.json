@@ -2,6 +2,7 @@
   "name": "trophy-forge",
   "version": "1.0.0",
   "description": "Here you can generate your own custom trophy card using different templates.",
+  "type": "module",
   "main": "index.js",
   "scripts": {
     "dev": "concurrently \"npm run dev --prefix client\" \"npm run start --prefix server\" \"npm run open-browser\"",
