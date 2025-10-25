@@ -218,7 +218,7 @@ app.get('/api/proxy-image', async (req, res) => {
 
         // Check for file size before streaming
         const contentLength = imageResponse.headers.get('content-length');
-        const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
+        const MAX_FILE_SIZE = 5 * 1024 * 1024;
         if (contentLength && parseInt(contentLength, 10) > MAX_FILE_SIZE) {
             return res.status(413).send('Image size exceeds the 5MB limit.');
         }
