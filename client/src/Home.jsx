@@ -248,10 +248,11 @@ const getProxyUrl = (originalUrl) => {
     try {
         // 2. Render the HTML element to a canvas
         const canvas = await html2canvas(element, {
-            scale: 1,
+            scale: 2,
             backgroundColor: null,
             useCORS: true,
             x: 1,
+            allowTaint: false,
         });
         // 3. Convert the canvas image data to a Blob (PNG format)
         canvas.toBlob(async (blob) => {
@@ -440,7 +441,7 @@ const getProxyUrl = (originalUrl) => {
               </span>
               <div className='username-and-plus'>
                 <span className={`plus ${plusStatus ? 'plus-active' : ''}`}><img src={Plus} alt='💀' /></span>
-                <p className='username'>{psnUsername.toUpperCase()}</p>
+                <p className='username'>{psnUsername}</p>
               </div>
               {isProfileVisible && (
                 <div className='level-and-trophy'>
