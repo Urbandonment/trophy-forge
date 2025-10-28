@@ -2,6 +2,7 @@ import express from 'express';
 import fetch from 'node-fetch';
 import cors from 'cors';
 import path from 'path';
+import sharp from 'sharp';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 // import * as psn from 'psn-api';
@@ -23,6 +24,8 @@ const DEFAULT_TROPHY_CARD_BACKGROUND = [
     '/assets/trophy-card-default-background-5.png',
     '/assets/trophy-card-default-background-6.png',
 ];
+const MAX_IMAGE_WIDTH = 1920;
+const OPTIMIZATION_QUALITY = 70;
 
 // Randomize default trophy card background image
 const getRandomBackground = () => {
@@ -80,14 +83,6 @@ app.use(async (req, res, next) => {
         if (!authTokens) {
             console.log('Authenticating with NPSSO token...');
             const tempCode = await psn.exchangeNpssoForAccessCode(NPSSO_TOKEN);
-
-            const tokenValue = process.env.NPSSO_TOKEN;
-            console.log('--- NPSSO DIAGNOSTICS ---');
-            console.log('Token Type:', typeof tokenValue);
-            console.log('Token Length:', tokenValue ? tokenValue.length : 0);
-            console.log('Token Starts With:', tokenValue ? tokenValue.substring(0, 5) : 'N/A');
-            console.log('--- END DIAGNOSTICS ---');
-
             authTokens = await psn.exchangeAccessCodeForAuthTokens(tempCode);
             tokenExpirationTime = now + authTokens.expiresIn * 1000 - 60000;
         }
@@ -216,7 +211,19 @@ app.get('/api/proxy-image', async (req, res) => {
             return res.status(400).send('URL does not point to a valid image.');
         }
 
+        // Process (Resize and Compress) the image using Sharp
+        const imageBuffer = await imageResponse.buffer();
+        const processedImageBuffer = await sharp(imageBuffer)
+            .resize({ 
+                width: MAX_IMAGE_WIDTH,
+                withoutEnlargement: true // Prevent upsizing if the image is already smaller
+            })
+            // Convert to JPEG with reduced quality for compression
+            .jpeg({ quality: OPTIMIZATION_QUALITY }) 
+            .toBuffer();
+
         // Check for file size before streaming
+        const processedImageSize = processedImageBuffer.length;
         const contentLength = imageResponse.headers.get('content-length');
         const MAX_FILE_SIZE = 5 * 1024 * 1024;
         if (contentLength && parseInt(contentLength, 10) > MAX_FILE_SIZE) {
@@ -224,17 +231,20 @@ app.get('/api/proxy-image', async (req, res) => {
         }
 
         // Set the Content-Type header and stream the image
-        res.setHeader('Access-Control-Allow-Origin', '*'); 
-        res.setHeader('Content-Type', contentType);
+        res.setHeader('Access-Control-Allow-Origin', '*');
+        // res.setHeader('Content-Type', contentType);
+        res.setHeader('Content-Type', 'image/jpeg');
+        res.setHeader('Content-Length', processedImageSize);
+        res.send(processedImageBuffer);
 
-        imageResponse.body.on('error', (err) => {
-        console.error("Stream pipe error:", err);
-        // Use an appropriate status code if the response has not been sent yet
-        if (!res.headersSent) {
-            res.status(500).send('Stream error.');
-        }
-    });
-        imageResponse.body.pipe(res);
+    //     imageResponse.body.on('error', (err) => {
+    //     console.error("Stream pipe error:", err);
+    //     // Use an appropriate status code if the response has not been sent yet
+    //     if (!res.headersSent) {
+    //         res.status(500).send('Stream error.');
+    //     }
+    // });
+    //     imageResponse.body.pipe(res);
         
     } catch (error) {
         console.error("Proxy error:", error);
