@@ -468,8 +468,7 @@ const getProxyUrl = (originalUrl) => {
 
           <div className='trophy-card-container'>
             <div className='trophy-card-and-functions'>
-              <div className='trophy-card-template-container'
-              ref={trophyCardRef}>
+              <div className='trophy-card-template-container'>
                 {isProfileVisible && (
                   <div 
                   className='trophy-card'
