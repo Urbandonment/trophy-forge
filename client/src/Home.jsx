@@ -236,40 +236,6 @@ const getProxyUrl = (originalUrl) => {
     }
   };
 
-  // TROPHY CARD - COPY BUTTON
-  const trophyCardRef = useRef(null);
-  const handleCopyButton = async () => {
-    // 1. Get the HTML element to be captured
-    const element = trophyCardRef.current;
-    if (!element) {
-        console.error("Trophy card element not found.");
-        return;
-    }
-    try {
-        // 2. Render the HTML element to a canvas
-        const canvas = await html2canvas(element, {
-            scale: 2,
-            backgroundColor: null,
-            useCORS: true,
-        });
-        // 3. Convert the canvas image data to a Blob (PNG format)
-        canvas.toBlob(async (blob) => {
-            if (!blob) {
-                console.error("Failed to convert canvas to blob.");
-                return;
-            }
-            // 4. Use the Clipboard API to copy the Blob (image)
-            const item = new ClipboardItem({'image/png': blob});
-            await navigator.clipboard.write([item]);
-            console.log("Trophy card image copied to clipboard successfully!");
-        }, 'image/png');
-    } catch (error) {
-        console.error("Error copying image: ", error);
-    }
-  };
-
-  // TROPHY CARD - SAVE BUTTON
-
   // TROPHY CARD - FUNCTIONS FRAME - TOGGLE HANDLING
   useEffect(() => {
     if (isFunctionFrameOpen) {
@@ -426,8 +392,8 @@ const getProxyUrl = (originalUrl) => {
       <div className='content'>
         <div className='content-container'
           style={{
-            backgroundImage: `url('${currentBackgroundImage}')`, 
-            backgroundColor: 'rgba(0, 0, 0, 0.6)',
+            backgroundImage: `url('${currentBackgroundImage}')`,
+            backgroundColor: 'rgba(0, 0, 0, 0.7)',
             backgroundBlendMode: 'overlay',
             backgroundSize: 'cover',
             backgroundPosition: '50% 55%',
@@ -517,7 +483,7 @@ const getProxyUrl = (originalUrl) => {
                     <div className='top-row'>
                       <div className='trophy-card-user-container'>
                         <span className='trophy-card-avatar'>
-                          {avatarUrl && <img src={getProxyUrl(avatarUrl)} alt='💀' />}
+                          {avatarUrl && <img src={avatarUrl} alt='💀' />}
                         </span>
                         <div className='username-and-plus'>
                           <span className={`trophy-card-plus ${plusStatus ? 'trophy-card-plus-active' : ''}`}><img src={Plus} alt='💀' /></span>
@@ -659,16 +625,6 @@ const getProxyUrl = (originalUrl) => {
                   </div>
                 </div>
               </div>
-            </div>
-            <div className='trophy-card-side-buttons-container'>
-              {isProfileVisible && (
-                <div className='trophy-card-side-buttons'>
-                  <button id='copy-button' className='buttons' onClick={handleCopyButton}>
-                  </button>
-                  <button id='save-button' className='buttons'>
-                  </button>
-                </div>
-              )}
             </div>
           </div>
         </div>
