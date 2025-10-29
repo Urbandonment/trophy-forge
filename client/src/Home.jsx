@@ -118,7 +118,7 @@ const getProxyUrl = (originalUrl) => {
     return originalUrl;
   };
 
-  // Input username field handling
+  // HEADER - INPUT USERNAME FIELD
   const handleInputChange = (event) => {
     const inputValue = event.target.value;
     const MAX_LENGTH = 16;
@@ -140,7 +140,7 @@ const getProxyUrl = (originalUrl) => {
     }
   };
 
-  // Ctrl + K shortcut handling
+  // HEADER - INPUT USERNAME FIELD - CTRL + K SHORTCUT
   const inputRef = useRef(null);
   useEffect(() => {
     const handleCtrlKShortcut = (event) => {
@@ -163,14 +163,14 @@ const getProxyUrl = (originalUrl) => {
     };
   }, []);
 
-  // Enter key handling
+  // HEADER - INPUT USERNAME FIELD - ENTER SHORTCUT
   const handleEnterKey = (event) => {
     if (event.key === 'Enter') {
       handleUpdateButton();
     }
   };
 
-  // Update button handling
+  // HEADER - UPDATE BUTTON
   const handleUpdateButton = async () => {
     setLoading(true);
     setError('');
@@ -236,7 +236,7 @@ const getProxyUrl = (originalUrl) => {
     }
   };
 
-  // Trophy card copy button handling
+  // TROPHY CARD - COPY BUTTON
   const trophyCardRef = useRef(null);
   const handleCopyButton = async () => {
     // 1. Get the HTML element to be captured
@@ -270,9 +270,9 @@ const getProxyUrl = (originalUrl) => {
     }
   };
 
-  // Trophy card save button handling
+  // TROPHY CARD - SAVE BUTTON
 
-  // Trophy card function frame toggle handling
+  // TROPHY CARD - FUNCTIONS FRAME - TOGGLE HANDLING
   useEffect(() => {
     if (isFunctionFrameOpen) {
       const trophyCardFunction = document.querySelector('.trophy-card-function');
@@ -284,7 +284,7 @@ const getProxyUrl = (originalUrl) => {
     }
   }, [isFunctionFrameOpen]);
 
-  // Trophy card function buttons handling
+  // TROPHY CARD - FUNCTIONS FRAME - BUTTONS HANDLING
   const handleFunctionButtons = (functionType) => {
     if (selectedFunction === functionType) {
       setIsFunctionFrameOpen(!isFunctionFrameOpen);
@@ -294,12 +294,12 @@ const getProxyUrl = (originalUrl) => {
     }
   };
 
-  // Change image: OK button handling
+  // TROPHY CARD - CHANGE IMAGE - OK BUTTON
   const handleOkButton = () => {
     setCurrentBackgroundImage(lastGamePlayedImageUrl);
   };
 
-  // Change image: Browse button handling
+  // TROPHY CARD - CHANGE IMAGE - BROWSE BUTTON
   const fileInputRef = useRef(null);
   const handleBrowseButton = () => {
     fileInputRef.current.click();
@@ -339,7 +339,7 @@ const getProxyUrl = (originalUrl) => {
     }
   };
 
-  // Change image: Upload button handling
+  // TROPHY CARD - CHANGE IMAGE - UPLOAD BUTTON
   const handleUploadButton = async () => {
     setIsImageUrlInputLoading(true);
     if (!imageUrlInput) {

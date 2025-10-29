@@ -25,7 +25,7 @@ const DEFAULT_TROPHY_CARD_BACKGROUND = [
     '/assets/trophy-card-default-background-6.png',
 ];
 const MAX_IMAGE_WIDTH = 960;
-const OPTIMIZATION_QUALITY = 70;
+const OPTIMIZATION_QUALITY = 80;
 
 // Randomize default trophy card background image
 const getRandomBackground = () => {
@@ -219,20 +219,12 @@ app.get('/api/proxy-image', async (req, res) => {
                 withoutEnlargement: true // Prevent upsizing if the image is already smaller
             })
             // Convert to JPEG with reduced quality for compression
-            .jpeg({ quality: OPTIMIZATION_QUALITY }) 
+            .jpeg({ quality: OPTIMIZATION_QUALITY })
             .toBuffer();
-
-        // Check for file size before streaming
         const processedImageSize = processedImageBuffer.length;
-        const contentLength = imageResponse.headers.get('content-length');
-        const MAX_FILE_SIZE = 15 * 1024 * 1024;
-        if (contentLength && parseInt(contentLength, 10) > MAX_FILE_SIZE) {
-            return res.status(413).send('Image size exceeds the 15MB limit.');
-        }
 
         // Set the Content-Type header and stream the image
         res.setHeader('Access-Control-Allow-Origin', '*');
-        // res.setHeader('Content-Type', contentType);
         res.setHeader('Content-Type', 'image/jpeg');
         res.setHeader('Content-Length', processedImageSize);
         res.send(processedImageBuffer);
