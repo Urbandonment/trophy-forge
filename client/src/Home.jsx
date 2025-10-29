@@ -251,8 +251,6 @@ const getProxyUrl = (originalUrl) => {
             scale: 2,
             backgroundColor: null,
             useCORS: true,
-            x: 1,
-            allowTaint: false,
         });
         // 3. Convert the canvas image data to a Blob (PNG format)
         canvas.toBlob(async (blob) => {
