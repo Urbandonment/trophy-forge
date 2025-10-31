@@ -1,5 +1,4 @@
 import { useState, useRef, useEffect } from 'react';
-import html2canvas from 'html2canvas';
 import './Home.css'
 import Logo from './assets/logo.png';
 import CtrlKey from './assets/ctrl-key.png';
@@ -28,6 +27,13 @@ import GoldTC from './assets/trophy-card-gold-trophy.png';
 import PlatinumTC from './assets/trophy-card-platinum-trophy.png';
 
 const PROXY_BASE_URL = 'http://localhost:5000';
+
+const borderOptions = [
+  { label: 'Default', value: 'default' },
+  { label: 'Blue Neon', value: 'blue neon' },
+  { label: 'Green Neon', value: 'green neon' },
+  { label: 'Red Neon', value: 'red neon' }
+];
 
 function getLevelIcon(level) {
   if (level >=1 && level <= 99) {
@@ -89,6 +95,7 @@ function Home() {
   const [currentBackgroundImage, setCurrentBackgroundImage] = useState('');
   const [imageUrlInput, setImageUrlInput] = useState('');
   const [isImageUrlInputLoading, setIsImageUrlInputLoading] = useState(false);
+  const [selectedBorder, setSelectedBorder] = useState('default');
 
   const isOkButtonDisabled = currentBackgroundImage === lastGamePlayedImageUrl;
 
@@ -108,15 +115,15 @@ function Home() {
     }
   };
 
-const getProxyUrl = (originalUrl) => {
-    if (!originalUrl) {
-        return originalUrl; 
-    }
-    if (isExternalUrl(originalUrl)) {
-        return `/api/proxy-image?url=${encodeURIComponent(originalUrl)}`;
-    }
-    return originalUrl;
-  };
+  const getProxyUrl = (originalUrl) => {
+      if (!originalUrl) {
+          return originalUrl;
+      }
+      if (isExternalUrl(originalUrl)) {
+          return `/api/proxy-image?url=${encodeURIComponent(originalUrl)}`;
+      }
+      return originalUrl;
+    };
 
   // HEADER - INPUT USERNAME FIELD
   const handleInputChange = (event) => {
@@ -170,7 +177,7 @@ const getProxyUrl = (originalUrl) => {
     }
   };
 
-  // HEADER - UPDATE BUTTON
+  // HEADER - INPUT USERNAME FIELD - UPDATE BUTTON
   const handleUpdateButton = async () => {
     setLoading(true);
     setError('');
@@ -347,6 +354,11 @@ const getProxyUrl = (originalUrl) => {
         alert('An error occurred. Please check the URL and try again.');
     }
   };
+
+  // TROPHY CARD - BORDER SELECTION
+  const handleBorderChange = (event) => {
+    setSelectedBorder(event.target.value);
+  };
  
   return (
     <div className='page'>
@@ -471,7 +483,7 @@ const getProxyUrl = (originalUrl) => {
               <div className='trophy-card-template-container'>
                 {isProfileVisible && (
                   <div 
-                  className='trophy-card'
+                  className={`trophy-card ${selectedBorder}`}
                   style={{
                     backgroundImage: `url('${getProxyUrl(currentBackgroundImage)}')`, 
                     backgroundColor: 'rgba(0, 0, 0, 0.3)',
@@ -559,8 +571,8 @@ const getProxyUrl = (originalUrl) => {
                       <button className='buttons' onClick={() => handleFunctionButtons('change-image')}>
                         CHANGE IMAGE
                       </button>
-                      <button className='buttons' onClick={() => handleFunctionButtons('change-color')}>
-                        CHANGE COLOR
+                      <button className='buttons' onClick={() => handleFunctionButtons('change-border')}>
+                        CHANGE BORDER
                       </button>
                       <button className='buttons' onClick={() => handleFunctionButtons('change-layout')}>
                         CHANGE LAYOUT
@@ -611,9 +623,22 @@ const getProxyUrl = (originalUrl) => {
                         </div>
                       </div>
                     )}
-                    {selectedFunction === 'change-color' && (
+                    {selectedFunction === 'change-border' && (
                       <div className='trophy-card-function-frame-label'>
-                        <p>Color selection options go here.</p>
+                        <div className='border-select-control'>
+                          <label htmlFor='border-style'>Select trophy card's border</label>
+                          <select 
+                            id='border-style' 
+                            value={selectedBorder} 
+                            onChange={handleBorderChange}
+                          >
+                            {borderOptions.map((option) => (
+                              <option key={option.value} value={option.value}>
+                                {option.label}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
                       </div>
                     )}
                     {selectedFunction === 'change-layout' && (
