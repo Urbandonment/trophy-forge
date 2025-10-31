@@ -25,7 +25,7 @@ const DEFAULT_TROPHY_CARD_BACKGROUND = [
     '/assets/trophy-card-default-background-6.png',
 ];
 const MAX_IMAGE_WIDTH = 960;
-const OPTIMIZATION_QUALITY = 80;
+const OPTIMIZATION_QUALITY = 100;
 
 // Randomize default trophy card background image
 const getRandomBackground = () => {
@@ -228,15 +228,6 @@ app.get('/api/proxy-image', async (req, res) => {
         res.setHeader('Content-Type', 'image/jpeg');
         res.setHeader('Content-Length', processedImageSize);
         res.send(processedImageBuffer);
-
-    //     imageResponse.body.on('error', (err) => {
-    //     console.error("Stream pipe error:", err);
-    //     // Use an appropriate status code if the response has not been sent yet
-    //     if (!res.headersSent) {
-    //         res.status(500).send('Stream error.');
-    //     }
-    // });
-    //     imageResponse.body.pipe(res);
         
     } catch (error) {
         console.error("Proxy error:", error);
