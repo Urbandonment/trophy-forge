@@ -295,7 +295,7 @@
 .next-level-progress-bar {
   width: 100%;
   background-color: #353935;
-  border: 0.063rem solid #353935;
+  border: 0.1rem solid #353935;
   overflow: hidden;
   height: clamp(calc(1.125rem * 0.7), 0.879vw, calc(1.125rem * 1.2));
   position: relative;
@@ -316,7 +316,7 @@
   color: #353935;
   font-style: italic;
   font-weight: 800;
-  font-size: clamp(calc(0.75rem * 0.7), 0.586vw, calc(0.75rem * 1.2));
+  font-size: clamp(calc(0.9rem * 0.7), 0.703vw, calc(0.9rem * 1.2));
   font-family: "Montserrat";
 }
 
@@ -327,7 +327,7 @@
   transform: translateY(-50%);
   color: #E5E4E2;
   font-family: "Montserrat";
-  font-size: clamp(calc(0.75rem * 0.7), 0.586vw, calc(0.75rem * 1.2));
+  font-size: clamp(calc(0.9rem * 0.7), 0.703vw, calc(0.9rem * 1.2));
   font-weight: 800;
   z-index: 1;
 }
@@ -709,7 +709,7 @@
 
 /* Blue Neon Style */
 .trophy-card.neon.blue {
-  box-shadow: 0 0 0 0.4rem #22A3FF, 0 0 0.5rem 0.5rem #4682B4;
+  box-shadow: 0 0 0 0.4rem #2EA8FF, 0 0 0.5rem 0.5rem #4682B4;
 }
 
 /* Green Neon Style */

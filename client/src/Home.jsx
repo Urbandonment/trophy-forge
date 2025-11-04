@@ -368,7 +368,7 @@ function Home() {
           <p className='welcome-message'>
             Welcome to <strong>TROPHY FORGE</strong>
             <br />
-            Here you can generate your own custom trophy card using different templates
+            Here you can generate your own custom PSN trophy card
           </p>
           <div className='fetch-trophy-container'>
               <div className='input-container'>
@@ -430,11 +430,11 @@ function Home() {
                         className='next-level-progress-bar-fill'
                         style={{width: `${nextLevel}%`}}
                       >
-                        {nextLevel >= 20 && (
+                        {nextLevel >= 25 && (
                           <span className='next-level-progress-bar-text'>{nextLevel}%</span>
                         )}
                       </div>
-                      {level < 999 && nextLevel < 20 && (
+                      {level < 999 && nextLevel < 25 && (
                         <span className='next-level-progress-bar-text-outside'>{nextLevel}%</span>
                       )}
                       {level === 999 && (

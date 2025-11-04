@@ -333,7 +333,7 @@ $target-viewport-width: 2048;
 .next-level-progress-bar {
   width: 100%;
   background-color: #353935;
-  border: 0.063rem solid #353935;
+  border: 0.1rem solid #353935;
   overflow: hidden;
   @include rem-clamp(height, 1.125rem);
   position: relative;
@@ -354,7 +354,7 @@ $target-viewport-width: 2048;
   color: #353935;
   font-style: italic;
   font-weight: 800;
-  @include rem-clamp(font-size, 0.75rem);
+  @include rem-clamp(font-size, 0.9rem);
   font-family: 'Montserrat';
 }
 
@@ -365,7 +365,7 @@ $target-viewport-width: 2048;
   transform: translateY(-50%);
   color: #E5E4E2;
   font-family: 'Montserrat';
-  @include rem-clamp(font-size, 0.75rem);
+  @include rem-clamp(font-size, 0.9rem);
   font-weight: 800;
   z-index: 1;
 }
@@ -757,7 +757,7 @@ $target-viewport-width: 2048;
 /* Blue Neon Style */
 .trophy-card.neon.blue {
   box-shadow:
-    0 0 0 0.4rem #22A3FF,
+    0 0 0 0.4rem #2EA8FF,
     0 0 0.5rem 0.5rem #4682B4,
 }
 
