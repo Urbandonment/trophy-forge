@@ -735,10 +735,9 @@ $target-viewport-width: 2048;
   font-weight: 700;
   @include rem-clamp(font-size, 1rem);
   font-family: 'Montserrat';
-  color: #E5E4E2;
-  background-color: #0455BF;
+  color: #0047AB;
+  background-color: #E5E4E2;
   @include rem-clamp(padding, 0.5rem);
-  border: #353935;
   @include rem-clamp(border-radius, 0.188rem);
   @include rem-clamp(width, 15rem);
 }
@@ -752,7 +751,7 @@ $target-viewport-width: 2048;
 .trophy-card.default {
   box-shadow: 
     0 0 0 0.5rem #D3D3D3,
-    0 0 2rem 0.5rem #C0C0C0,
+    0 0 0.5rem 0.5rem #C0C0C0,
     0 0 0 0.5rem #353935;
 }
 
@@ -760,7 +759,7 @@ $target-viewport-width: 2048;
 .trophy-card.neon.blue {
   box-shadow:
     0 0 0 0.5rem #0096FF,
-    0 0 2rem 0.5rem #1F51FF,
+    0 0 0.5rem 0.5rem #4682B4,
     0 0 0 0.5rem #353935;
 }
 
@@ -768,14 +767,14 @@ $target-viewport-width: 2048;
 .trophy-card.neon.green {
   box-shadow: 
     0 0 0 0.5rem #0FFF50,
-    0 0 2rem 0.5rem #50C878,
+    0 0 0.5rem 0.5rem #50C878,
     0 0 0 0.5rem #353935;
 }
 
 /* Red Neon Style */
 .trophy-card.neon.red {
   box-shadow: 
-    0 0 0 0.5rem #FF3131,
-    0 0 2rem 0.5rem #E34234,
+    0 0 0 0.5rem #E34234,
+    0 0 0.5rem 0.5rem #FF3131,
     0 0 0 0.5rem #353935;
 }

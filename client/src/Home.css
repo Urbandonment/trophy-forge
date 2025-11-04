@@ -690,10 +690,9 @@
   font-weight: 700;
   font-size: clamp(calc(1rem * 0.7), 0.781vw, calc(1rem * 1.2));
   font-family: "Montserrat";
-  color: #E5E4E2;
-  background-color: #0455BF;
+  color: #0047AB;
+  background-color: #E5E4E2;
   padding: clamp(calc(0.5rem * 0.7), 0.391vw, calc(0.5rem * 1.2));
-  border: #353935;
   border-radius: clamp(calc(0.188rem * 0.7), 0.147vw, calc(0.188rem * 1.2));
   width: clamp(calc(15rem * 0.7), 11.719vw, calc(15rem * 1.2));
 }
@@ -705,22 +704,22 @@
 
 /* Default Border */
 .trophy-card.default {
-  box-shadow: 0 0 0 0.5rem #D3D3D3, 0 0 2rem 0.5rem #C0C0C0, 0 0 0 0.5rem #353935;
+  box-shadow: 0 0 0 0.5rem #D3D3D3, 0 0 0.5rem 0.5rem #C0C0C0, 0 0 0 0.5rem #353935;
 }
 
 /* Blue Neon Style */
 .trophy-card.neon.blue {
-  box-shadow: 0 0 0 0.5rem #0096FF, 0 0 2rem 0.5rem #1F51FF, 0 0 0 0.5rem #353935;
+  box-shadow: 0 0 0 0.5rem #0096FF, 0 0 0.5rem 0.5rem #4682B4, 0 0 0 0.5rem #353935;
 }
 
 /* Green Neon Style */
 .trophy-card.neon.green {
-  box-shadow: 0 0 0 0.5rem #0FFF50, 0 0 2rem 0.5rem #50C878, 0 0 0 0.5rem #353935;
+  box-shadow: 0 0 0 0.5rem #0FFF50, 0 0 0.5rem 0.5rem #50C878, 0 0 0 0.5rem #353935;
 }
 
 /* Red Neon Style */
 .trophy-card.neon.red {
-  box-shadow: 0 0 0 0.5rem #FF3131, 0 0 2rem 0.5rem #E34234, 0 0 0 0.5rem #353935;
+  box-shadow: 0 0 0 0.5rem #E34234, 0 0 0.5rem 0.5rem #FF3131, 0 0 0 0.5rem #353935;
 }
 
 /*# sourceMappingURL=Home.css.map */
