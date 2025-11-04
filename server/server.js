@@ -4,7 +4,6 @@ import cors from 'cors';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
-// import * as psn from 'psn-api';
 import { config } from 'dotenv';
 
 // Load environment variables from .env file
@@ -23,7 +22,6 @@ const DEFAULT_TROPHY_CARD_BACKGROUND = [
     '/assets/trophy-card-default-background-5.png',
     '/assets/trophy-card-default-background-6.png',
 ];
-const MAX_IMAGE_WIDTH = 960;
 
 // Randomize default trophy card background image
 const getRandomBackground = () => {
