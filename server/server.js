@@ -2,7 +2,6 @@ import express from 'express';
 import fetch from 'node-fetch';
 import cors from 'cors';
 import path from 'path';
-import sharp from 'sharp';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 // import * as psn from 'psn-api';
@@ -25,7 +24,6 @@ const DEFAULT_TROPHY_CARD_BACKGROUND = [
     '/assets/trophy-card-default-background-6.png',
 ];
 const MAX_IMAGE_WIDTH = 960;
-const OPTIMIZATION_QUALITY = 100;
 
 // Randomize default trophy card background image
 const getRandomBackground = () => {
@@ -211,23 +209,14 @@ app.get('/api/proxy-image', async (req, res) => {
             return res.status(400).send('URL does not point to a valid image.');
         }
 
-        // Process (Resize and Compress) the image using Sharp
         const imageBuffer = await imageResponse.buffer();
-        const processedImageBuffer = await sharp(imageBuffer)
-            .resize({ 
-                width: MAX_IMAGE_WIDTH,
-                withoutEnlargement: true // Prevent upsizing if the image is already smaller
-            })
-            // Convert to JPEG with reduced quality for compression
-            .jpeg({ quality: OPTIMIZATION_QUALITY })
-            .toBuffer();
-        const processedImageSize = processedImageBuffer.length;
+        const originalImageSize = imageBuffer.length;
 
         // Set the Content-Type header and stream the image
         res.setHeader('Access-Control-Allow-Origin', '*');
         res.setHeader('Content-Type', 'image/jpeg');
-        res.setHeader('Content-Length', processedImageSize);
-        res.send(processedImageBuffer);
+        res.setHeader('Content-Length', originalImageSize);
+        res.send(imageBuffer);
         
     } catch (error) {
         console.error("Proxy error:", error);
