@@ -16,8 +16,6 @@
   "license": "ISC",
   "dependencies": {
     "concurrently": "^9.2.1",
-    "html2canvas": "^1.4.1",
-    "psn-api": "^2.15.0",
-    "sharp": "^0.32.6"
+    "psn-api": "^2.15.0"
   }
 }
