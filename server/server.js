@@ -65,7 +65,7 @@ app.use(async (req, res, next) => {
             try {
                 // The original named import that failed first
                 // const psnModule = await import('psn-api');
-                const psn = require('psn-api');
+                const psnModule = require('psn-api');
                 
                 // Assign all exports to the psn object
                 // If it's a dual module, exports are often on .default
