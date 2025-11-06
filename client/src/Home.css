@@ -377,6 +377,7 @@
   background-position: center;
   position: relative;
   overflow: hidden;
+  border: 0.15rem solid #353935;
 }
 
 .top-row {
@@ -695,11 +696,6 @@
   padding: clamp(calc(0.5rem * 0.7), 0.391vw, calc(0.5rem * 1.2));
   border-radius: clamp(calc(0.188rem * 0.7), 0.147vw, calc(0.188rem * 1.2));
   width: clamp(calc(15rem * 0.7), 11.719vw, calc(15rem * 1.2));
-}
-
-/* Base for all neon styles */
-.trophy-card.neon {
-  border: none; /* Ensure no conflicting solid border */
 }
 
 /* Default Border */

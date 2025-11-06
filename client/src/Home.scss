@@ -415,6 +415,7 @@ $target-viewport-width: 2048;
   background-position: center;
   position: relative;
   overflow: hidden;
+  border: 0.15rem solid #353935;
 }
 
 .top-row {
@@ -740,11 +741,6 @@ $target-viewport-width: 2048;
   @include rem-clamp(padding, 0.5rem);
   @include rem-clamp(border-radius, 0.188rem);
   @include rem-clamp(width, 15rem);
-}
-
-/* Base for all neon styles */
-.trophy-card.neon {
-  border: none; /* Ensure no conflicting solid border */
 }
 
 /* Default Border */
