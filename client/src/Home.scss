@@ -415,7 +415,7 @@ $target-viewport-width: 2048;
   background-position: center;
   position: relative;
   overflow: hidden;
-  border: 0.15rem solid #353935;
+  border: 0.1rem solid #4E5356;
 }
 
 .top-row {
@@ -747,6 +747,7 @@ $target-viewport-width: 2048;
 .trophy-card.default {
   box-shadow: 
     0 0 0 0.4rem #D3D3D3,
+    0 0 0 0.48rem #4E5356,
     0 0 0.5rem 0.5rem #C0C0C0,
 }
 
@@ -754,6 +755,7 @@ $target-viewport-width: 2048;
 .trophy-card.neon.blue {
   box-shadow:
     0 0 0 0.4rem #2EA8FF,
+    0 0 0 0.48rem #4E5356,
     0 0 0.5rem 0.5rem #4682B4,
 }
 
@@ -761,6 +763,7 @@ $target-viewport-width: 2048;
 .trophy-card.neon.green {
   box-shadow: 
     0 0 0 0.4rem #0FFF50,
+    0 0 0 0.48rem #4E5356,
     0 0 0.5rem 0.5rem #50C878,
 }
 
@@ -768,5 +771,6 @@ $target-viewport-width: 2048;
 .trophy-card.neon.red {
   box-shadow: 
     0 0 0 0.4rem #E34234,
+    0 0 0 0.48rem #4E5356,
     0 0 0.5rem 0.5rem #FF3131,
 }

@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
+import { Analytics } from "@vercel/analytics/next";
 import './Home.css'
 import Logo from './assets/logo.png';
 import CtrlKey from './assets/ctrl-key.png';
