@@ -1,24 +1,17 @@
-// import express from 'express';
-// import fetch from 'node-fetch';
-// import cors from 'cors';
-// import path from 'path';
-// import { fileURLToPath } from 'url';
-// import { dirname } from 'path';
-// import { config } from 'dotenv';
-
-const express = require('express');
-const fetch = require('node-fetch');
-const cors = require('cors');
-const path = require('path');
-const { config } = require('dotenv');
+import express from 'express';
+import fetch from 'node-fetch';
+import cors from 'cors';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+import { config } from 'dotenv';
 
 // Load environment variables from .env file
 config();
 
 const app = express();
-// const __filename = fileURLToPath(import.meta.url);
-// const __dirname = dirname(__filename);
-const __dirname = path.resolve();
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 const PORT = process.env.PORT || 5000;
 const NPSSO_TOKEN = process.env.NPSSO_TOKEN;
 const DEFAULT_TROPHY_CARD_BACKGROUND = [
@@ -64,8 +57,7 @@ app.use(async (req, res, next) => {
         if (Object.keys(psn).length === 0) { // Check if psn is empty
             try {
                 // The original named import that failed first
-                // const psnModule = await import('psn-api');
-                const psn = require('psn-api');
+                const psnModule = await import('psn-api');
                 
                 // Assign all exports to the psn object
                 // If it's a dual module, exports are often on .default
