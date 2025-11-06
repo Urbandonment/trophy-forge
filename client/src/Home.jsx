@@ -1,5 +1,4 @@
 import { useState, useRef, useEffect } from 'react';
-import { Analytics } from "@vercel/analytics/next";
 import './Home.css'
 import Logo from './assets/logo.png';
 import CtrlKey from './assets/ctrl-key.png';
@@ -27,7 +26,7 @@ import SilverTC from './assets/trophy-card-silver-trophy.png';
 import GoldTC from './assets/trophy-card-gold-trophy.png';
 import PlatinumTC from './assets/trophy-card-platinum-trophy.png';
 
-// const PROXY_BASE_URL = 'http://localhost:5000';
+import { Analytics } from '@vercel/analytics/react';
 
 const isDevelopment = process.env.NODE_ENV === 'development';
 // If in development, point to the local server/port (e.g., 3001).
@@ -661,6 +660,7 @@ function Home() {
           </div>
         </div>
       </div>
+      <Analytics />
     </div>
   );
 }
