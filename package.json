@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "Here you can generate your own custom trophy card using different templates.",
   "main": "server.js",
-  "type": "module",
   "scripts": {
     "dev": "concurrently \"npm run dev --prefix client\" \"npm run start --prefix server\" \"npm run open-browser\"",
     "open-browser": "npx wait-on http://localhost:5173 && npx open-cli http://localhost:5173",
