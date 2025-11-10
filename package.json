@@ -14,6 +14,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@vercel/analytics": "^1.5.0",
     "concurrently": "^9.2.1",
     "psn-api": "^2.15.0"
   }
