@@ -26,10 +26,13 @@ import SilverTC from './assets/trophy-card-silver-trophy.png';
 import GoldTC from './assets/trophy-card-gold-trophy.png';
 import PlatinumTC from './assets/trophy-card-platinum-trophy.png';
 
+<<<<<<< HEAD
 import { Analytics } from '@vercel/analytics/next';
 
 // const PROXY_BASE_URL = 'http://localhost:5000';
 
+=======
+>>>>>>> 53b00b7f5b8e7e88b41470773bc782df2591ac09
 const isDevelopment = process.env.NODE_ENV === 'development';
 // If in development, point to the local server/port (e.g., 3001).
 // If in production (Vercel), use an empty string so the path becomes relative (e.g., "/api/psn-profile/...")
@@ -662,9 +665,8 @@ function Home() {
           </div>
         </div>
       </div>
-    <Analytics />
+      <Analytics />
     </div>
-    
   );
 }
 
