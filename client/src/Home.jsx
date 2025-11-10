@@ -25,7 +25,6 @@ import BronzeTC from './assets/trophy-card-bronze-trophy.png';
 import SilverTC from './assets/trophy-card-silver-trophy.png';
 import GoldTC from './assets/trophy-card-gold-trophy.png';
 import PlatinumTC from './assets/trophy-card-platinum-trophy.png';
-import { Analytics } from '@vercel/analytics/react';
 
 const isDevelopment = process.env.NODE_ENV === 'development';
 // If in development, point to the local server/port (e.g., 3001).
@@ -659,7 +658,6 @@ function Home() {
           </div>
         </div>
       </div>
-      <Analytics />
     </div>
   );
 }
