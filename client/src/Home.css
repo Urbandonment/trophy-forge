@@ -517,10 +517,6 @@
 }
 
 .trophy-card-trophy-container {
-  background: rgba(0, 0, 0, 0.3);
-  box-shadow: 0 0.25rem 1.875rem rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(0.125rem);
-  -webkit-backdrop-filter: blur(0.125rem);
   display: flex;
   flex-direction: column;
   justify-content: center;
