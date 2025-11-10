@@ -659,7 +659,7 @@ function Home() {
           </div>
         </div>
       </div>
-      <Analytics />
+      {/* <Analytics /> */}
     </div>
   );
 }
