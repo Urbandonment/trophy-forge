@@ -37,6 +37,8 @@ const borderOptions = [
   { label: 'Default', value: 'default' },
   { label: 'Blue Neon', value: 'blue neon' },
   { label: 'Green Neon', value: 'green neon' },
+  { label: 'Orange Neon', value: 'orange neon' },
+  { label: 'Purple Neon', value: 'purple neon' },
   { label: 'Red Neon', value: 'red neon' }
 ];
 

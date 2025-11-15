@@ -765,6 +765,24 @@ $target-viewport-width: 2048;
     0 0 0.5rem 0.5rem #50C878,
 }
 
+/* Orange Neon Style */
+.trophy-card.neon.orange {
+  border: 0.1rem solid #D14D00;
+  box-shadow: 
+    0 0 0 0.4rem #FF7518,
+    0 0 0 0.48rem #D14D00,
+    0 0 0.5rem 0.5rem #FFA500,
+}
+
+/* Purple Neon Style */
+.trophy-card.neon.purple {
+  border: 0.1rem solid #9F49FF;
+  box-shadow: 
+    0 0 0 0.4rem #B974FF,
+    0 0 0 0.48rem #9F49FF,
+    0 0 0.5rem 0.5rem #C589FF,
+}
+
 /* Red Neon Style */
 .trophy-card.neon.red {
   border: 0.1rem solid #C41E3A;
