@@ -377,7 +377,6 @@
   background-position: center;
   position: relative;
   overflow: hidden;
-  border: 0.1rem solid #4E5356;
 }
 
 .top-row {
@@ -696,22 +695,26 @@
 
 /* Default Border */
 .trophy-card.default {
+  border: 0.1rem solid #4E5356;
   box-shadow: 0 0 0 0.4rem #D3D3D3, 0 0 0 0.48rem #4E5356, 0 0 0.5rem 0.5rem #C0C0C0;
 }
 
 /* Blue Neon Style */
 .trophy-card.neon.blue {
-  box-shadow: 0 0 0 0.4rem #2EA8FF, 0 0 0 0.48rem #4E5356, 0 0 0.5rem 0.5rem #4682B4;
+  border: 0.1rem solid #0F52BA;
+  box-shadow: 0 0 0 0.4rem #2EA8FF, 0 0 0 0.48rem #0F52BA, 0 0 0.5rem 0.5rem #4682B4;
 }
 
 /* Green Neon Style */
 .trophy-card.neon.green {
-  box-shadow: 0 0 0 0.4rem #0FFF50, 0 0 0 0.48rem #4E5356, 0 0 0.5rem 0.5rem #50C878;
+  border: 0.1rem solid #40826D;
+  box-shadow: 0 0 0 0.4rem #0FFF50, 0 0 0 0.48rem #40826D, 0 0 0.5rem 0.5rem #50C878;
 }
 
 /* Red Neon Style */
 .trophy-card.neon.red {
-  box-shadow: 0 0 0 0.4rem #FF4433, 0 0 0 0.48rem #4E5356, 0 0 0.5rem 0.5rem #E34234;
+  border: 0.1rem solid #C41E3A;
+  box-shadow: 0 0 0 0.4rem #FF4433, 0 0 0 0.48rem #C41E3A, 0 0 0.5rem 0.5rem #E34234;
 }
 
 /*# sourceMappingURL=Home.css.map */
