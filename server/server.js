@@ -1,11 +1,3 @@
-// import express from 'express';
-// import fetch from 'node-fetch';
-// import cors from 'cors';
-// import path from 'path';
-// import { fileURLToPath } from 'url';
-// import { dirname } from 'path';
-// import { config } from 'dotenv';
-
 const express = require('express');
 const fetch = require('node-fetch');
 const cors = require('cors');
@@ -16,9 +8,6 @@ const { config } = require('dotenv');
 config();
 
 const app = express();
-// const __filename = fileURLToPath(import.meta.url);
-// const __dirname = dirname(__filename);
-// const __dirname = path.resolve();
 const PORT = process.env.PORT || 5000;
 const NPSSO_TOKEN = process.env.NPSSO_TOKEN;
 const DEFAULT_TROPHY_CARD_BACKGROUND = [
@@ -124,14 +113,19 @@ app.get('/api/psn-profile/:username', async (req, res) => {
             { accessToken: authTokens.accessToken }, username
         )
 
-        // Retrieve played games from accountId
+        // Retrieve played games from username
         const userPlayedGames = await psn.getUserPlayedGames(
             { accessToken: authTokens.accessToken }, accountId
         )
-
         const lastGamePlayed = (userPlayedGames && userPlayedGames.titles && userPlayedGames.titles.length > 0)
             ? userPlayedGames.titles[0].name
             : 'No games played recently';
+
+        // Retrieve friend list from username
+        const userFriendsAccountIds = await psn.getUserFriendsAccountIds(
+            { accessToken: authTokens.accessToken }, accountId
+        );
+        console.log('List of friends: ' + userFriendsAccountIds);
 
         // Trophy card game logo
         let lastGamePlayedLogos = [];

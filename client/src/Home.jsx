@@ -27,8 +27,6 @@ import GoldTC from './assets/trophy-card-gold-trophy.png';
 import PlatinumTC from './assets/trophy-card-platinum-trophy.png';
 
 const isDevelopment = process.env.NODE_ENV === 'development';
-// If in development, point to the local server/port (e.g., 3001).
-// If in production (Vercel), use an empty string so the path becomes relative (e.g., "/api/psn-profile/...")
 const PROXY_BASE_URL = isDevelopment
     ? 'http://localhost:5000'
     : '';
