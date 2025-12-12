@@ -150,20 +150,19 @@ $target-viewport-width: 2048;
   padding: 0.625rem 0.938rem;
   border: #353935;
   @include rem-clamp(border-radius, 0.188rem);
-  transition: transform 0.2s ease-out, background-color 0.2s ease-out;
+  transition: transform 0.1s ease-out, background-color 0.2s ease-out;
   will-change: transform;
+  transform-style: preserve-3d;
 }
 
 .buttons:hover {
   cursor: pointer;
   outline: none;
   border: #E5E4E2;
-  transform: translate3d(0, -0.125rem, 0);
 }
 
 .buttons:active {
   background-color: #0047AB;
-  transform: translate3d(0, 0.063rem, 0);
   box-shadow: none;
   border: #353935;
 }
@@ -670,26 +669,25 @@ $target-viewport-width: 2048;
   @include rem-clamp(padding, 0.5rem);
   border: #353935;
   @include rem-clamp(border-radius, 0.188rem);
-  transition: transform 0.2s ease-out, background-color 0.2s ease-out;
+  transition: transform 0.1s ease-out, background-color 0.2s ease-out;
   will-change: transform;
+  transform-style: preserve-3d;
 }
 
 .function-frame-buttons:hover {
   cursor: pointer;
   outline: none;
   border: #E5E4E2;
-  transform: translate3d(0, -0.125rem, 0);
 }
 
 .function-frame-buttons:active {
   background-color: #0047AB;
-  transform: translate3d(0, 0.063rem, 0);
   box-shadow: none;
   border: #353935;
 }
 
 .function-frame-buttons.is-disabled:hover {
-  transform: none;
+  transform: perspective(1000px) rotateX(0) rotateY(0) translate3d(0, 0, 0) !important;
 }
 
 .function-frame-buttons.is-disabled:active {

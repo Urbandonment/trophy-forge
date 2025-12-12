@@ -111,6 +111,57 @@ function Home() {
         setCurrentBackgroundImage(lastGamePlayedImageUrl);
     }
   }, [lastGamePlayedImageUrl]);
+
+  // 3D ROTATION HANDLER FOR BUTTONS
+  const handleMouseMove = (e) => {
+    const button = e.currentTarget;
+    const rect = button.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    
+    const rotateX = ((y - centerY) / centerY) * -10; // Max 10 degrees
+    const rotateY = ((x - centerX) / centerX) * 10; // Max 10 degrees
+    
+    button.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translate3d(0, 0, 0)`;
+  };
+
+  const handleMouseLeave = (e) => {
+    const button = e.currentTarget;
+    button.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translate3d(0, 0, 0)';
+  };
+
+  const handleMouseDown = (e) => {
+    const button = e.currentTarget;
+    const rect = button.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    
+    const rotateX = ((y - centerY) / centerY) * -5; // Reduced rotation on click
+    const rotateY = ((x - centerX) / centerX) * 5;
+    
+    button.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translate3d(0, 0.063rem, 0)`;
+  };
+
+  const handleMouseUp = (e) => {
+    const button = e.currentTarget;
+    const rect = button.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    
+    const rotateX = ((y - centerY) / centerY) * -10;
+    const rotateY = ((x - centerX) / centerX) * 10;
+    
+    button.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translate3d(0, -0.125rem, 0)`;
+  };
   
   // getProxyURL
   const isExternalUrl = (url) => {
@@ -452,6 +503,10 @@ function Home() {
               <button
                 onClick={handleUpdateButton}
                 className='buttons'
+                onMouseMove={handleMouseMove}
+                onMouseLeave={handleMouseLeave}
+                onMouseDown={handleMouseDown}
+                onMouseUp={handleMouseUp}
               >
                 UPDATE
               </button>
@@ -630,16 +685,44 @@ function Home() {
                 <div className='trophy-card-function-and-frame'>
                   {isProfileVisible && (
                     <div className='trophy-card-function'>
-                      <button className='buttons' onClick={() => handleFunctionButtons('change-image')}>
+                      <button 
+                        className='buttons' 
+                        onClick={() => handleFunctionButtons('change-image')}
+                        onMouseMove={handleMouseMove}
+                        onMouseLeave={handleMouseLeave}
+                        onMouseDown={handleMouseDown}
+                        onMouseUp={handleMouseUp}
+                      >
                         CHANGE IMAGE
                       </button>
-                      <button className='buttons' onClick={() => handleFunctionButtons('change-border')}>
+                      <button 
+                        className='buttons' 
+                        onClick={() => handleFunctionButtons('change-border')}
+                        onMouseMove={handleMouseMove}
+                        onMouseLeave={handleMouseLeave}
+                        onMouseDown={handleMouseDown}
+                        onMouseUp={handleMouseUp}
+                      >
                         CHANGE BORDER
                       </button>
-                      <button className='buttons' onClick={() => handleFunctionButtons('change-layout')}>
+                      <button 
+                        className='buttons' 
+                        onClick={() => handleFunctionButtons('change-layout')}
+                        onMouseMove={handleMouseMove}
+                        onMouseLeave={handleMouseLeave}
+                        onMouseDown={handleMouseDown}
+                        onMouseUp={handleMouseUp}
+                      >
                         CHANGE LAYOUT
                       </button>
-                      <button className='buttons' onClick={handleCaptureImage}>
+                      <button 
+                        className='buttons' 
+                        onClick={handleCaptureImage}
+                        onMouseMove={handleMouseMove}
+                        onMouseLeave={handleMouseLeave}
+                        onMouseDown={handleMouseDown}
+                        onMouseUp={handleMouseUp}
+                      >
                         CAPTURE AS IMAGE
                       </button>
                     </div>
@@ -655,13 +738,27 @@ function Home() {
                             className={`function-frame-buttons ${isOkButtonDisabled ? 'is-disabled' : ''}`}
                             onClick={handleOkButton}
                             disabled={isOkButtonDisabled}
-                            style={{backgroundColor: isOkButtonDisabled ? '#808080' : '#0455BF',}}>
+                            style={{backgroundColor: isOkButtonDisabled ? '#808080' : '#0455BF',}}
+                            onMouseMove={!isOkButtonDisabled ? handleMouseMove : undefined}
+                            onMouseLeave={!isOkButtonDisabled ? handleMouseLeave : undefined}
+                            onMouseDown={!isOkButtonDisabled ? handleMouseDown : undefined}
+                            onMouseUp={!isOkButtonDisabled ? handleMouseUp : undefined}
+                          >
                             OK
                           </button>
                         </div>
                         <div className='trophy-card-function-frame-row'>
                           <span>Upload your own image</span>
-                          <button className='function-frame-buttons' onClick={handleBrowseButton}>Browse</button>
+                          <button 
+                            className='function-frame-buttons' 
+                            onClick={handleBrowseButton}
+                            onMouseMove={handleMouseMove}
+                            onMouseLeave={handleMouseLeave}
+                            onMouseDown={handleMouseDown}
+                            onMouseUp={handleMouseUp}
+                          >
+                            Browse
+                          </button>
                           <input
                             type="file"
                             accept="image/*"
@@ -684,7 +781,16 @@ function Home() {
                             />
                             {isImageUrlInputLoading && <div className="input-upload-image-loading"></div>}
                           </span>
-                          <button className='function-frame-buttons' onClick={handleUploadButton}>Upload</button>
+                          <button 
+                            className='function-frame-buttons' 
+                            onClick={handleUploadButton}
+                            onMouseMove={handleMouseMove}
+                            onMouseLeave={handleMouseLeave}
+                            onMouseDown={handleMouseDown}
+                            onMouseUp={handleMouseUp}
+                          >
+                            Upload
+                          </button>
                         </div>
                       </div>
                     )}
