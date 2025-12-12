@@ -292,13 +292,39 @@ function Home() {
     }
 
     try {
+      // Wait for all images to load before capturing
+      const images = trophyCardRef.current.querySelectorAll('img');
+      const imagePromises = Array.from(images).map((img) => {
+        if (img.complete) {
+          return Promise.resolve();
+        }
+        return new Promise((resolve, reject) => {
+          img.onload = resolve;
+          img.onerror = resolve; // Continue even if image fails to load
+          // Timeout after 5 seconds
+          setTimeout(resolve, 5000);
+        });
+      });
+
+      await Promise.all(imagePromises);
+
       const canvas = await html2canvas(trophyCardRef.current, {
         backgroundColor: null,
         scale: 2,
         useCORS: true,
+        allowTaint: false,
         logging: false,
         width: trophyCardRef.current.offsetWidth,
-        height: trophyCardRef.current.offsetHeight
+        height: trophyCardRef.current.offsetHeight,
+        onclone: (clonedDoc) => {
+          // Ensure all images in the cloned document are loaded
+          const clonedImages = clonedDoc.querySelectorAll('img');
+          clonedImages.forEach((img) => {
+            if (!img.complete) {
+              img.crossOrigin = 'anonymous';
+            }
+          });
+        }
       });
 
       const dataUrl = canvas.toDataURL('image/png');
@@ -449,7 +475,7 @@ function Home() {
             borderRadius: '0.938rem'}}>
           <div className='profile-container'>
               <span className='avatar'>
-                {avatarUrl && <img src={avatarUrl} alt='💀' />}
+                {avatarUrl && <img src={getProxyUrl(avatarUrl)} alt='💀' />}
               </span>
               <div className='username-and-plus'>
                 <span className={`plus ${plusStatus ? 'plus-active' : ''}`}><img src={Plus} alt='💀' /></span>
@@ -530,7 +556,7 @@ function Home() {
                     <div className='top-row'>
                       <div className='trophy-card-user-container'>
                         <span className='trophy-card-avatar'>
-                          {avatarUrl && <img src={avatarUrl} alt='💀' />}
+                          {avatarUrl && <img src={getProxyUrl(avatarUrl)} alt='💀' />}
                         </span>
                         <div className='username-and-plus'>
                           <span className={`trophy-card-plus ${plusStatus ? 'trophy-card-plus-active' : ''}`}><img src={Plus} alt='💀' /></span>
