@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 import html2canvas from 'html2canvas';
 import './Home.css'
 import Logo from './assets/logo.png';
@@ -111,6 +111,83 @@ function Home() {
         setCurrentBackgroundImage(lastGamePlayedImageUrl);
     }
   }, [lastGamePlayedImageUrl]);
+
+  // Helper function to update button that can be called with a name
+  const handleUpdateButtonWithName = useCallback(async (username) => {
+    setLoading(true);
+    setError('');
+
+    if (!username) {
+      setError('Please enter a PSN username');
+      setLoading(false);
+      return;
+    }
+
+    try {
+      const profileResponse = await fetch(`${PROXY_BASE_URL}/api/psn-profile/${username}`, {
+        method: 'GET',
+      });
+
+      if (!profileResponse.ok) {
+        const errorData = await profileResponse.json();
+        setError(errorData.message);
+        setLoading(false);
+        return;
+      }
+
+      const profileData = await profileResponse.json();
+      setAvatarUrl(profileData.avatarUrl);
+      setPsnUsername(profileData.onlineId);
+      setPlusStatus(profileData.isPlus);
+      setLevel(profileData.level);
+      setNextLevel(profileData.nextLevel);
+      setPlatinumTrophies(profileData.platinumTrophies);
+      setGoldTrophies(profileData.goldTrophies);
+      setSilverTrophies(profileData.silverTrophies);
+      setBronzeTrophies(profileData.bronzeTrophies);
+      setEarnedTrophies(profileData.earnedTrophies);
+      setLastGamePlayed(profileData.lastGamePlayed);
+      setLastGamePlayedImageUrl(profileData.lastGamePlayedImageUrl);
+      setLastGamePlayedLogosUrl(profileData.lastGamePlayedLogosUrl);
+
+      const now = new Date();
+      const formattedTime = new Intl.DateTimeFormat('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      }).format(now);
+
+      setLastUpdated(formattedTime);
+      setLoading(false);
+      setIsProfileVisible(true);
+
+    } catch (err) {
+      console.error(`[CLIENT] Error during profile lookup for ${username}:`, err);
+      if (err instanceof TypeError && err.message.includes('NetworkError')) {
+        console.log('[CLIENT] The proxy server is not running');
+        setError('The site is experiencing technical issues. Please try again later.');
+      } else {
+        setError('An unexpected error occurred. Please try again later.');
+      }
+      setLoading(false);
+    }
+  }, []);
+
+  // Read URL search parameter on mount
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const nameParam = urlParams.get('name');
+    if (nameParam) {
+      setPsnId(nameParam);
+      // Trigger search automatically if name parameter exists
+      setTimeout(() => {
+        handleUpdateButtonWithName(nameParam);
+      }, 100);
+    }
+  }, [handleUpdateButtonWithName]);
 
   // 3D ROTATION HANDLER FOR BUTTONS
   const handleMouseMove = (e) => {
@@ -237,68 +314,18 @@ function Home() {
 
   // HEADER - INPUT USERNAME FIELD - UPDATE BUTTON
   const handleUpdateButton = async () => {
-    setLoading(true);
-    setError('');
-
     if (!psnId) {
       setError('Please enter a PSN username');
-      setLoading(false);
       return;
     }
 
-    try {
-      const profileResponse = await fetch(`${PROXY_BASE_URL}/api/psn-profile/${psnId}`, {
-        method: 'GET',
-      });
+    // Update URL with search parameter
+    const url = new URL(window.location.href);
+    url.searchParams.set('name', psnId);
+    window.history.pushState({}, '', url);
 
-      if (!profileResponse.ok) {
-        const errorData = await profileResponse.json();
-        setError(errorData.message);
-        setLoading(false);
-        return;
-      }
-
-      const profileData = await profileResponse.json();
-      // accountId = profileData.accountId;
-      setAvatarUrl(profileData.avatarUrl);
-      setPsnUsername(profileData.onlineId);
-      setPlusStatus(profileData.isPlus);
-      setLevel(profileData.level);
-      setNextLevel(profileData.nextLevel);
-      setPlatinumTrophies(profileData.platinumTrophies);
-      setGoldTrophies(profileData.goldTrophies);
-      setSilverTrophies(profileData.silverTrophies);
-      setBronzeTrophies(profileData.bronzeTrophies);
-      setEarnedTrophies(profileData.earnedTrophies);
-      setLastGamePlayed(profileData.lastGamePlayed);
-      setLastGamePlayedImageUrl(profileData.lastGamePlayedImageUrl);
-      setLastGamePlayedLogosUrl(profileData.lastGamePlayedLogosUrl);
-
-      // Log the update time
-      const now = new Date();
-      const formattedTime = new Intl.DateTimeFormat('en-US', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit',
-      second: '2-digit',
-      }).format(now);
-
-      setLastUpdated(formattedTime);
-      setLoading(false);
-      setIsProfileVisible(true);
-
-    } catch (err) {
-      console.error(`[CLIENT] Error during profile lookup for ${psnUsername}:`, err);
-      if (err instanceof TypeError && err.message.includes('NetworkError')) {
-        console.log('[CLIENT] The proxy server is not running');
-        setError('The site is experiencing technical issues. Please try again later.');
-      } else {
-        setError('An unexpected error occurred. Please try again later.');
-      }
-      setLoading(false);
-    }
+    // Call the helper function
+    await handleUpdateButtonWithName(psnId);
   };
 
   // TROPHY CARD - FUNCTIONS FRAME - TOGGLE HANDLING
