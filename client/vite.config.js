@@ -11,5 +11,10 @@ export default defineConfig({
       // This is the proxy for your assets
       '/assets': 'http://localhost:5000'
     }
+  },
+  test: {
+    globals: true,
+    environment: 'jsdom',
+    setupFiles: './src/test/setup.js',
   }
 });
