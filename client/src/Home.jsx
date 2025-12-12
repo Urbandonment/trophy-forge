@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
+import html2canvas from 'html2canvas';
 import './Home.css'
 import Logo from './assets/logo.png';
 import CtrlKey from './assets/ctrl-key.png';
@@ -281,6 +282,35 @@ function Home() {
     fileInputRef.current.click();
   }
 
+  // TROPHY CARD - CAPTURE AS IMAGE
+  const trophyCardRef = useRef(null);
+  const handleCaptureImage = async () => {
+    if (!trophyCardRef.current) {
+      alert('Trophy card not found');
+      return;
+    }
+
+    try {
+      const canvas = await html2canvas(trophyCardRef.current, {
+        backgroundColor: null,
+        scale: 2,
+        useCORS: true,
+        logging: false,
+        width: trophyCardRef.current.offsetWidth,
+        height: trophyCardRef.current.offsetHeight
+      });
+
+      const dataUrl = canvas.toDataURL('image/png');
+      const link = document.createElement('a');
+      link.download = `trophy-card-${psnUsername || 'card'}-${Date.now()}.png`;
+      link.href = dataUrl;
+      link.click();
+    } catch (error) {
+      console.error('Error capturing image:', error);
+      alert('Failed to capture image. Please try again.');
+    }
+  };
+
   const handleBrowseFile = (event) => {
     const file = event.target.files[0];
     if (file && file.type.startsWith('image/')) {
@@ -485,7 +515,7 @@ function Home() {
 
           <div className='trophy-card-container'>
             <div className='trophy-card-and-functions'>
-              <div className='trophy-card-template-container'>
+              <div className='trophy-card-template-container' ref={trophyCardRef}>
                 {isProfileVisible && (
                   <div 
                   className={`trophy-card ${selectedBorder}`}
@@ -581,6 +611,9 @@ function Home() {
                       </button>
                       <button className='buttons' onClick={() => handleFunctionButtons('change-layout')}>
                         CHANGE LAYOUT
+                      </button>
+                      <button className='buttons' onClick={handleCaptureImage}>
+                        CAPTURE AS IMAGE
                       </button>
                     </div>
                   )}
