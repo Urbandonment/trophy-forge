@@ -122,10 +122,10 @@ app.get('/api/psn-profile/:username', async (req, res) => {
             : 'No games played recently';
 
         // Retrieve friend list from username
-        const userFriendsAccountIds = await psn.getUserFriendsAccountIds(
-            { accessToken: authTokens.accessToken }, accountId
-        );
-        console.log('List of friends: ' + userFriendsAccountIds);
+        // const userFriendsAccountIds = await psn.getUserFriendsAccountIds(
+        //     { accessToken: authTokens.accessToken }, accountId
+        // );
+        // console.log('List of friends: ' + userFriendsAccountIds);
 
         // Trophy card game logo
         let lastGamePlayedLogos = [];
