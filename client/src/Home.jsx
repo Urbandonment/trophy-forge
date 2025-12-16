@@ -313,7 +313,9 @@ function Home() {
 
   // TROPHY CARD - CAPTURE AS IMAGE
   const trophyCardRef = useRef(null);
-  const handleCaptureImage = async () => {
+  
+  // Shared function to capture the trophy card as an image
+  const captureTrophyCardImage = async () => {
     if (!trophyCardRef.current) {
       alert('Trophy card not found');
       return;
@@ -629,15 +631,50 @@ function Home() {
         bgImgElement.parentNode.removeChild(bgImgElement);
       }
 
+      return dataUrl;
+    } catch (error) {
+      console.error('Error capturing image:', error);
+      console.error('Error details:', error.message, error.stack);
+      alert(`Failed to capture image: ${error.message || 'Unknown error'}. Please try again.`);
+      throw error;
+    }
+  };
+
+  // Download the captured image
+  const handleCaptureImage = async () => {
+    try {
+      const dataUrl = await captureTrophyCardImage();
+      
       // Download the image
       const link = document.createElement('a');
       link.download = `trophy-card-${psnUsername || 'card'}-${Date.now()}.png`;
       link.href = dataUrl;
       link.click();
     } catch (error) {
-      console.error('Error capturing image:', error);
-      console.error('Error details:', error.message, error.stack);
-      alert(`Failed to capture image: ${error.message || 'Unknown error'}. Please try again.`);
+      // Error already handled in captureTrophyCardImage
+    }
+  };
+
+  // Copy the captured image to clipboard
+  const handleCopyToClipboard = async () => {
+    try {
+      const dataUrl = await captureTrophyCardImage();
+      
+      // Convert data URL to blob
+      const response = await fetch(dataUrl);
+      const blob = await response.blob();
+      
+      // Copy to clipboard using Clipboard API
+      await navigator.clipboard.write([
+        new ClipboardItem({
+          'image/png': blob
+        })
+      ]);
+      
+      alert('Image copied to clipboard!');
+    } catch (error) {
+      console.error('Error copying to clipboard:', error);
+      alert(`Failed to copy image to clipboard: ${error.message || 'Unknown error'}. Please try again.`);
     }
   };
 
@@ -956,6 +993,12 @@ function Home() {
                         onClick={handleCaptureImage}
                       >
                         CAPTURE AS IMAGE
+                      </button>
+                      <button 
+                        className='buttons' 
+                        onClick={handleCopyToClipboard}
+                      >
+                        COPY TO CLIPBOARD
                       </button>
                     </div>
                   )}
