@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
+import { toPng } from 'html-to-image';
 import html2canvas from 'html2canvas';
 import './Home.css'
 import Logo from './assets/logo.png';
@@ -189,57 +190,6 @@ function Home() {
     }
   }, [handleUpdateButtonWithName]);
 
-  // 3D ROTATION HANDLER FOR BUTTONS
-  const handleMouseMove = (e) => {
-    const button = e.currentTarget;
-    const rect = button.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
-    
-    const rotateX = ((y - centerY) / centerY) * -10; // Max 10 degrees
-    const rotateY = ((x - centerX) / centerX) * 10; // Max 10 degrees
-    
-    button.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translate3d(0, 0, 0)`;
-  };
-
-  const handleMouseLeave = (e) => {
-    const button = e.currentTarget;
-    button.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translate3d(0, 0, 0)';
-  };
-
-  const handleMouseDown = (e) => {
-    const button = e.currentTarget;
-    const rect = button.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
-    
-    const rotateX = ((y - centerY) / centerY) * -5; // Reduced rotation on click
-    const rotateY = ((x - centerX) / centerX) * 5;
-    
-    button.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translate3d(0, 0.063rem, 0)`;
-  };
-
-  const handleMouseUp = (e) => {
-    const button = e.currentTarget;
-    const rect = button.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
-    
-    const rotateX = ((y - centerY) / centerY) * -10;
-    const rotateY = ((x - centerX) / centerX) * 10;
-    
-    button.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translate3d(0, -0.125rem, 0)`;
-  };
-  
   // getProxyURL
   const isExternalUrl = (url) => {
     try {
@@ -370,49 +320,324 @@ function Home() {
     }
 
     try {
-      // Wait for all images to load before capturing
-      const images = trophyCardRef.current.querySelectorAll('img');
-      const imagePromises = Array.from(images).map((img) => {
-        if (img.complete) {
-          return Promise.resolve();
+      const container = trophyCardRef.current;
+      const trophyCard = container.querySelector('.trophy-card');
+      
+      if (!trophyCard) {
+        alert('Trophy card element not found');
+        return;
+      }
+
+      // Helper function to optimize image size
+      const optimizeImage = async (img, maxSize) => {
+        if (img.src.startsWith('data:')) {
+          return img.src; // Already optimized
         }
-        return new Promise((resolve, reject) => {
-          img.onload = resolve;
-          img.onerror = resolve; // Continue even if image fails to load
-          // Timeout after 5 seconds
-          setTimeout(resolve, 5000);
-        });
-      });
 
-      await Promise.all(imagePromises);
-
-      const canvas = await html2canvas(trophyCardRef.current, {
-        backgroundColor: null,
-        scale: 2,
-        useCORS: true,
-        allowTaint: false,
-        logging: false,
-        width: trophyCardRef.current.offsetWidth,
-        height: trophyCardRef.current.offsetHeight,
-        onclone: (clonedDoc) => {
-          // Ensure all images in the cloned document are loaded
-          const clonedImages = clonedDoc.querySelectorAll('img');
-          clonedImages.forEach((img) => {
-            if (!img.complete) {
-              img.crossOrigin = 'anonymous';
+        return new Promise((resolve) => {
+          const tempImg = new Image();
+          tempImg.crossOrigin = 'anonymous';
+          tempImg.onload = () => {
+            // Only optimize if image is larger than maxSize
+            if (tempImg.naturalWidth <= maxSize && tempImg.naturalHeight <= maxSize) {
+              resolve(img.src);
+              return;
             }
+
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            
+            // Calculate optimal size maintaining aspect ratio
+            let targetWidth = tempImg.naturalWidth;
+            let targetHeight = tempImg.naturalHeight;
+            
+            if (targetWidth > maxSize) {
+              const ratio = maxSize / targetWidth;
+              targetWidth = maxSize;
+              targetHeight = targetHeight * ratio;
+            }
+            if (targetHeight > maxSize) {
+              const ratio = maxSize / targetHeight;
+              targetHeight = maxSize;
+              targetWidth = targetWidth * ratio;
+            }
+            
+            canvas.width = targetWidth;
+            canvas.height = targetHeight;
+            
+            ctx.imageSmoothingEnabled = true;
+            ctx.imageSmoothingQuality = 'high';
+            ctx.drawImage(tempImg, 0, 0, targetWidth, targetHeight);
+            
+            resolve(canvas.toDataURL('image/png', 1.0));
+          };
+          tempImg.onerror = () => resolve(img.src);
+          tempImg.src = img.src;
+        });
+      };
+
+      // Get device pixel ratio for high-quality capture (like browser screenshot)
+      const devicePixelRatio = window.devicePixelRatio || 2;
+      
+      // Optimize background image to ensure it covers trophy card at device pixel ratio
+      const trophyCardWidth = trophyCard.offsetWidth || 600;
+      const trophyCardHeight = trophyCard.offsetHeight || 200;
+      const cardAspectRatio = trophyCardWidth / trophyCardHeight;
+      const bgTargetWidth = Math.ceil(trophyCardWidth * devicePixelRatio);
+      const bgTargetHeight = Math.ceil(trophyCardHeight * devicePixelRatio);
+      
+      let optimizedBgUrl = currentBackgroundImage;
+      if (currentBackgroundImage) {
+        const bgImg = new Image();
+        bgImg.crossOrigin = 'anonymous';
+        optimizedBgUrl = await new Promise((resolve) => {
+          bgImg.onload = () => {
+            const imgAspectRatio = bgImg.naturalWidth / bgImg.naturalHeight;
+            
+            // Calculate minimum size needed for cover
+            // For cover to work: if image is wider than card, height must be >= card height
+            // If image is taller than card, width must be >= card width
+            let minWidth, minHeight;
+            if (imgAspectRatio > cardAspectRatio) {
+              // Image is wider - need height to match card height
+              minHeight = bgTargetHeight;
+              minWidth = bgTargetHeight * imgAspectRatio;
+            } else {
+              // Image is taller - need width to match card width
+              minWidth = bgTargetWidth;
+              minHeight = bgTargetWidth / imgAspectRatio;
+            }
+            
+            // Only optimize if image is too small or way too large
+            const isTooSmall = bgImg.naturalWidth < minWidth || bgImg.naturalHeight < minHeight;
+            const isTooLarge = bgImg.naturalWidth > minWidth * 3 || bgImg.naturalHeight > minHeight * 3;
+            
+            if (isTooSmall || isTooLarge) {
+              const canvas = document.createElement('canvas');
+              const ctx = canvas.getContext('2d');
+              
+              // Scale to meet minimum requirements (for cover) or reduce if too large
+              let targetWidth, targetHeight;
+              if (isTooSmall) {
+                // Scale up to meet minimum
+                const scale = Math.max(minWidth / bgImg.naturalWidth, minHeight / bgImg.naturalHeight);
+                targetWidth = bgImg.naturalWidth * scale;
+                targetHeight = bgImg.naturalHeight * scale;
+              } else {
+                // Scale down but keep it large enough for cover
+                const scale = Math.min((minWidth * 2) / bgImg.naturalWidth, (minHeight * 2) / bgImg.naturalHeight);
+                targetWidth = bgImg.naturalWidth * scale;
+                targetHeight = bgImg.naturalHeight * scale;
+              }
+              
+              canvas.width = Math.ceil(targetWidth);
+              canvas.height = Math.ceil(targetHeight);
+              
+              ctx.imageSmoothingEnabled = true;
+              ctx.imageSmoothingQuality = 'high';
+              ctx.drawImage(bgImg, 0, 0, canvas.width, canvas.height);
+              
+              resolve(canvas.toDataURL('image/png', 1.0));
+            } else {
+              // Image is already good size, use proxy URL
+              resolve(getProxyUrl(currentBackgroundImage));
+            }
+          };
+          bgImg.onerror = () => resolve(getProxyUrl(currentBackgroundImage));
+          bgImg.src = getProxyUrl(currentBackgroundImage);
+          setTimeout(() => resolve(getProxyUrl(currentBackgroundImage)), 10000);
+        });
+      } else {
+        optimizedBgUrl = '';
+      }
+
+      // Optimize all img elements based on their type
+      const images = container.querySelectorAll('img');
+      const imageOptimizations = Array.from(images).map(async (img) => {
+        // Set CORS
+        if (img.src && !img.src.startsWith('data:')) {
+          img.crossOrigin = 'anonymous';
+        }
+        
+        // Wait for image to load first
+        if (!img.complete || img.naturalWidth === 0) {
+          await new Promise((resolve) => {
+            const onLoad = () => {
+              img.removeEventListener('load', onLoad);
+              img.removeEventListener('error', onError);
+              resolve();
+            };
+            const onError = () => {
+              img.removeEventListener('load', onLoad);
+              img.removeEventListener('error', onError);
+              resolve();
+            };
+            img.addEventListener('load', onLoad);
+            img.addEventListener('error', onError);
+            setTimeout(() => {
+              img.removeEventListener('load', onLoad);
+              img.removeEventListener('error', onError);
+              resolve();
+            }, 8000);
           });
         }
+
+        // Optimize based on image type and display size, accounting for device pixel ratio
+        const isGameLogo = img.closest('.trophy-card-game-logo');
+        const isAvatar = img.closest('.trophy-card-avatar');
+        const computedStyle = window.getComputedStyle(img);
+        const displayWidth = parseFloat(computedStyle.width) || img.offsetWidth;
+        // Optimize to device pixel ratio * display size for crisp rendering
+        const targetSize = Math.ceil(displayWidth * devicePixelRatio);
+        
+        if (isGameLogo) {
+          // Game logos: optimize to device pixel ratio * display size (e.g., 128px * 2 = 256px)
+          const maxSize = Math.max(256, targetSize);
+          const optimizedSrc = await optimizeImage(img, maxSize);
+          img.src = optimizedSrc;
+        } else if (isAvatar) {
+          // Avatar: optimize to device pixel ratio * display size (e.g., 48px * 2 = 96px)
+          const maxSize = Math.max(192, targetSize);
+          const optimizedSrc = await optimizeImage(img, maxSize);
+          img.src = optimizedSrc;
+        } else {
+          // Other icons: optimize to device pixel ratio * display size
+          const maxSize = Math.max(256, targetSize);
+          const optimizedSrc = await optimizeImage(img, maxSize);
+          img.src = optimizedSrc;
+        }
       });
 
-      const dataUrl = canvas.toDataURL('image/png');
+      await Promise.all(imageOptimizations);
+      
+      // Create an img element for background to ensure it fills the entire trophy card
+      // This is more reliable than CSS background-image for html-to-image
+      let bgImgElement = null;
+      if (optimizedBgUrl) {
+        bgImgElement = document.createElement('img');
+        bgImgElement.src = optimizedBgUrl;
+        bgImgElement.crossOrigin = 'anonymous';
+        
+        // Wait for image to load first to get its dimensions
+        await new Promise((resolve) => {
+          const onLoad = () => {
+            bgImgElement.removeEventListener('load', onLoad);
+            bgImgElement.removeEventListener('error', onError);
+            resolve();
+          };
+          const onError = () => {
+            bgImgElement.removeEventListener('load', onLoad);
+            bgImgElement.removeEventListener('error', onError);
+            resolve();
+          };
+          bgImgElement.addEventListener('load', onLoad);
+          bgImgElement.addEventListener('error', onError);
+          setTimeout(() => {
+            bgImgElement.removeEventListener('load', onLoad);
+            bgImgElement.removeEventListener('error', onError);
+            resolve();
+          }, 2000);
+        });
+        
+        // Calculate dimensions to maintain aspect ratio while covering the card
+        const cardWidth = trophyCard.offsetWidth;
+        const cardHeight = trophyCard.offsetHeight;
+        const cardAspectRatio = cardWidth / cardHeight;
+        const imgAspectRatio = bgImgElement.naturalWidth / bgImgElement.naturalHeight;
+        
+        let imgWidth, imgHeight, imgTop, imgLeft;
+        
+        if (imgAspectRatio > cardAspectRatio) {
+          // Image is wider - fit height and extend width
+          imgHeight = cardHeight;
+          imgWidth = cardHeight * imgAspectRatio;
+          imgTop = '0';
+          imgLeft = `${(cardWidth - imgWidth) / 2}px`;
+        } else {
+          // Image is taller - fit width and extend height
+          imgWidth = cardWidth;
+          imgHeight = cardWidth / imgAspectRatio;
+          imgLeft = '0';
+          imgTop = `${(cardHeight - imgHeight) / 2}px`;
+        }
+        
+        bgImgElement.style.position = 'absolute';
+        bgImgElement.style.top = imgTop;
+        bgImgElement.style.left = imgLeft;
+        bgImgElement.style.width = `${imgWidth}px`;
+        bgImgElement.style.height = `${imgHeight}px`;
+        bgImgElement.style.zIndex = '-1';
+        bgImgElement.style.pointerEvents = 'none';
+        bgImgElement.style.objectFit = 'none'; // Don't scale, use exact dimensions
+        
+        // Ensure trophy card has relative positioning for absolute child
+        if (window.getComputedStyle(trophyCard).position === 'static') {
+          trophyCard.style.position = 'relative';
+        }
+        
+        // Insert as first child so it's behind all content
+        trophyCard.insertBefore(bgImgElement, trophyCard.firstChild);
+      }
+      
+      // Also set CSS background as fallback (but img element will be on top)
+      trophyCard.style.backgroundImage = optimizedBgUrl ? `url('${optimizedBgUrl}')` : 'none';
+      trophyCard.style.backgroundSize = 'cover';
+      trophyCard.style.backgroundPosition = 'center center';
+      trophyCard.style.backgroundRepeat = 'no-repeat';
+      
+      // Force a reflow to ensure styles are applied
+      trophyCard.offsetHeight;
+      
+      // Wait for everything to render
+      await new Promise(resolve => setTimeout(resolve, 300));
+
+      let dataUrl;
+      
+      // Try html-to-image first (better quality, like browser screenshot)
+      try {
+        // Ensure element is visible and has dimensions
+        if (trophyCard.offsetWidth === 0 || trophyCard.offsetHeight === 0) {
+          throw new Error('Trophy card has no dimensions');
+        }
+        
+        dataUrl = await toPng(trophyCard, {
+          backgroundColor: '#00000000', // Transparent background
+          pixelRatio: devicePixelRatio, // Match browser screenshot quality
+          cacheBust: true,
+          skipFonts: false,
+          skipAutoScale: false,
+        });
+      } catch (htmlToImageError) {
+        console.warn('html-to-image failed, falling back to html2canvas:', htmlToImageError);
+        
+        // Fallback to html2canvas if html-to-image fails
+        const canvas = await html2canvas(trophyCard, {
+          backgroundColor: null,
+          scale: devicePixelRatio, // Match browser screenshot quality
+          useCORS: true,
+          allowTaint: true,
+          logging: false,
+          width: trophyCard.offsetWidth,
+          height: trophyCard.offsetHeight,
+        });
+        
+        dataUrl = canvas.toDataURL('image/png', 1.0);
+      }
+
+      // Clean up: remove the temporary background img element
+      if (bgImgElement && bgImgElement.parentNode) {
+        bgImgElement.parentNode.removeChild(bgImgElement);
+      }
+
+      // Download the image
       const link = document.createElement('a');
       link.download = `trophy-card-${psnUsername || 'card'}-${Date.now()}.png`;
       link.href = dataUrl;
       link.click();
     } catch (error) {
       console.error('Error capturing image:', error);
-      alert('Failed to capture image. Please try again.');
+      console.error('Error details:', error.message, error.stack);
+      alert(`Failed to capture image: ${error.message || 'Unknown error'}. Please try again.`);
     }
   };
 
@@ -530,10 +755,6 @@ function Home() {
               <button
                 onClick={handleUpdateButton}
                 className='buttons'
-                onMouseMove={handleMouseMove}
-                onMouseLeave={handleMouseLeave}
-                onMouseDown={handleMouseDown}
-                onMouseUp={handleMouseUp}
               >
                 UPDATE
               </button>
@@ -633,7 +854,7 @@ function Home() {
                     backgroundColor: 'rgba(0, 0, 0, 0.3)',
                     backgroundSize: 'cover',
                     backgroundRepeat: 'no-repeat',
-                    backgroundPosition: '50% 45%',
+                    backgroundPosition: 'center center',
                     backgroundBlendMode: 'overlay'}}>
                     <div className='top-row'>
                       <div className='trophy-card-user-container'>
@@ -715,40 +936,24 @@ function Home() {
                       <button 
                         className='buttons' 
                         onClick={() => handleFunctionButtons('change-image')}
-                        onMouseMove={handleMouseMove}
-                        onMouseLeave={handleMouseLeave}
-                        onMouseDown={handleMouseDown}
-                        onMouseUp={handleMouseUp}
                       >
                         CHANGE IMAGE
                       </button>
                       <button 
                         className='buttons' 
                         onClick={() => handleFunctionButtons('change-border')}
-                        onMouseMove={handleMouseMove}
-                        onMouseLeave={handleMouseLeave}
-                        onMouseDown={handleMouseDown}
-                        onMouseUp={handleMouseUp}
                       >
                         CHANGE BORDER
                       </button>
                       <button 
                         className='buttons' 
                         onClick={() => handleFunctionButtons('change-layout')}
-                        onMouseMove={handleMouseMove}
-                        onMouseLeave={handleMouseLeave}
-                        onMouseDown={handleMouseDown}
-                        onMouseUp={handleMouseUp}
                       >
                         CHANGE LAYOUT
                       </button>
                       <button 
                         className='buttons' 
                         onClick={handleCaptureImage}
-                        onMouseMove={handleMouseMove}
-                        onMouseLeave={handleMouseLeave}
-                        onMouseDown={handleMouseDown}
-                        onMouseUp={handleMouseUp}
                       >
                         CAPTURE AS IMAGE
                       </button>
@@ -766,10 +971,6 @@ function Home() {
                             onClick={handleOkButton}
                             disabled={isOkButtonDisabled}
                             style={{backgroundColor: isOkButtonDisabled ? '#808080' : '#0455BF',}}
-                            onMouseMove={!isOkButtonDisabled ? handleMouseMove : undefined}
-                            onMouseLeave={!isOkButtonDisabled ? handleMouseLeave : undefined}
-                            onMouseDown={!isOkButtonDisabled ? handleMouseDown : undefined}
-                            onMouseUp={!isOkButtonDisabled ? handleMouseUp : undefined}
                           >
                             OK
                           </button>
@@ -779,10 +980,6 @@ function Home() {
                           <button 
                             className='function-frame-buttons' 
                             onClick={handleBrowseButton}
-                            onMouseMove={handleMouseMove}
-                            onMouseLeave={handleMouseLeave}
-                            onMouseDown={handleMouseDown}
-                            onMouseUp={handleMouseUp}
                           >
                             Browse
                           </button>
@@ -811,10 +1008,6 @@ function Home() {
                           <button 
                             className='function-frame-buttons' 
                             onClick={handleUploadButton}
-                            onMouseMove={handleMouseMove}
-                            onMouseLeave={handleMouseLeave}
-                            onMouseDown={handleMouseDown}
-                            onMouseUp={handleMouseUp}
                           >
                             Upload
                           </button>
