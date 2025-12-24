@@ -739,12 +739,8 @@ $target-viewport-width: 2048;
   @include rem-clamp(width, 15rem);
 }
 
+/* Default Style */
 .trophy-card.default {
-  border: 0.1rem solid #4E5356;
-}
-
-/* White Neon Style */
-.trophy-card.neon.white {
   border: 0.1rem solid #4E5356;
   box-shadow:
     0 0 0 0.4rem #D3D3D3,

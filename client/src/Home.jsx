@@ -39,8 +39,7 @@ const borderOptions = [
   { label: 'Green Neon', value: 'green neon' },
   { label: 'Orange Neon', value: 'orange neon' },
   { label: 'Purple Neon', value: 'purple neon' },
-  { label: 'Red Neon', value: 'red neon' },
-  { label: 'White Neon', value: 'white neon' }
+  { label: 'Red Neon', value: 'red neon' }
 ];
 
 function getLevelIcon(level) {
