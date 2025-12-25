@@ -698,37 +698,37 @@
 /* Default Style */
 .trophy-card.default {
   border: 0.1rem solid #4E5356;
-  box-shadow: 0 0 0 0.4rem #D3D3D3, 0 0 0 0.48rem #4E5356, 0 0 0.5rem 0.5rem #C0C0C0;
+  box-shadow: 0 0 0 0.4rem #D3D3D3, 0 0 0 0.5rem #4E5356, 0 0 0.5rem 0.5rem #C0C0C0;
 }
 
 /* Blue Neon Style */
 .trophy-card.neon.blue {
   border: 0.1rem solid #0F52BA;
-  box-shadow: 0 0 0 0.4rem #2EA8FF, 0 0 0 0.48rem #0F52BA, 0 0 0.5rem 0.5rem #4682B4;
+  box-shadow: 0 0 0 0.4rem #2EA8FF, 0 0 0 0.5rem #0F52BA, 0 0 0.5rem 0.5rem #4682B4;
 }
 
 /* Green Neon Style */
 .trophy-card.neon.green {
   border: 0.1rem solid #40826D;
-  box-shadow: 0 0 0 0.4rem #0FFF50, 0 0 0 0.48rem #40826D, 0 0 0.5rem 0.5rem #50C878;
+  box-shadow: 0 0 0 0.4rem #0FFF50, 0 0 0 0.5rem #40826D, 0 0 0.5rem 0.5rem #50C878;
 }
 
 /* Orange Neon Style */
 .trophy-card.neon.orange {
   border: 0.1rem solid #D14D00;
-  box-shadow: 0 0 0 0.4rem #FF7518, 0 0 0 0.48rem #D14D00, 0 0 0.5rem 0.5rem #FFA500;
+  box-shadow: 0 0 0 0.4rem #FF7518, 0 0 0 0.5rem #D14D00, 0 0 0.5rem 0.5rem #FFA500;
 }
 
 /* Purple Neon Style */
 .trophy-card.neon.purple {
   border: 0.1rem solid #9F49FF;
-  box-shadow: 0 0 0 0.4rem #B974FF, 0 0 0 0.48rem #9F49FF, 0 0 0.5rem 0.5rem #C589FF;
+  box-shadow: 0 0 0 0.4rem #B974FF, 0 0 0 0.5rem #9F49FF, 0 0 0.5rem 0.5rem #C589FF;
 }
 
 /* Red Neon Style */
 .trophy-card.neon.red {
   border: 0.1rem solid #C41E3A;
-  box-shadow: 0 0 0 0.4rem #FF4433, 0 0 0 0.48rem #C41E3A, 0 0 0.5rem 0.5rem #E34234;
+  box-shadow: 0 0 0 0.4rem #FF4433, 0 0 0 0.5rem #C41E3A, 0 0 0.5rem 0.5rem #E34234;
 }
 
 /*# sourceMappingURL=Home.css.map */
