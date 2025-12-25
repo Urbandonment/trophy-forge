@@ -564,6 +564,8 @@ $target-viewport-width: 2048;
   align-items: flex-start;
   flex-wrap: wrap;
   @include rem-clamp(gap, 0.313rem);
+  background: rgba(0, 0, 0, 0.1);
+  @include rem-clamp(margin-top, 0.438rem);
 }
 
 .trophy-card-trophy-pair {
@@ -571,7 +573,7 @@ $target-viewport-width: 2048;
   align-items: center;
   @include rem-clamp(gap, 0.313rem);
   @include rem-clamp(margin-right, 0.625rem);
-  @include rem-clamp(margin-top, 0.313rem);
+  // @include rem-clamp(margin-top, 0.313rem);
 }
 
 .trophy-card-trophy-icon img {
