@@ -34,12 +34,12 @@ const PROXY_BASE_URL = isDevelopment
     : '';
 
 const borderOptions = [
-  { label: 'Default', value: 'default' },
-  { label: 'Blue Neon', value: 'blue neon' },
-  { label: 'Green Neon', value: 'green neon' },
-  { label: 'Orange Neon', value: 'orange neon' },
-  { label: 'Purple Neon', value: 'purple neon' },
-  { label: 'Red Neon', value: 'red neon' }
+  { label: 'Default Border', value: 'default' },
+  { label: 'Blue Border', value: 'blue' },
+  { label: 'Green Border', value: 'green' },
+  { label: 'Orange Border', value: 'orange' },
+  { label: 'Purple Border', value: 'purple' },
+  { label: 'Red Border', value: 'red' }
 ];
 
 function getLevelIcon(level) {
@@ -776,6 +776,7 @@ function Home() {
                 <input
                   ref={inputRef}
                   type='text'
+                  autoFocus='autofocus'
                   className='input-psn-id'
                   placeholder='Enter a PSN username'
                   value={psnId}

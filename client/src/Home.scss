@@ -410,7 +410,7 @@ $target-viewport-width: 2048;
 .trophy-card {
   @include rem-clamp(width, 37.5rem);
   @include rem-clamp(height, 12.5rem);
-  @include rem-clamp(border-radius, 0.3rem);
+  // @include rem-clamp(border-radius, 0.3rem);
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
@@ -743,54 +743,54 @@ $target-viewport-width: 2048;
 
 /* Default Style */
 .trophy-card.default {
-  border: 0.1rem solid #4E5356;
+  border: 0.1rem solid #535353;
   box-shadow:
-    0 0 0 0.4rem #D3D3D3,
-    0 0 0 0.5rem #4E5356,
+    0 0 0 0.4rem #C0C0C0,
+    0 0 0 0.5rem #535353,
     0 0 0.5rem 0.5rem #C0C0C0,
 }
 
 /* Blue Neon Style */
-.trophy-card.neon.blue {
-  border: 0.1rem solid #0F52BA;
+.trophy-card.blue {
+  border: 0.1rem solid #1F426C;
   box-shadow:
-    0 0 0 0.4rem #2EA8FF,
-    0 0 0 0.5rem #0F52BA,
-    0 0 0.5rem 0.5rem #4682B4,
+    0 0 0 0.4rem #0096FF,
+    0 0 0 0.5rem #1F426C,
+    0 0 0.5rem 0.5rem #0096FF,
 }
 
 /* Green Neon Style */
-.trophy-card.neon.green {
-  border: 0.1rem solid #40826D;
+.trophy-card.green {
+  border: 0.1rem solid #2A5637;
   box-shadow:
-    0 0 0 0.4rem #0FFF50,
-    0 0 0 0.5rem #40826D,
+    0 0 0 0.4rem #50C878,
+    0 0 0 0.5rem #2A5637,
     0 0 0.5rem 0.5rem #50C878,
 }
 
 /* Orange Neon Style */
-.trophy-card.neon.orange {
-  border: 0.1rem solid #D14D00;
+.trophy-card.orange {
+  border: 0.1rem solid #6E3715;
   box-shadow:
     0 0 0 0.4rem #FF7518,
-    0 0 0 0.5rem #D14D00,
-    0 0 0.5rem 0.5rem #FFA500,
+    0 0 0 0.5rem #6E3715,
+    0 0 0.5rem 0.5rem #FF7518,
 }
 
 /* Purple Neon Style */
-.trophy-card.neon.purple {
-  border: 0.1rem solid #9F49FF;
+.trophy-card.purple {
+  border: 0.1rem solid #542453;
   box-shadow:
-    0 0 0 0.4rem #B974FF,
-    0 0 0 0.5rem #9F49FF,
-    0 0 0.5rem 0.5rem #C589FF,
+    0 0 0 0.4rem #BF40BF,
+    0 0 0 0.5rem #542453,
+    0 0 0.5rem 0.5rem #BF40BF,
 }
 
 /* Red Neon Style */
-.trophy-card.neon.red {
-  border: 0.1rem solid #C41E3A;
+.trophy-card.red {
+  border: 0.1rem solid #5C1E18;
   box-shadow:
-    0 0 0 0.4rem #FF4433,
-    0 0 0 0.5rem #C41E3A,
-    0 0 0.5rem 0.5rem #E34234,
+    0 0 0 0.4rem #D22B2B,
+    0 0 0 0.5rem #5C1E18,
+    0 0 0.5rem 0.5rem #D22B2B,
 }
