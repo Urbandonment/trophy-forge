@@ -464,8 +464,10 @@ $target-viewport-width: 2048;
   font-weight: 700;
   @include rem-clamp(font-size, 1.25rem);
   font-family: 'Bitter';
+  // text-shadow:
+  //   0 0 0.5rem #353935;
   text-shadow:
-    0 0 0.5rem #353935;
+    0 0.1rem 0.1rem #353935;
 }
 
 .trophy-card-top-row-right-side-container {
@@ -502,8 +504,10 @@ $target-viewport-width: 2048;
   color: #E5E4E2;
   font-weight: 700;
   font-family: 'Montserrat';
+  // text-shadow:
+  //   0 0 0.5rem #353935;
   text-shadow:
-    0 0 0.5rem #353935;
+    0 0.1rem 0.1rem #353935;
   @include rem-clamp(margin-bottom, -0.5rem);
 }
 
@@ -512,8 +516,6 @@ $target-viewport-width: 2048;
   font-weight: 700;
   @include rem-clamp(font-size, 1.25rem);
   font-family: 'Montserrat';
-  text-shadow:
-    0 0 0.5rem #353935;
 }
 
 .trophy-card-earned-trophies-container {
@@ -564,7 +566,7 @@ $target-viewport-width: 2048;
   align-items: flex-start;
   flex-wrap: wrap;
   @include rem-clamp(gap, 0.313rem);
-  background: rgba(0, 0, 0, 0.1);
+  // background: rgba(0, 0, 0, 0.1);
   @include rem-clamp(margin-top, 0.438rem);
 }
 
@@ -573,7 +575,7 @@ $target-viewport-width: 2048;
   align-items: center;
   @include rem-clamp(gap, 0.313rem);
   @include rem-clamp(margin-right, 0.625rem);
-  // @include rem-clamp(margin-top, 0.313rem);
+  @include rem-clamp(margin-top, 0.313rem);
 }
 
 .trophy-card-trophy-icon img {
@@ -588,7 +590,7 @@ $target-viewport-width: 2048;
   @include rem-clamp(font-size, 0.938rem);
   font-family: 'Montserrat';
   text-shadow:
-    0 0 0.5rem #353935;
+    0 0.1rem 0.1rem #353935;
   margin: 0;
 }
 
@@ -741,7 +743,6 @@ $target-viewport-width: 2048;
   @include rem-clamp(width, 15rem);
 }
 
-/* Default Style */
 .trophy-card.default {
   border: 0.1rem solid #535353;
   box-shadow:
@@ -750,7 +751,6 @@ $target-viewport-width: 2048;
     0 0 0.5rem 0.5rem #C0C0C0,
 }
 
-/* Blue Neon Style */
 .trophy-card.blue {
   border: 0.1rem solid #1F426C;
   box-shadow:
@@ -759,7 +759,6 @@ $target-viewport-width: 2048;
     0 0 0.5rem 0.5rem #0096FF,
 }
 
-/* Green Neon Style */
 .trophy-card.green {
   border: 0.1rem solid #2A5637;
   box-shadow:
@@ -768,7 +767,6 @@ $target-viewport-width: 2048;
     0 0 0.5rem 0.5rem #50C878,
 }
 
-/* Orange Neon Style */
 .trophy-card.orange {
   border: 0.1rem solid #6E3715;
   box-shadow:
@@ -777,7 +775,6 @@ $target-viewport-width: 2048;
     0 0 0.5rem 0.5rem #FF7518,
 }
 
-/* Purple Neon Style */
 .trophy-card.purple {
   border: 0.1rem solid #542453;
   box-shadow:
@@ -786,7 +783,6 @@ $target-viewport-width: 2048;
     0 0 0.5rem 0.5rem #BF40BF,
 }
 
-/* Red Neon Style */
 .trophy-card.red {
   border: 0.1rem solid #5C1E18;
   box-shadow:
