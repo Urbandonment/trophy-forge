@@ -521,7 +521,10 @@
   align-items: flex-start;
   flex-wrap: wrap;
   gap: clamp(calc(0.313rem * 0.7), 0.245vw, calc(0.313rem * 1.2));
-  margin-top: clamp(calc(0.438rem * 0.7), 0.342vw, calc(0.438rem * 1.2));
+  background: rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0.25rem 1.875rem rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(0.125rem);
+  -webkit-backdrop-filter: blur(0.125rem);
 }
 
 .trophy-card-trophy-pair {
@@ -529,7 +532,6 @@
   align-items: center;
   gap: clamp(calc(0.313rem * 0.7), 0.245vw, calc(0.313rem * 1.2));
   margin-right: clamp(calc(0.625rem * 0.7), 0.488vw, calc(0.625rem * 1.2));
-  margin-top: clamp(calc(0.313rem * 0.7), 0.245vw, calc(0.313rem * 1.2));
 }
 
 .trophy-card-trophy-icon img {
