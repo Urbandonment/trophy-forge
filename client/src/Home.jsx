@@ -812,7 +812,9 @@ function Home() {
             backgroundSize: 'cover',
             backgroundPosition: '50% 55%',
             backgroundRepeat: 'no-repeat',
-            borderRadius: '0.938rem'}}>
+            borderRadius: '0.9rem',
+            border: '1px solid transparent',
+            outline: '1px solid transparent'}}>
           <div className='profile-container'>
               <span className='avatar'>
                 {avatarUrl && <img src={getProxyUrl(avatarUrl)} alt='💀' />}
