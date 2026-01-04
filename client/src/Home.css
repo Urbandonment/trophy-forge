@@ -45,7 +45,7 @@
   background-color: #353935;
   width: 100%;
   padding: 0.625rem 0.625rem 1.25rem 1.25rem;
-  border-radius: clamp(calc(0.938rem * 0.7), 0.733vw, calc(0.938rem * 1.2));
+  border-radius: clamp(calc(0.3rem * 0.7), 0.234vw, calc(0.3rem * 1.2));
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -206,8 +206,8 @@
   flex-shrink: 0;
   max-width: clamp(calc(37.5rem * 0.7), 29.297vw, calc(37.5rem * 1.2));
   width: 100%;
-  border-top-left-radius: clamp(calc(0.938rem * 0.7), 0.733vw, calc(0.938rem * 1.2));
-  border-bottom-left-radius: clamp(calc(0.938rem * 0.7), 0.733vw, calc(0.938rem * 1.2));
+  border-top-left-radius: clamp(calc(0.3rem * 0.7), 0.234vw, calc(0.3rem * 1.2));
+  border-bottom-left-radius: clamp(calc(0.3rem * 0.7), 0.234vw, calc(0.3rem * 1.2));
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -357,8 +357,8 @@
   width: max-content;
   align-items: center;
   justify-content: center;
-  border-top-right-radius: clamp(calc(0.938rem * 0.7), 0.733vw, calc(0.938rem * 1.2));
-  border-bottom-right-radius: clamp(calc(0.938rem * 0.7), 0.733vw, calc(0.938rem * 1.2));
+  border-top-right-radius: clamp(calc(0.3rem * 0.7), 0.234vw, calc(0.3rem * 1.2));
+  border-bottom-right-radius: clamp(calc(0.3rem * 0.7), 0.234vw, calc(0.3rem * 1.2));
 }
 
 .trophy-card-and-functions {

@@ -78,7 +78,7 @@ $target-viewport-width: 2048;
   background-color: #353935;
   width: 100%;
   padding: 0.625rem 0.625rem 1.25rem 1.25rem;
-  @include rem-clamp(border-radius, 0.938rem);
+  @include rem-clamp(border-radius, 0.3rem);
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -244,13 +244,13 @@ $target-viewport-width: 2048;
   flex-shrink: 0;
   @include rem-clamp(max-width, 37.5rem);
   width: 100%;
-  @include rem-clamp(border-top-left-radius, 0.938rem);
-  @include rem-clamp(border-bottom-left-radius, 0.938rem);
+  @include rem-clamp(border-top-left-radius, 0.3rem);
+  @include rem-clamp(border-bottom-left-radius, 0.3rem);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  position: relative; 
+  position: relative;
   z-index: 2;
 }
 
@@ -395,8 +395,8 @@ $target-viewport-width: 2048;
   width: max-content;
   align-items: center;
   justify-content: center;
-  @include rem-clamp(border-top-right-radius, 0.938rem);
-  @include rem-clamp(border-bottom-right-radius, 0.938rem);
+  @include rem-clamp(border-top-right-radius, 0.3rem);
+  @include rem-clamp(border-bottom-right-radius, 0.3rem);
 }
 
 .trophy-card-and-functions {
