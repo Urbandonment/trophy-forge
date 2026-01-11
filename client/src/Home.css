@@ -379,7 +379,7 @@
 
 .top-row {
   height: clamp(calc(3rem * 0.7), 2.344vw, calc(3rem * 1.2));
-  background: rgba(0, 0, 0, 0.3);
+  background: rgba(0, 0, 0, 0.6);
   box-shadow: 0 0.25rem 1.875rem rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(0.125rem);
   -webkit-backdrop-filter: blur(0.125rem);
@@ -519,7 +519,7 @@
   align-items: flex-start;
   flex-wrap: wrap;
   gap: clamp(calc(0.313rem * 0.7), 0.245vw, calc(0.313rem * 1.2));
-  background: rgba(0, 0, 0, 0.3);
+  background: rgba(0, 0, 0, 0.6);
   box-shadow: 0 0.25rem 1.875rem rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(0.125rem);
   -webkit-backdrop-filter: blur(0.125rem);
