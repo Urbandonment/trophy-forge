@@ -373,8 +373,6 @@ function Home() {
         <div className='header-container'>
           <p className='welcome-message'>
             Welcome to <strong>TROPHY FORGE</strong>
-            <br />
-            Here you can generate your own custom PSN trophy card
           </p>
           <div className='fetch-trophy-container'>
               <div className='input-container'>
