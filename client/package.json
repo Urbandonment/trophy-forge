@@ -7,9 +7,14 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
+    "test": "vitest",
+    "test:ui": "vitest --ui",
+    "test:coverage": "vitest --coverage",
     "vercel-build": "npm ci && npm run build"
   },
   "dependencies": {
+    "html-to-image": "^1.11.13",
+    "html2canvas": "^1.4.1",
     "psn-api": "^2.15.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1"

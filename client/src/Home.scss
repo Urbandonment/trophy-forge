@@ -78,7 +78,9 @@ $target-viewport-width: 2048;
   background-color: #353935;
   width: 100%;
   padding: 0.625rem 0.625rem 1.25rem 1.25rem;
-  @include rem-clamp(border-radius, 0.938rem);
+  @include rem-clamp(border-radius, 0.9rem);
+  border: 1px solid transparent;
+  outline: 1px solid transparent;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -150,6 +152,7 @@ $target-viewport-width: 2048;
   padding: 0.625rem 0.938rem;
   border: #353935;
   @include rem-clamp(border-radius, 0.188rem);
+  transition: transform 0.1s ease-out, background-color 0.2s ease-out;
 }
 
 .buttons:hover {
@@ -160,7 +163,6 @@ $target-viewport-width: 2048;
 
 .buttons:active {
   background-color: #0047AB;
-  transform: translateY(0.063rem);
   box-shadow: none;
   border: #353935;
 }
@@ -244,13 +246,11 @@ $target-viewport-width: 2048;
   flex-shrink: 0;
   @include rem-clamp(max-width, 37.5rem);
   width: 100%;
-  @include rem-clamp(border-top-left-radius, 0.938rem);
-  @include rem-clamp(border-bottom-left-radius, 0.938rem);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  position: relative; 
+  position: relative;
   z-index: 2;
 }
 
@@ -395,8 +395,6 @@ $target-viewport-width: 2048;
   width: max-content;
   align-items: center;
   justify-content: center;
-  @include rem-clamp(border-top-right-radius, 0.938rem);
-  @include rem-clamp(border-bottom-right-radius, 0.938rem);
 }
 
 .trophy-card-and-functions {
@@ -410,16 +408,17 @@ $target-viewport-width: 2048;
 .trophy-card {
   @include rem-clamp(width, 37.5rem);
   @include rem-clamp(height, 12.5rem);
-  @include rem-clamp(border-radius, 1rem);
+  // @include rem-clamp(border-radius, 0.3rem);
   background-size: cover;
-  background-position: center;
+  background-position: center center;
+  background-repeat: no-repeat;
   position: relative;
   overflow: hidden;
 }
 
 .top-row {
   @include rem-clamp(height, 3rem);
-  background: rgba(0, 0, 0, 0.3);
+  background: rgba(0, 0, 0, 0.6);
   box-shadow: 0 0.25rem 1.875rem rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(0.125rem);
   -webkit-backdrop-filter: blur(0.125rem);
@@ -463,8 +462,10 @@ $target-viewport-width: 2048;
   font-weight: 700;
   @include rem-clamp(font-size, 1.25rem);
   font-family: 'Bitter';
+  // text-shadow:
+  //   0 0 0.5rem #353935;
   text-shadow:
-    0 0 0.5rem #353935;
+    0 0.1rem 0.1rem #353935;
 }
 
 .trophy-card-top-row-right-side-container {
@@ -501,8 +502,10 @@ $target-viewport-width: 2048;
   color: #E5E4E2;
   font-weight: 700;
   font-family: 'Montserrat';
+  // text-shadow:
+  //   0 0 0.5rem #353935;
   text-shadow:
-    0 0 0.5rem #353935;
+    0 0.1rem 0.1rem #353935;
   @include rem-clamp(margin-bottom, -0.5rem);
 }
 
@@ -511,8 +514,6 @@ $target-viewport-width: 2048;
   font-weight: 700;
   @include rem-clamp(font-size, 1.25rem);
   font-family: 'Montserrat';
-  text-shadow:
-    0 0 0.5rem #353935;
 }
 
 .trophy-card-earned-trophies-container {
@@ -563,6 +564,10 @@ $target-viewport-width: 2048;
   align-items: flex-start;
   flex-wrap: wrap;
   @include rem-clamp(gap, 0.313rem);
+  background: rgba(0, 0, 0, 0.6);
+  box-shadow: 0 0.25rem 1.875rem rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(0.125rem);
+  -webkit-backdrop-filter: blur(0.125rem);
 }
 
 .trophy-card-trophy-pair {
@@ -570,7 +575,6 @@ $target-viewport-width: 2048;
   align-items: center;
   @include rem-clamp(gap, 0.313rem);
   @include rem-clamp(margin-right, 0.625rem);
-  @include rem-clamp(margin-top, 0.313rem);
 }
 
 .trophy-card-trophy-icon img {
@@ -585,7 +589,7 @@ $target-viewport-width: 2048;
   @include rem-clamp(font-size, 0.938rem);
   font-family: 'Montserrat';
   text-shadow:
-    0 0 0.5rem #353935;
+    0 0.1rem 0.1rem #353935;
   margin: 0;
 }
 
@@ -667,6 +671,7 @@ $target-viewport-width: 2048;
   @include rem-clamp(padding, 0.5rem);
   border: #353935;
   @include rem-clamp(border-radius, 0.188rem);
+  transition: transform 0.1s ease-out, background-color 0.2s ease-out;
 }
 
 .function-frame-buttons:hover {
@@ -677,7 +682,6 @@ $target-viewport-width: 2048;
 
 .function-frame-buttons:active {
   background-color: #0047AB;
-  transform: translateY(0.063rem);
   box-shadow: none;
   border: #353935;
 }
@@ -738,61 +742,50 @@ $target-viewport-width: 2048;
   @include rem-clamp(width, 15rem);
 }
 
-/* Default Border */
 .trophy-card.default {
-  border: 0.1rem solid #4E5356;
-}
-
-/* White Neon Style */
-.trophy-card.neon.white {
-  border: 0.1rem solid #4E5356;
-  box-shadow: 
-    0 0 0 0.4rem #D3D3D3,
-    0 0 0 0.48rem #4E5356,
+  border: 0.05rem solid #535353;
+  box-shadow:
+    0 0 0 0.4rem #C0C0C0,
+    0 0 0 0.45rem #535353,
     0 0 0.5rem 0.5rem #C0C0C0,
 }
 
-/* Blue Neon Style */
-.trophy-card.neon.blue {
-  border: 0.1rem solid #0F52BA;
+.trophy-card.blue {
+  border: 0.05rem solid #1F426C;
   box-shadow:
-    0 0 0 0.4rem #2EA8FF,
-    0 0 0 0.48rem #0F52BA,
-    0 0 0.5rem 0.5rem #4682B4,
+    0 0 0 0.4rem #0096FF,
+    0 0 0 0.45rem #1F426C,
+    0 0 0.5rem 0.5rem #0096FF,
 }
 
-/* Green Neon Style */
-.trophy-card.neon.green {
-  border: 0.1rem solid #40826D;
-  box-shadow: 
-    0 0 0 0.4rem #0FFF50,
-    0 0 0 0.48rem #40826D,
+.trophy-card.green {
+  border: 0.05rem solid #2A5637;
+  box-shadow:
+    0 0 0 0.4rem #50C878,
+    0 0 0 0.45rem #2A5637,
     0 0 0.5rem 0.5rem #50C878,
 }
 
-/* Orange Neon Style */
-.trophy-card.neon.orange {
-  border: 0.1rem solid #D14D00;
-  box-shadow: 
+.trophy-card.orange {
+  border: 0.05rem solid #6E3715;
+  box-shadow:
     0 0 0 0.4rem #FF7518,
-    0 0 0 0.48rem #D14D00,
-    0 0 0.5rem 0.5rem #FFA500,
+    0 0 0 0.45rem #6E3715,
+    0 0 0.5rem 0.5rem #FF7518,
 }
 
-/* Purple Neon Style */
-.trophy-card.neon.purple {
-  border: 0.1rem solid #9F49FF;
-  box-shadow: 
-    0 0 0 0.4rem #B974FF,
-    0 0 0 0.48rem #9F49FF,
-    0 0 0.5rem 0.5rem #C589FF,
+.trophy-card.purple {
+  border: 0.05rem solid #542453;
+  box-shadow:
+    0 0 0 0.4rem #BF40BF,
+    0 0 0 0.45rem #542453,
+    0 0 0.5rem 0.5rem #BF40BF,
 }
 
-/* Red Neon Style */
-.trophy-card.neon.red {
-  border: 0.1rem solid #C41E3A;
-  box-shadow: 
-    0 0 0 0.4rem #FF4433,
-    0 0 0 0.48rem #C41E3A,
-    0 0 0.5rem 0.5rem #E34234,
+.trophy-card.red {
+  border: 0.05rem solid #5C1E18;
+  box-shadow:
+    0 0 0 0.4rem #D22B2B,
+    0 0 0 0.45rem #5C1E18,
+    0 0 0.5rem 0.5rem #D22B2B,
 }
