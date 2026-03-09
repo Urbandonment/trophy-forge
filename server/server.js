@@ -19,6 +19,23 @@ const DEFAULT_TROPHY_CARD_BACKGROUND = [
     '/assets/trophy-card-default-background-6.png',
 ];
 
+// Optimize image quality
+const sharp = require('sharp');
+const axios = require('axios');
+
+async function optimizeImage(url) {
+    try {
+        const response = await axios({ url, responseType: 'arraybuffer' });
+        const buffer = Buffer.from(response.data, 'binary');
+        return await sharp(buffer)
+            .jpeg({ quality: 70, progressive: true })
+            .toBuffer();
+    } catch (error) {
+        console.error("Error processing image:", error);
+        return null;
+    }
+}
+
 // Randomize default trophy card background image
 const getRandomBackground = () => {
   const randomIndex = Math.floor(Math.random() * DEFAULT_TROPHY_CARD_BACKGROUND.length);
@@ -121,35 +138,49 @@ app.get('/api/psn-profile/:username', async (req, res) => {
             ? userPlayedGames.titles[0].name
             : 'No games played recently';
 
-        // Retrieve friend list from username
-        // const userFriendsAccountIds = await psn.getUserFriendsAccountIds(
-        //     { accessToken: authTokens.accessToken }, accountId
-        // );
-        // console.log('List of friends: ' + userFriendsAccountIds);
+        // // Trophy card game logo
+        // let lastGamePlayedLogos = [];
+        // for (let i = 0; i < 8; i++) {
+        //     let lastGamePlayedLogo = userPlayedGames?.titles?.[i]?.imageUrl;
+        //     if (lastGamePlayedLogo) {
+        //         lastGamePlayedLogos.push(lastGamePlayedLogo);
+        //     }
+        // }
+        // const lastGamePlayedLogosUrl = lastGamePlayedLogos ?? 'No games played recently';
 
-        // Trophy card game logo
-        let lastGamePlayedLogos = [];
-        for (let i = 0; i < 8; i++) {
-            let lastGamePlayedLogo = userPlayedGames?.titles?.[i]?.imageUrl;
-            if (lastGamePlayedLogo) {
-                lastGamePlayedLogos.push(lastGamePlayedLogo);
-            }
-        }
-        const lastGamePlayedLogosUrl = lastGamePlayedLogos ?? 'No games played recently';
+        // // Trophy card background image
+        // let lastGamePlayedImage = userPlayedGames?.titles?.[0]?.concept?.media?.images;
+        // let lastGamePlayedDesiredImage = null;
+        // if (lastGamePlayedImage) {
+        //     for (let i = 0; i < lastGamePlayedImage.length; i++) {
+        //         // console.log(lastGamePlayedImage[i].type + ': ' + lastGamePlayedImage[i].url);
+        //         if (lastGamePlayedImage[i].type === 'GAMEHUB_COVER_ART') {
+        //             lastGamePlayedDesiredImage = lastGamePlayedImage[i].url;
+        //             break;
+        //         }
+        //     }
+        // }
+        // const lastGamePlayedImageUrl = lastGamePlayedDesiredImage ?? getRandomBackground();
 
-        // Trophy card background image
-        let lastGamePlayedImage = userPlayedGames?.titles?.[0]?.concept?.media?.images;
-        let lastGamePlayedDesiredImage = null;
-        if (lastGamePlayedImage) {
-            for (let i = 0; i < lastGamePlayedImage.length; i++) {
-                // console.log(lastGamePlayedImage[i].type + ': ' + lastGamePlayedImage[i].url);
-                if (lastGamePlayedImage[i].type === 'GAMEHUB_COVER_ART') {
-                    lastGamePlayedDesiredImage = lastGamePlayedImage[i].url;
-                    break;
+        // Optimized trophy card game logo
+            const rawTitles = userPlayedGames?.titles?.slice(0, 8) || [];
+            const logoPromises = rawTitles.map(async (game) => {
+                if (game.imageUrl) {
+                    // This returns the optimized buffer
+                    return await optimizeImage(game.imageUrl);
                 }
+                return null;
+            });
+            const lastGamePlayedLogosUrl = (await Promise.all(logoPromises)).filter(img => img !== null);
+
+            // Optimized trophy card background image
+            let lastGamePlayedImageUrl = getRandomBackground(); // Fallback
+            const bgImages = userPlayedGames?.titles?.[0]?.concept?.media?.images || [];
+            const targetBg = bgImages.find(img => img.type === 'GAMEHUB_COVER_ART');
+            if (targetBg) {
+                // Overwrite with the compressed buffer
+                lastGamePlayedImageUrl = await optimizeImage(targetBg.url);
             }
-        }
-        const lastGamePlayedImageUrl = lastGamePlayedDesiredImage ?? getRandomBackground();
 
         // API response
         res.json({ accountId: profile.profile.accountId,
