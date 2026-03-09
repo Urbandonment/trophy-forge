@@ -163,24 +163,22 @@ app.get('/api/psn-profile/:username', async (req, res) => {
         // const lastGamePlayedImageUrl = lastGamePlayedDesiredImage ?? getRandomBackground();
 
         // Optimized trophy card game logo
-            const rawTitles = userPlayedGames?.titles?.slice(0, 8) || [];
-            const logoPromises = rawTitles.map(async (game) => {
-                if (game.imageUrl) {
-                    // This returns the optimized buffer
-                    return await optimizeImage(game.imageUrl);
-                }
-                return null;
-            });
-            const lastGamePlayedLogosUrl = (await Promise.all(logoPromises)).filter(img => img !== null);
-
-            // Optimized trophy card background image
-            let lastGamePlayedImageUrl = getRandomBackground(); // Fallback
-            const bgImages = userPlayedGames?.titles?.[0]?.concept?.media?.images || [];
-            const targetBg = bgImages.find(img => img.type === 'GAMEHUB_COVER_ART');
-            if (targetBg) {
-                // Overwrite with the compressed buffer
-                lastGamePlayedImageUrl = await optimizeImage(targetBg.url);
+        const rawTitles = userPlayedGames?.titles?.slice(0, 8) || [];
+        const logoPromises = rawTitles.map(async (game) => {
+            if (game.imageUrl) {
+                return await optimizeImage(game.imageUrl);
             }
+            return null;
+        });
+        const lastGamePlayedLogosUrl = (await Promise.all(logoPromises)).filter(img => img !== null);
+
+        // Optimized trophy card background image
+        let lastGamePlayedImageUrl = getRandomBackground(); // Fallback
+        const bgImages = userPlayedGames?.titles?.[0]?.concept?.media?.images || [];
+        const targetBg = bgImages.find(img => img.type === 'GAMEHUB_COVER_ART');
+        if (targetBg) {
+            lastGamePlayedImageUrl = await optimizeImage(targetBg.url);
+        }
 
         // API response
         res.json({ accountId: profile.profile.accountId,
