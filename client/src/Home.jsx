@@ -639,44 +639,6 @@ function Home() {
     }
   };
 
-  // Download the captured image
-  const handleCaptureImage = async () => {
-    try {
-      const dataUrl = await captureTrophyCardImage();
-      
-      // Download the image
-      const link = document.createElement('a');
-      link.download = `trophy-card-${psnUsername || 'card'}-${Date.now()}.png`;
-      link.href = dataUrl;
-      link.click();
-    } catch (error) {
-      // Error already handled in captureTrophyCardImage
-    }
-  };
-
-  // Copy the captured image to clipboard
-  const handleCopyToClipboard = async () => {
-    try {
-      const dataUrl = await captureTrophyCardImage();
-      
-      // Convert data URL to blob
-      const response = await fetch(dataUrl);
-      const blob = await response.blob();
-      
-      // Copy to clipboard using Clipboard API
-      await navigator.clipboard.write([
-        new ClipboardItem({
-          'image/png': blob
-        })
-      ]);
-      
-      alert('Image copied to clipboard!');
-    } catch (error) {
-      console.error('Error copying to clipboard:', error);
-      alert(`Failed to copy image to clipboard: ${error.message || 'Unknown error'}. Please try again.`);
-    }
-  };
-
   const handleBrowseFile = (event) => {
     const file = event.target.files[0];
     if (file && file.type.startsWith('image/')) {
