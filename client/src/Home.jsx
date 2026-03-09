@@ -988,18 +988,6 @@ function Home() {
                       >
                         CHANGE LAYOUT
                       </button>
-                      <button 
-                        className='buttons' 
-                        onClick={handleCaptureImage}
-                      >
-                        CAPTURE AS IMAGE
-                      </button>
-                      <button 
-                        className='buttons' 
-                        onClick={handleCopyToClipboard}
-                      >
-                        COPY TO CLIPBOARD
-                      </button>
                     </div>
                   )}
                   <div 
