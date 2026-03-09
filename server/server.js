@@ -22,7 +22,7 @@ const DEFAULT_TROPHY_CARD_BACKGROUND = [
 // Optimize image quality
 const optimizeViaProxy = (url) => {
     if (!url) return url;
-    return `https://wsrv.nl/?url=${encodeURIComponent(url)}&output=webp&q=70`;
+    return `https://wsrv.nl/?url=${encodeURIComponent(url)}&output=webp&q=60`;
 };
 
 // Randomize default trophy card background image
