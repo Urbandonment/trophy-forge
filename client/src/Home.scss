@@ -566,6 +566,7 @@ $target-viewport-width: 2048;
   @include rem-clamp(gap, 0.625rem);
   @include rem-clamp(padding-top, 0.313rem);
   @include rem-clamp(padding-bottom, 0.313rem);
+  @include rem-clamp(padding-left, 0.188rem);
   background: rgba(0, 0, 0, 0.6);
   box-shadow: 0 0.25rem 1.875rem rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(0.125rem);
