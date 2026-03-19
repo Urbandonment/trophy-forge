@@ -757,42 +757,42 @@ $target-viewport-width: 2048;
   &.default {
     border-color: #535353;
     box-shadow:
-      0 0 0 var(--shadow-small) #C0C0C0,
+      0 0 0 var(--shadow-small) #C0C0C0E6,
       0 0 0 var(--shadow-med) #535353
   }
 
   &.blue {
     border-color: #1F426C;
     box-shadow:
-      0 0 0 var(--shadow-small) #0096FF,
+      0 0 0 var(--shadow-small) #0096FFE6,
       0 0 0 var(--shadow-med) #1F426C
   }
 
   &.green {
     border-color: #2A5637;
     box-shadow:
-      0 0 0 var(--shadow-small) #50C878,
+      0 0 0 var(--shadow-small) #50C878E6,
       0 0 0 var(--shadow-med) #2A5637
   }
 
   &.orange {
     border-color: #6E3715;
     box-shadow:
-      0 0 0 var(--shadow-small) #FF7518,
+      0 0 0 var(--shadow-small) #FF7518E6,
       0 0 0 var(--shadow-med) #6E3715
   }
 
   &.purple {
     border-color: #542453;
     box-shadow:
-      0 0 0 var(--shadow-small) #BF40BF,
+      0 0 0 var(--shadow-small) #BF40BFE6,
       0 0 0 var(--shadow-med) #542453
   }
 
   &.red {
     border-color: #5C1E18;
     box-shadow:
-      0 0 0 var(--shadow-small) #D22B2B,
+      0 0 0 var(--shadow-small) #D22B2BE6,
       0 0 0 var(--shadow-med) #5C1E18
   }
 }
