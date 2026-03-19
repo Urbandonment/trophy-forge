@@ -753,53 +753,46 @@ $target-viewport-width: 2048;
   // Set up the clamped spread and blur values as variables
   @include rem-clamp(--shadow-small, 0.4rem);
   @include rem-clamp(--shadow-med, 0.45rem);
-  @include rem-clamp(--shadow-large, 0.5rem);
 
   &.default {
     border-color: #535353;
     box-shadow:
       0 0 0 var(--shadow-small) #C0C0C0,
-      0 0 0 var(--shadow-med) #535353,
-      0 0 var(--shadow-large) var(--shadow-large) #C0C0C0;
+      0 0 0 var(--shadow-med) #535353
   }
 
   &.blue {
     border-color: #1F426C;
     box-shadow:
       0 0 0 var(--shadow-small) #0096FF,
-      0 0 0 var(--shadow-med) #1F426C,
-      0 0 var(--shadow-large) var(--shadow-large) #0096FF;
+      0 0 0 var(--shadow-med) #1F426C
   }
 
   &.green {
     border-color: #2A5637;
     box-shadow:
       0 0 0 var(--shadow-small) #50C878,
-      0 0 0 var(--shadow-med) #2A5637,
-      0 0 var(--shadow-large) var(--shadow-large) #50C878;
+      0 0 0 var(--shadow-med) #2A5637
   }
 
   &.orange {
     border-color: #6E3715;
     box-shadow:
       0 0 0 var(--shadow-small) #FF7518,
-      0 0 0 var(--shadow-med) #6E3715,
-      0 0 var(--shadow-large) var(--shadow-large) #FF7518;
+      0 0 0 var(--shadow-med) #6E3715
   }
 
   &.purple {
     border-color: #542453;
     box-shadow:
       0 0 0 var(--shadow-small) #BF40BF,
-      0 0 0 var(--shadow-med) #542453,
-      0 0 var(--shadow-large) var(--shadow-large) #BF40BF;
+      0 0 0 var(--shadow-med) #542453
   }
 
   &.red {
     border-color: #5C1E18;
     box-shadow:
       0 0 0 var(--shadow-small) #D22B2B,
-      0 0 0 var(--shadow-med) #5C1E18,
-      0 0 var(--shadow-large) var(--shadow-large) #D22B2B;
+      0 0 0 var(--shadow-med) #5C1E18
   }
 }

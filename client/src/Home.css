@@ -701,31 +701,30 @@
   border-style: solid;
   --shadow-small: clamp(calc(0.4rem * 0.7), 0.313vw, calc(0.4rem * 1.2));
   --shadow-med: clamp(calc(0.45rem * 0.7), 0.352vw, calc(0.45rem * 1.2));
-  --shadow-large: clamp(calc(0.5rem * 0.7), 0.391vw, calc(0.5rem * 1.2));
 }
 .trophy-card.default {
   border-color: #535353;
-  box-shadow: 0 0 0 var(--shadow-small) #C0C0C0, 0 0 0 var(--shadow-med) #535353, 0 0 var(--shadow-large) var(--shadow-large) #C0C0C0;
+  box-shadow: 0 0 0 var(--shadow-small) #C0C0C0, 0 0 0 var(--shadow-med) #535353;
 }
 .trophy-card.blue {
   border-color: #1F426C;
-  box-shadow: 0 0 0 var(--shadow-small) #0096FF, 0 0 0 var(--shadow-med) #1F426C, 0 0 var(--shadow-large) var(--shadow-large) #0096FF;
+  box-shadow: 0 0 0 var(--shadow-small) #0096FF, 0 0 0 var(--shadow-med) #1F426C;
 }
 .trophy-card.green {
   border-color: #2A5637;
-  box-shadow: 0 0 0 var(--shadow-small) #50C878, 0 0 0 var(--shadow-med) #2A5637, 0 0 var(--shadow-large) var(--shadow-large) #50C878;
+  box-shadow: 0 0 0 var(--shadow-small) #50C878, 0 0 0 var(--shadow-med) #2A5637;
 }
 .trophy-card.orange {
   border-color: #6E3715;
-  box-shadow: 0 0 0 var(--shadow-small) #FF7518, 0 0 0 var(--shadow-med) #6E3715, 0 0 var(--shadow-large) var(--shadow-large) #FF7518;
+  box-shadow: 0 0 0 var(--shadow-small) #FF7518, 0 0 0 var(--shadow-med) #6E3715;
 }
 .trophy-card.purple {
   border-color: #542453;
-  box-shadow: 0 0 0 var(--shadow-small) #BF40BF, 0 0 0 var(--shadow-med) #542453, 0 0 var(--shadow-large) var(--shadow-large) #BF40BF;
+  box-shadow: 0 0 0 var(--shadow-small) #BF40BF, 0 0 0 var(--shadow-med) #542453;
 }
 .trophy-card.red {
   border-color: #5C1E18;
-  box-shadow: 0 0 0 var(--shadow-small) #D22B2B, 0 0 0 var(--shadow-med) #5C1E18, 0 0 var(--shadow-large) var(--shadow-large) #D22B2B;
+  box-shadow: 0 0 0 var(--shadow-small) #D22B2B, 0 0 0 var(--shadow-med) #5C1E18;
 }
 
 /*# sourceMappingURL=Home.css.map */
