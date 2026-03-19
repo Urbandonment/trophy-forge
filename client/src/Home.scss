@@ -462,10 +462,7 @@ $target-viewport-width: 2048;
   font-weight: 700;
   @include rem-clamp(font-size, 1.25rem);
   font-family: 'Bitter';
-  // text-shadow:
-  //   0 0 0.5rem #353935;
-  text-shadow:
-    0 0.1rem 0.1rem #353935;
+  text-shadow: 0 0.1rem 0.1rem #353935;
 }
 
 .trophy-card-top-row-right-side-container {
