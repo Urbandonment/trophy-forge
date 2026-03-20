@@ -1,6 +1,4 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
-import { toPng } from 'html-to-image';
-import html2canvas from 'html2canvas';
 import './Home.css'
 import Logo from './assets/logo.png';
 import CtrlKey from './assets/ctrl-key.png';
@@ -115,7 +113,7 @@ function Home() {
   // Optimize image quality
   const optimizeViaProxy = (url) => {
       if (!url) return url;
-      return `https://wsrv.nl/?url=${encodeURIComponent(url)}&output=webp&q=60`;
+      return `https://wsrv.nl/?url=${encodeURIComponent(url)}&output=webp&q=80`;
   };
 
   // Update button handling
