@@ -2,37 +2,28 @@
 @import url('https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,100..900;1,100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Play:wght@400;700&display=swap');
+
 /* Icon Attribution: https://www.flaticon.com/authors/freepik | https://www.freepik.com/author/swky23 */
-/* Test Image URL: https://images4.alphacoders.com/115/1159970.jpg */
 
-// Base REM size used for calculations
 $base-font-size: 16;
-
-// Target viewport width for accurate vw conversion
 $target-viewport-width: 2048;
 
-// Helper function to remove units (necessary for clean SCSS math)
 @function strip-unit($value) {
   @return math.div($value, $value * 0 + 1);
 }
 
 @function rem-to-vw($rem-value) {
-    // 1. Get the unitless number from the rem value (e.g., 1.125)
-    $unitless-rem: strip-unit($rem-value); 
-    // 2. Perform the full calculation as a unitless number in SASS
+    $unitless-rem: strip-unit($rem-value);
     $vw-factor: math.div($unitless-rem * $base-font-size, $target-viewport-width) * 100;
-    // 3. Round the unitless number to 3 decimal places
     $rounded-factor: math.div(round($vw-factor * 1000), 1000);
-    // 4. Attach the 'vw' unit and return
     @return $rounded-factor * 1vw;
 }
 
+// FIX: Increased the minimum floor factor from 0.7 to 0.85 so elements don't get tiny on mobile
 @mixin rem-clamp($property, $rem-value) {
-    // Define MIN, PREFERRED (vw), and MAX values
-    $min-rem: calc(#{$rem-value} * 0.7);
+    $min-rem: calc(#{$rem-value} * 0.85); 
     $max-rem: calc(#{$rem-value} * 1.2);
     $vw-value: rem-to-vw($rem-value);
-    // Output the final CSS property with clamp()
     #{$property}: clamp(#{$min-rem}, #{$vw-value}, #{$max-rem});
 }
 
@@ -53,51 +44,78 @@ $target-viewport-width: 2048;
 
 .header {
   display: flex;
+  flex-direction: column; // FIX: Stack header elements on mobile
   align-items: center;
   flex-shrink: 0;
   width: 100%;
+  gap: 1rem;
+
+  @media (min-width: 768px) {
+    flex-direction: row; // Side-by-side on tablet/desktop
+    align-items: center;
+  }
 }
 
 .logo {
-  @include rem-clamp(margin-right, 0.938rem);
   flex-shrink: 0;
-  transition: box-shadow 0.3s ease-in-out;
-}
+  width: 100%;
+  max-width: 15rem; // FIX: Reasonable static size for mobile scaling
+  text-align: center;
 
-.logo img:hover {
-  box-shadow: 0 0.625rem 1.25rem rgba(0, 0, 0, 0.4);
+  @media (min-width: 768px) {
+    @include rem-clamp(margin-right, 0.938rem);
+    @include rem-clamp(max-width, 21.688rem);
+    text-align: left;
+  }
 }
 
 .logo img {
   width: 100%;
-  @include rem-clamp(max-width, 21.688rem);
-  @include rem-clamp(margin-top, 0.938rem);
+  height: auto;
+  transition: box-shadow 0.1s ease-in-out;
+
+  &:hover {
+    box-shadow: 0 0.625rem 1.25rem rgba(0, 0, 0, 0.4);
+  }
 }
 
 .header-container {
   background-color: #353935;
   width: 100%;
-  padding: 0.625rem 0.625rem 1.25rem 1.25rem;
+  padding: 1rem;
   @include rem-clamp(border-radius, 0.9rem);
-  border: 1px solid transparent;
-  outline: 1px solid transparent;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: stretch; // FIX: Make elements stretch nicely on mobile
   flex-grow: 1;
+  box-sizing: border-box;
+
+  @media (min-width: 768px) {
+    align-items: flex-start;
+    padding: 0.625rem 0.625rem 1.25rem 1.25rem;
+  }
 }
 
 .welcome-message {
   color: #E5E4E2;
   @include rem-clamp(font-size, 1.125rem);
   line-height: 1.5;
+  margin-bottom: 1rem;
 }
 
 .fetch-trophy-container {
   display: flex;
-  @include rem-clamp(gap, 0.938rem);
-  align-items: center;
-  position: relative;
+  flex-direction: column; // FIX: Stack input and message containers vertically on mobile
+  gap: 1rem;
+  align-items: stretch;
+  width: 100%;
+
+  @media (min-width: 768px) {
+    flex-direction: row;
+    @include rem-clamp(gap, 0.938rem);
+    align-items: center;
+    position: relative;
+  }
 }
 
 .input-container {
@@ -105,6 +123,7 @@ $target-viewport-width: 2048;
   align-items: center;
   justify-content: space-between;
   position: relative;
+  width: 100%;
 }
 
 .input-psn-id {
@@ -114,32 +133,33 @@ $target-viewport-width: 2048;
   width: 100%;
   font-family: 'Bitter';
   @include rem-clamp(font-size, 1rem);
-  @include rem-clamp(width, 25rem);
   border: 0;
+
+  @media (min-width: 768px) {
+    @include rem-clamp(width, 25rem);
+  }
+
+  &:focus {
+    outline: none;
+    & + .shortcut-keys {
+      opacity: 0.5;
+    }
+  }
 }
 
-.input-psn-id:focus {
-  outline: none;
-  border: 0;
-}
-
-.input-psn-id:focus + .shortcut-keys {
-  opacity: 0.5;
-}
-
+// FIX: Hide keyboard shortcuts on touch devices
 .shortcut-keys {
-  display: flex;
-  align-items: center;
-  position: absolute;
-  @include rem-clamp(right, 0.313rem);
-}
+  display: none; 
 
-.shortcut-keys #ctrl-key {
-    @include rem-clamp(height, 2.313rem);
-}
+  @media (min-width: 768px) {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    @include rem-clamp(right, 0.313rem);
 
-.shortcut-keys #k-key {
-    @include rem-clamp(height, 1.875rem);
+    #ctrl-key { @include rem-clamp(height, 2.313rem); }
+    #k-key { @include rem-clamp(height, 1.875rem); }
+  }
 }
 
 .buttons {
@@ -150,29 +170,31 @@ $target-viewport-width: 2048;
   color: #E5E4E2;
   background-color: #0455BF;
   padding: 0.625rem 0.938rem;
-  border: #353935;
+  border: none;
   @include rem-clamp(border-radius, 0.188rem);
   transition: transform 0.1s ease-out, background-color 0.2s ease-out;
-}
-
-.buttons:hover {
   cursor: pointer;
-  outline: none;
-  border: #E5E4E2;
-}
 
-.buttons:active {
-  background-color: #0047AB;
-  box-shadow: none;
-  border: #353935;
+  &:hover {
+    outline: none;
+  }
+
+  &:active {
+    background-color: #0047AB;
+  }
 }
 
 .message-container {
-  position: absolute;
-  left: calc(100% + 0.938rem);
-  top: 50%;
-  transform: translateY(-50%);
   width: 100%;
+  text-align: center;
+
+  @media (min-width: 768px) {
+    position: absolute;
+    left: calc(100% + 0.938rem);
+    top: 50%;
+    transform: translateY(-50%);
+    text-align: left;
+  }
 }
 
 .loading-text {
@@ -183,12 +205,8 @@ $target-viewport-width: 2048;
 }
 
 @keyframes pulse {
-  0%, 100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.3;
-  }
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
 }
 
 .error-text {
@@ -199,20 +217,34 @@ $target-viewport-width: 2048;
 
 .content {
   display: flex;
+  flex-direction: column; // FIX: Profile falls above or below the trophy card on mobile
   @include rem-clamp(margin-top, 1rem);
   flex-grow: 1;
   width: 100%;
+  gap: 1.5rem;
+
+  @media (min-width: 992px) {
+    flex-direction: row;
+    gap: 0;
+  }
 }
 
 .content-container {
   display: flex;
+  flex-direction: column; // FIX: Let containers drop naturally instead of forcing horizontal overflow
   width: 100%;
   position: relative;
   overflow: hidden;
   background-color: #353935;
-}
+  padding: 1rem;
+  box-sizing: border-box;
 
-.content-container::before {
+  @media (min-width: 992px) {
+    flex-direction: row;
+    padding: 0;
+  }
+
+  &::before {
     content: '';
     position: absolute;
     top: 0;
@@ -220,31 +252,27 @@ $target-viewport-width: 2048;
     width: 100%;
     height: 100%;
     z-index: 0;
-    background-image: linear-gradient(
-        to bottom, 
-        transparent 10%,
-        #353935 65%
-    );
+    background-image: linear-gradient(to bottom, transparent 10%, #353935 65%);
     pointer-events: none;
-}
+  }
 
-.content-container::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  z-index: 1;
-  pointer-events: none;
-  background: linear-gradient(to top, #FB5B36, transparent);
-  @include rem-clamp(height, 5rem);
-  mask-image: url('/wave-mask.svg');
-  mask-size: 100% 100%;
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1;
+    pointer-events: none;
+    background: linear-gradient(to top, #FB5B36, transparent);
+    @include rem-clamp(height, 5rem);
+    mask-image: url('/wave-mask.svg');
+    mask-size: 100% 100%;
+  }
 }
 
 .profile-container {
   flex-shrink: 0;
-  @include rem-clamp(max-width, 37.5rem);
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -252,6 +280,12 @@ $target-viewport-width: 2048;
   justify-content: center;
   position: relative;
   z-index: 2;
+  margin-bottom: 1.5rem;
+
+  @media (min-width: 992px) {
+    @include rem-clamp(max-width, 37.5rem);
+    margin-bottom: 0;
+  }
 }
 
 .avatar img {
@@ -282,15 +316,15 @@ $target-viewport-width: 2048;
   display: none;
   @include rem-clamp(margin-right, 0.625rem);
   flex-shrink: 0;
-}
 
-.plus img {
-  @include rem-clamp(width, 1.563rem);
-  @include rem-clamp(height, 1.563rem);
-}
+  img {
+    @include rem-clamp(width, 1.563rem);
+    @include rem-clamp(height, 1.563rem);
+  }
 
-.plus-active {
-  display: inline;
+  &.plus-active {
+    display: inline;
+  }
 }
 
 .level-and-trophy {
@@ -302,7 +336,13 @@ $target-viewport-width: 2048;
   -webkit-backdrop-filter: blur(0.125rem);
   @include rem-clamp(padding, 0.625rem);
   @include rem-clamp(border-radius, 0.938rem);
-  width: 50%;
+  width: 100%; // FIX: Take full available width on small layout containers
+  max-width: 20rem;
+
+  @media (min-width: 768px) {
+    width: 50%;
+    max-width: none;
+  }
 }
 
 .level-and-trophy-pair {
@@ -379,7 +419,6 @@ $target-viewport-width: 2048;
   line-height: 1.5;
   font-style: italic;
   color: #E5E4E2;
-  text-align: center;
   @include rem-clamp(padding, 0.313rem);
   text-align: left;
 }
@@ -392,9 +431,11 @@ $target-viewport-width: 2048;
   flex-grow: 1;
   display: flex;
   flex-direction: row;
-  width: max-content;
+  width: 100%; // FIX: Avoid max-content which forces elements to spill off mobile screens
+  overflow-x: auto; // FIX: Gives a swipeable layout if the card exceeds small screen sizes
   align-items: center;
   justify-content: center;
+  padding: 1rem 0;
 }
 
 .trophy-card-and-functions {
@@ -403,17 +444,32 @@ $target-viewport-width: 2048;
   align-items: center;
   flex-direction: column;
   @include rem-clamp(gap, 2rem);
+  width: 100%;
 }
 
 .trophy-card {
-  @include rem-clamp(width, 37.5rem);
+  width: 100%; // FIX: Responsive down-scaling
+  max-width: 37.5rem; 
   @include rem-clamp(height, 12.5rem);
-  // @include rem-clamp(border-radius, 0.3rem);
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
   position: relative;
   overflow: hidden;
+  box-sizing: border-box;
+  flex-shrink: 0;
+
+  @include rem-clamp(border-width, 0.05rem);
+  border-style: solid;
+  @include rem-clamp(--shadow-small, 0.4rem);
+  @include rem-clamp(--shadow-med, 0.45rem);
+
+  &.default { border-color: #535353; box-shadow: 0 0 0 var(--shadow-small) #C0C0C0E6, 0 0 0 var(--shadow-med) #535353 }
+  &.blue { border-color: #1F426C; box-shadow: 0 0 0 var(--shadow-small) #0096FFE6, 0 0 0 var(--shadow-med) #1F426C }
+  &.green { border-color: #2A5637; box-shadow: 0 0 0 var(--shadow-small) #50C878E6, 0 0 0 var(--shadow-med) #2A5637 }
+  &.orange { border-color: #6E3715; box-shadow: 0 0 0 var(--shadow-small) #FF7518E6, 0 0 0 var(--shadow-med) #6E3715 }
+  &.purple { border-color: #542453; box-shadow: 0 0 0 var(--shadow-small) #BF40BFE6, 0 0 0 var(--shadow-med) #542453 }
+  &.red { border-color: #5C1E18; box-shadow: 0 0 0 var(--shadow-small) #D22B2BE6, 0 0 0 var(--shadow-med) #5C1E18 }
 }
 
 .top-row {
@@ -434,27 +490,27 @@ $target-viewport-width: 2048;
 
 .trophy-card-avatar {
   @include rem-clamp(margin-right, 0.313rem);
-}
-
-.trophy-card-avatar img {
-  @include rem-clamp(width, 3rem);
-  @include rem-clamp(height, 3rem);
-  display: block;
+  
+  img {
+    @include rem-clamp(width, 3rem);
+    @include rem-clamp(height, 3rem);
+    display: block;
+  }
 }
 
 .trophy-card-plus {
   @include rem-clamp(margin-top, 0.438rem);
   @include rem-clamp(margin-right, 0.313rem);
   display: none;
-}
 
-.trophy-card-plus img {
-  @include rem-clamp(width, 1.25rem);
-  @include rem-clamp(height, 1.25rem);
-}
+  img {
+    @include rem-clamp(width, 1.25rem);
+    @include rem-clamp(height, 1.25rem);
+  }
 
-.trophy-card-plus-active {
-  display: inline;
+  &.trophy-card-plus-active {
+    display: inline;
+  }
 }
 
 .trophy-card-username {
@@ -481,8 +537,6 @@ $target-viewport-width: 2048;
   @include rem-clamp(height, 2.813rem);
   @include rem-clamp(padding, 0.125rem);
   display: block;
-  justify-content: center;
-  align-items: center;
   box-sizing: border-box;
 }
 
@@ -492,18 +546,15 @@ $target-viewport-width: 2048;
   justify-content: center;
   align-items: center;
   @include rem-clamp(font-size, 0.875rem);
-}
 
-.trophy-card-level-wrapper p {
-  margin: 0;
-  color: #E5E4E2;
-  font-weight: 700;
-  font-family: 'Montserrat';
-  // text-shadow:
-  //   0 0 0.5rem #353935;
-  text-shadow:
-    0 0.1rem 0.1rem #353935;
-  @include rem-clamp(margin-bottom, -0.5rem);
+  p {
+    margin: 0;
+    color: #E5E4E2;
+    font-weight: 700;
+    font-family: 'Montserrat';
+    text-shadow: 0 0.1rem 0.1rem #353935;
+    @include rem-clamp(margin-bottom, -0.5rem);
+  }
 }
 
 .trophy-card-level {
@@ -588,8 +639,7 @@ $target-viewport-width: 2048;
   font-weight: 700;
   @include rem-clamp(font-size, 0.938rem);
   font-family: 'Montserrat';
-  text-shadow:
-    0 0.1rem 0.1rem #353935;
+  text-shadow: 0 0.1rem 0.1rem #353935;
   margin: 0;
 }
 
@@ -598,13 +648,15 @@ $target-viewport-width: 2048;
   flex-direction: column;
   @include rem-clamp(padding, 0.313rem);
   align-items: center;
+  width: 100%;
 }
 
 .trophy-card-function-and-frame {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: fit-content;
+  width: 100%;
+  max-width: 24rem;
   box-sizing: border-box;
   position: relative;
 }
@@ -613,6 +665,7 @@ $target-viewport-width: 2048;
   display: flex;
   @include rem-clamp(gap, 0.625rem);
   justify-content: center;
+  width: 100%;
 }
 
 .trophy-card-function-frame {
@@ -620,28 +673,22 @@ $target-viewport-width: 2048;
   box-sizing: border-box;
   opacity: 0;
   transform: translateY(-1.25rem);
-  transition: 
-    max-height 0.3s ease-in-out, 
-    transform 0.3s ease-in-out, 
-    opacity 0.3s ease-in-out;
+  transition: max-height 0.3s ease-in-out, transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
   position: absolute;
   top: 100%;
   z-index: 1;
   max-height: 0;
   overflow: hidden;
-}
 
-.trophy-card-function-frame.open {
-  @include rem-clamp(max-height, 31.25rem);
-  background-color: rgb(255 255 255 / 10%);
-  @include rem-clamp(padding, 0.625rem);
-  @include rem-clamp(border-radius, 0.188rem);
-  opacity: 1;
-  transform: translateY(0);
-  transition: 
-    max-height 0.3s ease-in-out, 
-    transform 0.3s ease-in-out, 
-    opacity 0.05s ease-in-out;
+  &.open {
+    @include rem-clamp(max-height, 31.25rem);
+    background-color: rgb(255 255 255 / 10%);
+    @include rem-clamp(padding, 0.625rem);
+    @include rem-clamp(border-radius, 0.188rem);
+    opacity: 1;
+    transform: translateY(0);
+    transition: max-height 0.3s ease-in-out, transform 0.3s ease-in-out, opacity 0.05s ease-in-out;
+  }
 }
 
 .trophy-card-function-frame-label {
@@ -669,46 +716,32 @@ $target-viewport-width: 2048;
   color: #E5E4E2;
   background-color: #0455BF;
   @include rem-clamp(padding, 0.5rem);
-  border: #353935;
+  border: none;
   @include rem-clamp(border-radius, 0.188rem);
   transition: transform 0.1s ease-out, background-color 0.2s ease-out;
-}
-
-.function-frame-buttons:hover {
   cursor: pointer;
-  outline: none;
-  border: #E5E4E2;
-}
 
-.function-frame-buttons:active {
-  background-color: #0047AB;
-  box-shadow: none;
-  border: #353935;
-}
-
-.function-frame-buttons.is-disabled:active {
-  background-color: #808080;
-  transform: none;
-  box-shadow: none;
-  border: #353935;
+  &:hover { outline: none; }
+  &:active { background-color: #0047AB; }
+  &.is-disabled:active { background-color: #808080; transform: none; }
 }
 
 .input-upload-image-container {
   display: flex;
   @include rem-clamp(gap, 0.625rem);
   justify-content: center;
+  width: 100%;
 }
 
 .input-upload-image {
     @include rem-clamp(padding, 0.313rem);
     @include rem-clamp(font-size, 1rem);
-    @include rem-clamp(width, 18.75rem);
+    width: 100%;
     @include rem-clamp(height, 1.063rem);
 }
 
 .input-upload-image:focus {
   outline: none;
-  border: 0;
 }
 
 .input-upload-image-loading {
@@ -729,6 +762,7 @@ $target-viewport-width: 2048;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  width: 100%;
 }
 
 .border-select-control select {
@@ -739,57 +773,6 @@ $target-viewport-width: 2048;
   background-color: #E5E4E2;
   @include rem-clamp(padding, 0.5rem);
   @include rem-clamp(border-radius, 0.188rem);
-  @include rem-clamp(width, 15rem);
-}
-
-.trophy-card {
-  // Shared border-width clamp across all cards
-  @include rem-clamp(border-width, 0.05rem);
-  border-style: solid;
-
-  // Set up the clamped spread and blur values as variables
-  @include rem-clamp(--shadow-small, 0.4rem);
-  @include rem-clamp(--shadow-med, 0.45rem);
-
-  &.default {
-    border-color: #535353;
-    box-shadow:
-      0 0 0 var(--shadow-small) #C0C0C0E6,
-      0 0 0 var(--shadow-med) #535353
-  }
-
-  &.blue {
-    border-color: #1F426C;
-    box-shadow:
-      0 0 0 var(--shadow-small) #0096FFE6,
-      0 0 0 var(--shadow-med) #1F426C
-  }
-
-  &.green {
-    border-color: #2A5637;
-    box-shadow:
-      0 0 0 var(--shadow-small) #50C878E6,
-      0 0 0 var(--shadow-med) #2A5637
-  }
-
-  &.orange {
-    border-color: #6E3715;
-    box-shadow:
-      0 0 0 var(--shadow-small) #FF7518E6,
-      0 0 0 var(--shadow-med) #6E3715
-  }
-
-  &.purple {
-    border-color: #542453;
-    box-shadow:
-      0 0 0 var(--shadow-small) #BF40BFE6,
-      0 0 0 var(--shadow-med) #542453
-  }
-
-  &.red {
-    border-color: #5C1E18;
-    box-shadow:
-      0 0 0 var(--shadow-small) #D22B2BE6,
-      0 0 0 var(--shadow-med) #5C1E18
-  }
+  width: 100%;
+  max-width: 15rem;
 }
