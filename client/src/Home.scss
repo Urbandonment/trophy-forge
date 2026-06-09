@@ -19,9 +19,9 @@ $target-viewport-width: 2048;
     @return $rounded-factor * 1vw;
 }
 
-// FIX: Increased the minimum floor factor from 0.7 to 0.85 so elements don't get tiny on mobile
+// FIX: Set a solid minimum floor so elements remain legible in portrait mode
 @mixin rem-clamp($property, $rem-value) {
-    $min-rem: calc(#{$rem-value} * 0.85); 
+    $min-rem: calc(#{$rem-value} * 0.9); 
     $max-rem: calc(#{$rem-value} * 1.2);
     $vw-value: rem-to-vw($rem-value);
     #{$property}: clamp(#{$min-rem}, #{$vw-value}, #{$max-rem});
@@ -40,18 +40,19 @@ $target-viewport-width: 2048;
   @include rem-clamp(padding, 1rem);
   background-color: #E5E4E2;
   box-sizing: border-box;
+  overflow-x: hidden; // FIX: Prevent any global accidental horizontal spills
 }
 
 .header {
   display: flex;
-  flex-direction: column; // FIX: Stack header elements on mobile
+  flex-direction: column; 
   align-items: center;
   flex-shrink: 0;
   width: 100%;
   gap: 1rem;
 
   @media (min-width: 768px) {
-    flex-direction: row; // Side-by-side on tablet/desktop
+    flex-direction: row; 
     align-items: center;
   }
 }
@@ -59,7 +60,7 @@ $target-viewport-width: 2048;
 .logo {
   flex-shrink: 0;
   width: 100%;
-  max-width: 15rem; // FIX: Reasonable static size for mobile scaling
+  max-width: 16rem; // FIX: Prevents logo from shrinking into oblivion in vertical/portrait mode
   text-align: center;
 
   @media (min-width: 768px) {
@@ -86,7 +87,7 @@ $target-viewport-width: 2048;
   @include rem-clamp(border-radius, 0.9rem);
   display: flex;
   flex-direction: column;
-  align-items: stretch; // FIX: Make elements stretch nicely on mobile
+  align-items: stretch; 
   flex-grow: 1;
   box-sizing: border-box;
 
@@ -105,7 +106,7 @@ $target-viewport-width: 2048;
 
 .fetch-trophy-container {
   display: flex;
-  flex-direction: column; // FIX: Stack input and message containers vertically on mobile
+  flex-direction: column; 
   gap: 1rem;
   align-items: stretch;
   width: 100%;
@@ -141,13 +142,10 @@ $target-viewport-width: 2048;
 
   &:focus {
     outline: none;
-    & + .shortcut-keys {
-      opacity: 0.5;
-    }
+    & + .shortcut-keys { opacity: 0.5; }
   }
 }
 
-// FIX: Hide keyboard shortcuts on touch devices
 .shortcut-keys {
   display: none; 
 
@@ -175,13 +173,8 @@ $target-viewport-width: 2048;
   transition: transform 0.1s ease-out, background-color 0.2s ease-out;
   cursor: pointer;
 
-  &:hover {
-    outline: none;
-  }
-
-  &:active {
-    background-color: #0047AB;
-  }
+  &:hover { outline: none; }
+  &:active { background-color: #0047AB; }
 }
 
 .message-container {
@@ -217,7 +210,7 @@ $target-viewport-width: 2048;
 
 .content {
   display: flex;
-  flex-direction: column; // FIX: Profile falls above or below the trophy card on mobile
+  flex-direction: column; 
   @include rem-clamp(margin-top, 1rem);
   flex-grow: 1;
   width: 100%;
@@ -231,7 +224,7 @@ $target-viewport-width: 2048;
 
 .content-container {
   display: flex;
-  flex-direction: column; // FIX: Let containers drop naturally instead of forcing horizontal overflow
+  flex-direction: column; 
   width: 100%;
   position: relative;
   overflow: hidden;
@@ -322,9 +315,7 @@ $target-viewport-width: 2048;
     @include rem-clamp(height, 1.563rem);
   }
 
-  &.plus-active {
-    display: inline;
-  }
+  &.plus-active { display: inline; }
 }
 
 .level-and-trophy {
@@ -336,7 +327,7 @@ $target-viewport-width: 2048;
   -webkit-backdrop-filter: blur(0.125rem);
   @include rem-clamp(padding, 0.625rem);
   @include rem-clamp(border-radius, 0.938rem);
-  width: 100%; // FIX: Take full available width on small layout containers
+  width: 100%; 
   max-width: 20rem;
 
   @media (min-width: 768px) {
@@ -431,11 +422,16 @@ $target-viewport-width: 2048;
   flex-grow: 1;
   display: flex;
   flex-direction: row;
-  width: 100%; // FIX: Avoid max-content which forces elements to spill off mobile screens
-  overflow-x: auto; // FIX: Gives a swipeable layout if the card exceeds small screen sizes
+  width: 100%; 
+  max-width: 100%; // FIX: Restrict overflow frame safely
+  overflow-x: auto; // FIX: Allows swipe navigation instead of cutting off layout bounds horizontally
+  -webkit-overflow-scrolling: touch; 
   align-items: center;
-  justify-content: center;
-  padding: 1rem 0;
+  justify-content: flex-start; // FIX: Left-aligns on small horizontal overflow to keep card accessible
+
+  @media (min-width: 600px) {
+    justify-content: center;
+  }
 }
 
 .trophy-card-and-functions {
@@ -445,11 +441,12 @@ $target-viewport-width: 2048;
   flex-direction: column;
   @include rem-clamp(gap, 2rem);
   width: 100%;
+  min-width: min-content; // FIX: Prevents children from collapsing narrower than the generated card image
 }
 
 .trophy-card {
-  width: 100%; // FIX: Responsive down-scaling
-  max-width: 37.5rem; 
+  width: 37.5rem; // FIX: Maintain exact dimensions so your PSN card doesn't warp proportions
+  max-width: 100%; 
   @include rem-clamp(height, 12.5rem);
   background-size: cover;
   background-position: center center;
@@ -508,9 +505,7 @@ $target-viewport-width: 2048;
     @include rem-clamp(height, 1.25rem);
   }
 
-  &.trophy-card-plus-active {
-    display: inline;
-  }
+  &.trophy-card-plus-active { display: inline; }
 }
 
 .trophy-card-username {
@@ -740,9 +735,7 @@ $target-viewport-width: 2048;
     @include rem-clamp(height, 1.063rem);
 }
 
-.input-upload-image:focus {
-  outline: none;
-}
+.input-upload-image:focus { outline: none; }
 
 .input-upload-image-loading {
     @include rem-clamp(width, 0.938rem);
